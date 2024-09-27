@@ -1,7 +1,6 @@
 package com.audition.web;
 
 import com.audition.model.AuditionPost;
-import com.audition.model.AuditionComment;
 import com.audition.service.IAuditionPostService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;

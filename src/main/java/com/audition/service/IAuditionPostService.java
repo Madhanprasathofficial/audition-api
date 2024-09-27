@@ -1,10 +1,6 @@
 package com.audition.service;
 
-import com.audition.model.AuditionComment;
 import com.audition.model.AuditionPost;
-import jakarta.validation.constraints.Max;
-import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.Positive;
 
 import java.util.List;
 
