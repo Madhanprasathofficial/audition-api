@@ -6,15 +6,19 @@ import static org.springframework.http.HttpStatus.METHOD_NOT_ALLOWED;
 import com.audition.common.exception.SystemException;
 import com.audition.common.logging.AuditionLogger;
 import io.micrometer.common.util.StringUtils;
+import jakarta.validation.ConstraintViolationException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ProblemDetail;
+import org.springframework.web.ErrorResponse;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.client.HttpClientErrorException;
+import org.springframework.web.client.RestClientResponseException;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 
@@ -36,9 +40,8 @@ public class ExceptionControllerAdvice extends ResponseEntityExceptionHandler {
     }
 
 
-    @ExceptionHandler(Exception.class)
+    @ExceptionHandler({Exception.class,ConstraintViolationException.class})
     ProblemDetail handleMainException(final Exception e) {
-        // TODO Add handling for Exception
         final HttpStatusCode status = getHttpStatusCodeFromException(e);
         return createProblemDetail(e, status);
 
@@ -59,7 +62,16 @@ public class ExceptionControllerAdvice extends ResponseEntityExceptionHandler {
         problemDetail.setDetail(getMessageFromException(exception));
         if (exception instanceof SystemException) {
             problemDetail.setTitle(((SystemException) exception).getTitle());
-        } else {
+        } else if(exception instanceof ConstraintViolationException){
+            problemDetail.setStatus(HttpStatus.BAD_REQUEST);
+            problemDetail.setDetail(exception.getMessage());
+            problemDetail.setTitle(HttpStatus.BAD_REQUEST.name());
+
+        }else if (exception instanceof RuntimeException) {
+            problemDetail.setTitle("Internal Server Error");
+            problemDetail.setDetail("An unexpected error occurred");
+            problemDetail.setStatus(INTERNAL_SERVER_ERROR);
+        }   else{
             problemDetail.setTitle(DEFAULT_TITLE);
         }
         return problemDetail;
@@ -86,9 +98,12 @@ public class ExceptionControllerAdvice extends ResponseEntityExceptionHandler {
             return ((HttpClientErrorException) exception).getStatusCode();
         } else if (exception instanceof HttpRequestMethodNotSupportedException) {
             return METHOD_NOT_ALLOWED;
+        } else if (exception instanceof ConstraintViolationException) {
+            return HttpStatus.BAD_REQUEST;
         }
         return INTERNAL_SERVER_ERROR;
     }
+
 }
 
 

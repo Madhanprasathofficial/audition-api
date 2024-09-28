@@ -1,41 +1,57 @@
 package com.audition.service;
 
-import com.audition.integration.AuditionIntegrationClient;
-import com.audition.model.AuditionComment;
+import com.audition.integration.IAuditionIntegrationPostsClient;
 import com.audition.model.AuditionPost;
-import java.util.List;
-
-import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.Positive;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
+/**
+ * Implementation of the IAuditionPostService interface.
+ */
 @Service
 public class AuditionPostServiceImpl implements IAuditionPostService {
 
-    @Autowired
-    private AuditionIntegrationClient auditionIntegrationClient;
+    private final transient IAuditionIntegrationPostsClient iAuditionIntegrationPostsClient;
 
-
-    public List<AuditionPost> getPosts() {
-        return auditionIntegrationClient.getPosts();
+    // Constructor to initialize the integration client
+    public AuditionPostServiceImpl(final IAuditionIntegrationPostsClient iAuditionIntegrationPostsClient) {
+        this.iAuditionIntegrationPostsClient = iAuditionIntegrationPostsClient;
     }
 
-    public AuditionPost getPostById(final String postId) {
-        return auditionIntegrationClient.getPostById(postId);
-    }
-
+    /**
+     * Retrieves a list of audition posts for a specific user with pagination support.
+     *
+     * @param userId the ID of the user (nullable)
+     * @param page   the page number to retrieve (0-based, must be non-negative)
+     * @param size   the number of posts per page (must be positive)
+     * @return a list of audition posts (empty list if no posts exist)
+     */
     @Override
-    public List<AuditionPost> getPosts(Integer userId, Integer page, Integer size) {
-        return List.of();
+    public List<AuditionPost> getPosts(
+            Integer userId,
+            @Min(0) Integer page,
+            @Positive Integer size) {
+        return iAuditionIntegrationPostsClient.getPosts(userId, page, size);
     }
 
+    /**
+     * Retrieves a specific audition post by its ID.
+     *
+     * @param postId         the ID of the post to retrieve
+     * @param includeComments whether to include comments in the response
+     * @param page           the page number for pagination (if comments are included)
+     * @param size           the number of comments per page (if comments are included)
+     * @return the requested audition post, or null if not found
+     */
     @Override
-    public AuditionPost getPostById(Integer postId, boolean includeComments, Integer page, Integer size) {
-        return null;
-    }
-
-    public List<AuditionComment> fetchExternalCommentsForPost(@Positive Integer postId, @Min(0) Integer page, @Positive @Max(MAX_PAGE_SIZE) Integer size) {
+    public AuditionPost getPostById(
+            Integer postId,
+            boolean includeComments,
+            Integer page,
+            Integer size) {
+        return iAuditionIntegrationPostsClient.getPostById(postId, includeComments, page, size);
     }
 }
