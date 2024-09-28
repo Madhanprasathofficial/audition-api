@@ -1,5 +1,7 @@
 package com.audition.integration;
 
+import com.audition.model.AuditionComment;
+
 /**
  * Interface for building URLs for integration with the audition service.
  */
@@ -13,7 +15,7 @@ public interface IIntegrationUrlService {
      * @param size   the number of posts per page (nullable)
      * @return the constructed URL as a String
      */
-    String getPosts(Integer userId, Integer page, Integer size);
+    String getPostsUrl(Integer userId, Integer page, Integer size);
 
     /**
      * Constructs the URL to retrieve a specific post by its ID.
@@ -21,7 +23,7 @@ public interface IIntegrationUrlService {
      * @param id the ID of the post
      * @return the constructed URL as a String
      */
-    String getPostById(Integer id);
+    String getPostByIdUrl(Integer id);
 
     /**
      * Constructs the URL to retrieve comments for a specific post with pagination.
@@ -39,5 +41,5 @@ public interface IIntegrationUrlService {
      * @param postId the ID of the post for which comments are to be retrieved
      * @return the constructed URL as a String
      */
-    String getCommentsUrl(int postId);
+    String getCommentUrl(int postId);
 }

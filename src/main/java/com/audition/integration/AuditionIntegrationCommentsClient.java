@@ -53,7 +53,7 @@ public class AuditionIntegrationCommentsClient implements IAuditionIntegrationCo
      */
     @Override
     public AuditionComment getComment(Integer commentId) {
-        String commentUrl = iIntegrationUrlService.getCommentsUrl(commentId);
+        String commentUrl = iIntegrationUrlService.getCommentUrl(commentId);
         ResponseEntity<AuditionComment> responseEntity = restTemplate.getForEntity(commentUrl, AuditionComment.class);
 
         // Use Optional to safely handle null values and return null if the body is null

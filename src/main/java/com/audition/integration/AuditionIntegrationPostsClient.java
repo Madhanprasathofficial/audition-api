@@ -40,7 +40,7 @@ public class AuditionIntegrationPostsClient implements IAuditionIntegrationPosts
      */
     @Override
     public List<AuditionPost> getPosts(final Integer userId, final Integer page, final Integer size) {
-        String url = integrationUrlService.getPosts(userId, page, size);
+        String url = integrationUrlService.getPostsUrl(userId, page, size);
         ResponseEntity<AuditionPost[]> responseEntity = restTemplate.getForEntity(url, AuditionPost[].class);
 
         // Safely return an empty list if the response body is null
@@ -62,7 +62,8 @@ public class AuditionIntegrationPostsClient implements IAuditionIntegrationPosts
      */
     @Override
     public AuditionPost getPostById(final Integer id, final boolean loadComments, final Integer page, final Integer size) {
-        ResponseEntity<AuditionPost> responseEntity = restTemplate.getForEntity(integrationUrlService.getPostById(id), AuditionPost.class);
+        String postUrl = integrationUrlService.getPostByIdUrl(id);
+        ResponseEntity<AuditionPost> responseEntity = restTemplate.getForEntity(postUrl, AuditionPost.class);
         AuditionPost auditionPost = responseEntity.getBody();
 
         if (loadComments && Objects.nonNull(auditionPost)) {

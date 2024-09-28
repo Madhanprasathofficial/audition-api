@@ -1,5 +1,6 @@
 package com.audition.integration;
 
+import com.audition.model.AuditionComment;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
@@ -21,7 +22,7 @@ public class IntegrationUrlService implements IIntegrationUrlService {
     }
 
     @Override
-    public String getPosts(Integer userId, Integer page, Integer size) {
+    public String getPostsUrl(Integer userId, Integer page, Integer size) {
         StringBuilder url = new StringBuilder(baseUrl + POSTS_ENDPOINT);
         userParameter(userId).ifPresent(url::append);
         paginationParameters(page, size).ifPresent(url::append);
@@ -29,20 +30,20 @@ public class IntegrationUrlService implements IIntegrationUrlService {
     }
 
     @Override
-    public String getPostById(Integer id) {
+    public String getPostByIdUrl(Integer id) {
         return baseUrl + POSTS_ENDPOINT + "/" + id;
     }
 
     @Override
     public String getCommentsUrl(int postId, Integer page, Integer size) {
-        StringBuilder url = new StringBuilder(getPostById(postId) + COMMENTS_ENDPOINT);
+        StringBuilder url = new StringBuilder(getPostByIdUrl(postId) + COMMENTS_ENDPOINT);
         paginationParameters(page, size).ifPresent(url::append);
         return url.toString();
     }
 
     @Override
-    public String getCommentsUrl(int postId) {
-        return getCommentsUrl(postId, null, null);
+    public String getCommentUrl(int commentId) {
+        return baseUrl + COMMENTS_ENDPOINT + "/" + commentId;
     }
 
     private Optional<String> paginationParameters(Integer page, Integer size) {

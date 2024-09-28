@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.audition.integration.AuditionIntegrationPostsClientTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2024-09-28T12:12:35" hostname="DESKTOP-T0DGFL0" time="0.206">
+  <properties/>
+  <testcase name="shouldGetPostByIdWhenResponseIs200()" classname="com.audition.integration.AuditionIntegrationPostsClientTest" time="0.093"/>
+  <testcase name="shouldGetPostsWhenResponseIs200()" classname="com.audition.integration.AuditionIntegrationPostsClientTest" time="0.062"/>
+  <testcase name="shouldGetPostByIdLoadCommentsWhenResponseIs200()" classname="com.audition.integration.AuditionIntegrationPostsClientTest" time="0.048"/>
+  <system-out><![CDATA[22:12:35.865 [Test worker] DEBUG org.springframework.web.client.RestTemplate - HTTP GET https://jsonplaceholder.typicode.com/posts/99
+22:12:35.885 [Test worker] DEBUG org.springframework.web.client.RestTemplate - Accept=[application/json, application/*+json]
+22:12:35.920 [Test worker] DEBUG org.springframework.web.client.RestTemplate - Response 200 OK
+22:12:35.921 [Test worker] DEBUG org.springframework.web.client.RestTemplate - Reading to [com.audition.model.AuditionPost]
+22:12:35.932 [Test worker] DEBUG org.springframework.web.client.RestTemplate - HTTP GET https://jsonplaceholder.typicode.com/posts/
+22:12:35.933 [Test worker] DEBUG org.springframework.web.client.RestTemplate - Accept=[application/json, application/*+json]
+22:12:35.970 [Test worker] DEBUG org.springframework.web.client.RestTemplate - Response 200 OK
+22:12:35.972 [Test worker] DEBUG org.springframework.web.client.RestTemplate - Reading to [com.audition.model.AuditionPost[]]
+22:12:35.986 [Test worker] DEBUG org.springframework.web.client.RestTemplate - HTTP GET https://jsonplaceholder.typicode.com/posts/99
+22:12:36.001 [Test worker] DEBUG org.springframework.web.client.RestTemplate - Accept=[application/json, application/*+json]
+22:12:36.030 [Test worker] DEBUG org.springframework.web.client.RestTemplate - Response 200 OK
+22:12:36.034 [Test worker] DEBUG org.springframework.web.client.RestTemplate - Reading to [com.audition.model.AuditionPost]
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

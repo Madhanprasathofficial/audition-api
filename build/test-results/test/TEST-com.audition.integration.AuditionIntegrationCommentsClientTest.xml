@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.audition.integration.AuditionIntegrationCommentsClientTest" tests="2" skipped="0" failures="0" errors="0" timestamp="2024-09-28T12:12:28" hostname="DESKTOP-T0DGFL0" time="7.237">
+  <properties/>
+  <testcase name="shouldGetComment()" classname="com.audition.integration.AuditionIntegrationCommentsClientTest" time="7.12"/>
+  <testcase name="shouldGetCommentsGetComments()" classname="com.audition.integration.AuditionIntegrationCommentsClientTest" time="0.116"/>
+  <system-out><![CDATA[22:12:34.887 [Test worker] DEBUG org.springframework.web.client.RestTemplate - HTTP GET https://jsonplaceholder.typicode.com/comments/1
+22:12:35.160 [Test worker] DEBUG org.springframework.web.client.RestTemplate - Accept=[application/json, application/*+json]
+22:12:35.575 [Test worker] DEBUG org.springframework.web.client.RestTemplate - Response 200 OK
+22:12:35.593 [Test worker] DEBUG org.springframework.web.client.RestTemplate - Reading to [com.audition.model.AuditionComment]
+22:12:35.708 [Test worker] DEBUG org.springframework.web.client.RestTemplate - HTTP GET https://jsonplaceholder.typicode.com/comments
+22:12:35.710 [Test worker] DEBUG org.springframework.web.client.RestTemplate - Accept=[application/json, application/*+json]
+22:12:35.746 [Test worker] DEBUG org.springframework.web.client.RestTemplate - Response 200 OK
+22:12:35.746 [Test worker] DEBUG org.springframework.web.client.RestTemplate - Reading to [com.audition.model.AuditionComment[]]
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

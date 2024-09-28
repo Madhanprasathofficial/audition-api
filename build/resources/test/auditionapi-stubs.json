@@ -1,0 +1,312 @@
+{
+  "mappings" : [ {
+    "id" : "486f0b33-74c4-4ae9-919e-757f80c89189",
+    "name" : "Audition API stub 10",
+    "request" : {
+      "url" : "/comments/888",
+      "method" : "GET",
+      "pathParameters" : { },
+      "formParameters" : { }
+    },
+    "response" : {
+      "status" : 500,
+      "body" : "",
+      "headers" : {
+        "Content-Type" : "application/json"
+      }
+    },
+    "uuid" : "486f0b33-74c4-4ae9-919e-757f80c89189",
+    "persistent" : true,
+    "priority" : 5,
+    "metadata" : {
+      "mocklab" : {
+        "created" : {
+          "at" : "2023-07-02T00:06:46.917169555Z",
+          "via" : "ADMIN_API",
+          "by" : "g6od7"
+        },
+        "updated" : {
+          "at" : "2023-07-02T00:54:06.983722018Z",
+          "via" : "ADMIN_API",
+          "by" : "g6od7"
+        }
+      }
+    },
+    "postServeActions" : [ ]
+  }, {
+    "id" : "d00afb43-9455-44cf-95dd-29decdf4ebde",
+    "name" : "Audition API stub 9",
+    "request" : {
+      "url" : "/comments/777",
+      "method" : "GET",
+      "pathParameters" : { },
+      "formParameters" : { }
+    },
+    "response" : {
+      "status" : 200,
+      "body" : "{\n  \"postId\": 1,\n  \"id\": 11,\n  \"name\": \"quo vero reiciendis velit similique earum\",\n  \"email\": \"Jayne_Kuhic@sydney.com\",\n  \"body\": \"est natus enim nihil est dolore omnis voluptatem numquam\\net omnis occaecati quod ullam at\\nvoluptatem error expedita pariatur\\nnihil sint nostrum voluptatem reiciendis et\"\n}",
+      "headers" : {
+        "Content-Type" : "application/json"
+      }
+    },
+    "uuid" : "d00afb43-9455-44cf-95dd-29decdf4ebde",
+    "persistent" : true,
+    "priority" : 5,
+    "metadata" : {
+      "mocklab" : {
+        "created" : {
+          "at" : "2023-07-01T23:40:33.917760521Z",
+          "via" : "ADMIN_API",
+          "by" : "g6od7"
+        },
+        "updated" : {
+          "at" : "2023-07-01T23:51:57.696238206Z",
+          "via" : "ADMIN_API",
+          "by" : "g6od7"
+        }
+      }
+    },
+    "postServeActions" : [ ]
+  }, {
+    "id" : "4443a3dc-0ad7-4dce-9d94-1fa877bccdbc",
+    "name" : "Audition API stub 8",
+    "request" : {
+      "url" : "/posts/111/comments?_start=0&_limit=1",
+      "method" : "GET",
+      "pathParameters" : { },
+      "formParameters" : { }
+    },
+    "response" : {
+      "status" : 200,
+      "body" : "[\n  {\n    \"postId\": 1,\n    \"id\": 46,\n    \"name\": \"dignissimos et deleniti voluptate et quod\",\n    \"email\": \"Jeremy.Harann@waino.me\",\n    \"body\": \"exercitationem et id quae cum omnis\\ntempora quo necessitatibus\\ndolor quam autem quasi\\nreiciendis et nam sapiente accusantium\"\n  }\n]",
+      "headers" : {
+        "Content-Type" : "application/json"
+      }
+    },
+    "uuid" : "4443a3dc-0ad7-4dce-9d94-1fa877bccdbc",
+    "persistent" : true,
+    "priority" : 5,
+    "metadata" : {
+      "mocklab" : {
+        "created" : {
+          "at" : "2023-07-01T06:05:11.95934507Z",
+          "via" : "ADMIN_API",
+          "by" : "g6od7"
+        },
+        "updated" : {
+          "at" : "2023-07-01T06:07:14.292647666Z",
+          "via" : "ADMIN_API",
+          "by" : "g6od7"
+        }
+      }
+    },
+    "postServeActions" : [ ]
+  }, {
+    "id" : "ff7aada9-4135-494a-a259-47811e888235",
+    "name" : "Audition API stub 7",
+    "request" : {
+      "url" : "/posts/555",
+      "method" : "GET",
+      "pathParameters" : { },
+      "formParameters" : { }
+    },
+    "response" : {
+      "status" : 200,
+      "body" : "{\n  \"userId\": 5,\n  \"id\": 5555,\n  \"title\": \"a quo magni similique perferendis\",\n  \"body\": \"alias dolor cumque\\nimpedit blanditiis non eveniet odio maxime\\nblanditiis amet eius quis tempora quia autem rem\\na provident perspiciatis quia\"\n}",
+      "headers" : {
+        "Content-Type" : "application/json"
+      }
+    },
+    "uuid" : "ff7aada9-4135-494a-a259-47811e888235",
+    "persistent" : true,
+    "priority" : 5,
+    "metadata" : {
+      "mocklab" : {
+        "created" : {
+          "at" : "2023-07-01T05:43:10.696059294Z",
+          "via" : "ADMIN_API",
+          "by" : "g6od7"
+        },
+        "updated" : {
+          "at" : "2023-07-01T06:07:24.162953383Z",
+          "via" : "ADMIN_API",
+          "by" : "g6od7"
+        }
+      }
+    },
+    "postServeActions" : [ ]
+  }, {
+    "id" : "e03f53f8-842a-48f7-866c-72f88456a3f3",
+    "name" : "Audition API stub 6",
+    "request" : {
+      "url" : "/posts/4444/comments?_start=0&_limit=100",
+      "method" : "GET",
+      "pathParameters" : { },
+      "formParameters" : { }
+    },
+    "response" : {
+      "status" : 200,
+      "body" : "[\n  {\n    \"postId\": 444,\n    \"id\": 44441,\n    \"name\": \"Vivienne\",\n    \"email\": \"Vivienne@willis.org\",\n    \"body\": \"exercitationem et id quae cum omnis\\nconsequatur est aut qui earum nisi officiis sed culpaet nam sapiente accusantium\"\n  },\n  {\n    \"postId\": 444,\n    \"id\": 44442,\n    \"name\": \"john\",\n    \"email\": \"john.doe@company.org\",\n    \"body\": \"exercitationem et id quae cum omnis\\nconsequatur est aut qui earum nisi officiis sed culpaet nam sapiente accusantium\"\n  }\n]",
+      "headers" : {
+        "Content-Type" : "application/json"
+      }
+    },
+    "uuid" : "e03f53f8-842a-48f7-866c-72f88456a3f3",
+    "persistent" : true,
+    "priority" : 5,
+    "metadata" : {
+      "mocklab" : {
+        "created" : {
+          "at" : "2023-07-01T05:42:39.730753793Z",
+          "via" : "ADMIN_API",
+          "by" : "g6od7"
+        },
+        "updated" : {
+          "at" : "2023-07-01T06:07:33.3795959Z",
+          "via" : "ADMIN_API",
+          "by" : "g6od7"
+        }
+      }
+    },
+    "postServeActions" : [ ]
+  }, {
+    "id" : "a3f2b472-83e4-4f2d-934d-8461744261aa",
+    "name" : "Audition API stub 5",
+    "request" : {
+      "url" : "/posts/444",
+      "method" : "GET",
+      "pathParameters" : { },
+      "formParameters" : { }
+    },
+    "response" : {
+      "status" : 200,
+      "body" : "{\n  \"userId\": 4,\n  \"id\": 4444,\n  \"title\": \"a quo magni similique perferendis\",\n  \"body\": \"alias dolor cumque\\nimpedit blanditiis non eveniet odio maxime\\nblanditiis amet eius quis tempora quia autem rem\\na provident perspiciatis quia\"\n}",
+      "headers" : {
+        "Content-Type" : "application/json"
+      }
+    },
+    "uuid" : "a3f2b472-83e4-4f2d-934d-8461744261aa",
+    "persistent" : true,
+    "priority" : 5,
+    "metadata" : {
+      "mocklab" : {
+        "created" : {
+          "at" : "2023-07-01T05:41:13.281420513Z",
+          "via" : "ADMIN_API",
+          "by" : "g6od7"
+        },
+        "updated" : {
+          "at" : "2023-07-01T06:07:40.776246074Z",
+          "via" : "ADMIN_API",
+          "by" : "g6od7"
+        }
+      }
+    },
+    "postServeActions" : [ ]
+  }, {
+    "id" : "5f1b801e-7172-46f1-a1b3-b9354e349171",
+    "name" : "Audition API stub 4",
+    "request" : {
+      "url" : "/posts/333/comments?_start=0&_limit=1",
+      "method" : "GET",
+      "pathParameters" : { },
+      "formParameters" : { }
+    },
+    "response" : {
+      "status" : 200,
+      "body" : "[\n  {\n    \"postId\": 333,\n    \"id\": 46,\n    \"name\": \"Vivienne\",\n    \"email\": \"Vivienne@willis.org\",\n    \"body\": \"exercitationem et id quae cum omnis\\nconsequatur est aut qui earum nisi officiis sed culpaet nam sapiente accusantium\"\n  }\n]",
+      "headers" : {
+        "Content-Type" : "application/json"
+      }
+    },
+    "uuid" : "5f1b801e-7172-46f1-a1b3-b9354e349171",
+    "persistent" : true,
+    "priority" : 5,
+    "metadata" : {
+      "mocklab" : {
+        "created" : {
+          "at" : "2023-07-01T05:39:46.563856109Z",
+          "via" : "ADMIN_API",
+          "by" : "g6od7"
+        },
+        "updated" : {
+          "at" : "2023-07-01T06:07:47.210482958Z",
+          "via" : "ADMIN_API",
+          "by" : "g6od7"
+        }
+      }
+    },
+    "postServeActions" : [ ]
+  }, {
+    "id" : "99f1691e-fb5f-4f24-a62c-cb30766361a3",
+    "name" : "Audition API stub 3",
+    "request" : {
+      "url" : "/posts/333",
+      "method" : "GET",
+      "pathParameters" : { },
+      "formParameters" : { }
+    },
+    "response" : {
+      "status" : 200,
+      "body" : "{\n  \"userId\": 333,\n  \"id\": 333,\n  \"title\": \"a quo magni similique perferendis\",\n  \"body\": \"alias dolor cumque\\nimpedit blanditiis\\nmolestiae porro eius odio et labore et velit aut\"\n}",
+      "headers" : {
+        "Content-Type" : "application/json"
+      }
+    },
+    "uuid" : "99f1691e-fb5f-4f24-a62c-cb30766361a3",
+    "persistent" : true,
+    "priority" : 5,
+    "metadata" : {
+      "mocklab" : {
+        "created" : {
+          "at" : "2023-07-01T05:38:55.14676547Z",
+          "via" : "ADMIN_API",
+          "by" : "g6od7"
+        },
+        "updated" : {
+          "at" : "2023-07-01T06:07:52.835204782Z",
+          "via" : "ADMIN_API",
+          "by" : "g6od7"
+        }
+      }
+    },
+    "postServeActions" : [ ]
+  }, {
+    "id" : "d897f103-53a0-4ba8-8aec-538986be1d0e",
+    "name" : "Audition API stub 2",
+    "request" : {
+      "url" : "/posts?_start=0&_limit=1&userId=222",
+      "method" : "GET",
+      "pathParameters" : { },
+      "formParameters" : { }
+    },
+    "response" : {
+      "status" : 200,
+      "body" : "[\n  {\n    \"userId\": 222,\n    \"id\": 91,\n    \"title\": \"sunt aut facere repellat\",\n    \"body\": \"libero voluptate eveniet aperiam sed\"\n  }\n]",
+      "headers" : {
+        "Content-Type" : "application/json"
+      }
+    },
+    "uuid" : "d897f103-53a0-4ba8-8aec-538986be1d0e",
+    "persistent" : true,
+    "priority" : 5,
+    "metadata" : {
+      "mocklab" : {
+        "created" : {
+          "at" : "2023-07-01T05:38:06.386164056Z",
+          "via" : "ADMIN_API",
+          "by" : "g6od7"
+        },
+        "updated" : {
+          "at" : "2023-07-01T06:09:58.831126313Z",
+          "via" : "ADMIN_API",
+          "by" : "g6od7"
+        }
+      }
+    },
+    "postServeActions" : [ ]
+  } ],
+  "meta" : {
+    "total" : 9
+  }
+}
