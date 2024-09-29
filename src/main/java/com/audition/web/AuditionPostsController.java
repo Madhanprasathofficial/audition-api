@@ -15,9 +15,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
+import java.util.*;
 
 @Tag(name = "Posts Controller", description = "APIs for retrieving posts and comments.")
 @RestController
@@ -56,7 +54,10 @@ public class AuditionPostsController {
 
         // Validate userId
         if (userId != null && userId <= 0) {
-            return ResponseEntity.badRequest().body(null); // Return 400 Bad Request if userId is negative
+            List<AuditionPost> errorResponse = new ArrayList<>();
+            errorResponse.add(new AuditionPost(0, 0, "Invalid User ID", "User ID must be positive", Collections.emptyList()));
+
+            return ResponseEntity.badRequest().body(errorResponse); // Return 400 Bad Request if userId is negative
         }
 
         // Fetch posts from the service layer with pagination and optional filtering
@@ -92,7 +93,7 @@ public class AuditionPostsController {
 
         // Handle post not found scenario
         return (Objects.isNull(post)) ?
-                ResponseEntity.status(HttpStatus.NOT_FOUND)
+                ResponseEntity.status(HttpStatus.NO_CONTENT)
                         .contentType(MediaType.APPLICATION_JSON)
                         .body(new ErrorResponse("Page not found")) : // Or custom error message as JSON
                 ResponseEntity.ok(post);

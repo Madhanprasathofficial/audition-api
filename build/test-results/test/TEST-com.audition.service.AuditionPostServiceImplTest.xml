@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="com.audition.service.AuditionPostServiceImplTest" tests="4" skipped="0" failures="0" errors="0" timestamp="2024-09-28T12:12:36" hostname="DESKTOP-T0DGFL0" time="0.058">
+<testsuite name="com.audition.service.AuditionPostServiceImplTest" tests="4" skipped="0" failures="0" errors="0" timestamp="2024-09-29T12:01:49" hostname="DESKTOP-T0DGFL0" time="0.079">
   <properties/>
-  <testcase name="shouldCaptureArgumentsForGetPostById()" classname="com.audition.service.AuditionPostServiceImplTest" time="0.045"/>
+  <testcase name="shouldCaptureArgumentsForGetPostById()" classname="com.audition.service.AuditionPostServiceImplTest" time="0.067"/>
   <testcase name="shouldGetPostById()" classname="com.audition.service.AuditionPostServiceImplTest" time="0.002"/>
   <testcase name="shouldCaptureArgumentsForGetPosts()" classname="com.audition.service.AuditionPostServiceImplTest" time="0.003"/>
   <testcase name="shouldGetListOfPosts()" classname="com.audition.service.AuditionPostServiceImplTest" time="0.003"/>

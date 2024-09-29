@@ -1,3 +1,6 @@
+C:\Users\User\Downloads\audition-api\build\classes\java\test\com\audition\AuditionCommentsControllerIntegrationTest.class
+C:\Users\User\Downloads\audition-api\build\classes\java\test\com\audition\AuditionPostByIdControllerIntegrationTest.class
+C:\Users\User\Downloads\audition-api\build\classes\java\test\com\audition\AuditionPostControllerIntegrationTest.class
 C:\Users\User\Downloads\audition-api\build\classes\java\test\com\audition\BaseIntegrationTest.class
 C:\Users\User\Downloads\audition-api\build\classes\java\test\com\audition\BaseTest.class
 C:\Users\User\Downloads\audition-api\build\classes\java\test\com\audition\integration\AuditionIntegrationCommentsClientTest.class

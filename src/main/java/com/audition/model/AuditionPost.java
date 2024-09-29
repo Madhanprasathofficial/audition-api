@@ -20,30 +20,26 @@ import java.util.List;
 public class AuditionPost {
 
     //@Positive(message = "User ID must be positive.")
-    private int userId;
+    private Integer userId; // Change to Integer
 
-   // @Positive(message = "Post ID must be positive.")
-    private int id;
+    // @Positive(message = "Post ID must be positive.")
+    private Integer id; // Change to Integer
 
     //@NotBlank(message = "Title cannot be blank.")
     private String title;
 
-   // @NotBlank(message = "Body cannot be blank.")
+    // @NotBlank(message = "Body cannot be blank.")
     private String body;
 
+    // Initialize to avoid null issues
+    private List<AuditionComment> auditionComments = new ArrayList<>();
 
-    /**
-     * List of comments associated with this audition post.
-     * Each comment is an instance of {@link AuditionComment}.
-     */
-    private List<AuditionComment> auditionComments;
-
-    public AuditionPost(int userId, int id, String title, String body, List<AuditionComment> auditionComments) {
+    public AuditionPost(Integer userId, Integer id, String title, String body, List<AuditionComment> auditionComments) {
         this.userId = userId;
         this.id = id;
         this.title = title;
         this.body = body;
-        this.auditionComments = auditionComments != null ? auditionComments : new ArrayList<>(); // Create a defensive copy
+        this.auditionComments = auditionComments != null ? auditionComments : new ArrayList<>();
     }
 
     public void setAuditionComments(List<AuditionComment> auditionComments) {

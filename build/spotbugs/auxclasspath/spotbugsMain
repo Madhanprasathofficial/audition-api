@@ -32,6 +32,14 @@ C:\Users\User\.gradle\caches\modules-2\files-2.1\org.springdoc\springdoc-openapi
 C:\Users\User\.gradle\caches\modules-2\files-2.1\io.swagger.core.v3\swagger-core-jakarta\2.2.7\9111d85fc116ad6ec9d5f6f54edf81c2740e52\swagger-core-jakarta-2.2.7.jar
 C:\Users\User\.gradle\caches\modules-2\files-2.1\org.slf4j\slf4j-api\2.0.5\3a759df277e854f7c4ca951e5899bcec0dbdca73\slf4j-api-2.0.5.jar
 C:\Users\User\.gradle\caches\modules-2\files-2.1\ch.qos.logback\logback-core\1.4.5\e9bb2ea70f84401314da4300343b0a246c8954da\logback-core-1.4.5.jar
+C:\Users\User\.gradle\caches\modules-2\files-2.1\com.fasterxml.jackson.datatype\jackson-datatype-jdk8\2.14.2\2f3c71211b6ea7a978eba33574d7135d536e07fb\jackson-datatype-jdk8-2.14.2.jar
+C:\Users\User\.gradle\caches\modules-2\files-2.1\com.fasterxml.jackson.datatype\jackson-datatype-jsr310\2.14.2\796518148a385b2728d44886cc0f8852eb8eeb53\jackson-datatype-jsr310-2.14.2.jar
+C:\Users\User\.gradle\caches\modules-2\files-2.1\com.fasterxml.jackson.module\jackson-module-parameter-names\2.14.2\2b6c19b3d99dda02915515df879ab9e23fed3864\jackson-module-parameter-names-2.14.2.jar
+C:\Users\User\.gradle\caches\modules-2\files-2.1\com.fasterxml.jackson.dataformat\jackson-dataformat-yaml\2.14.2\cc9a25c1f4212562dcb2fa33dd8ae179ba0e6a4e\jackson-dataformat-yaml-2.14.2.jar
+C:\Users\User\.gradle\caches\modules-2\files-2.1\com.fasterxml.jackson.core\jackson-core\2.15.0\12f334a1dc9c6d2854c43ae314024dde8b3ad572\jackson-core-2.15.0.jar
+C:\Users\User\.gradle\caches\modules-2\files-2.1\io.swagger.core.v3\swagger-models-jakarta\2.2.7\b26a24f51b009fe77a0b4b4f67738a60aaff1aa2\swagger-models-jakarta-2.2.7.jar
+C:\Users\User\.gradle\caches\modules-2\files-2.1\com.fasterxml.jackson.core\jackson-annotations\2.15.0\89b0fd554928425a776a6e97ed010034312af21d\jackson-annotations-2.15.0.jar
+C:\Users\User\.gradle\caches\modules-2\files-2.1\com.fasterxml.jackson.core\jackson-databind\2.15.0\d41caa3a4e9f85382702a059a65c512f85ac230\jackson-databind-2.15.0.jar
 C:\Users\User\.gradle\caches\modules-2\files-2.1\org.projectlombok\lombok\1.18.26\8f8cf0372abf564913e9796623aac4c8ea44025a\lombok-1.18.26.jar
 C:\Users\User\.gradle\caches\modules-2\files-2.1\jakarta.annotation\jakarta.annotation-api\2.1.1\48b9bda22b091b1f48b13af03fe36db3be6e1ae3\jakarta.annotation-api-2.1.1.jar
 C:\Users\User\.gradle\caches\modules-2\files-2.1\org.apache.tomcat.embed\tomcat-embed-websocket\10.1.5\14529cbd593571dc9029272ddc9166b5ef113fc2\tomcat-embed-websocket-10.1.5.jar
@@ -47,14 +55,6 @@ C:\Users\User\.gradle\caches\modules-2\files-2.1\org.springframework.cloud\sprin
 C:\Users\User\.gradle\caches\modules-2\files-2.1\io.micrometer\micrometer-observation\1.10.4\96aa92ad7a18c2451c429348c0167eb08a988d4e\micrometer-observation-1.10.4.jar
 C:\Users\User\.gradle\caches\modules-2\files-2.1\org.hibernate.orm\hibernate-core\6.1.7.Final\343f47b34c96fe9c44bf9b219a7b3c5d6d2fc90e\hibernate-core-6.1.7.Final.jar
 C:\Users\User\.gradle\caches\modules-2\files-2.1\org.springframework\spring-aspects\6.0.5\a758bb59124425df6614c4d335365c1a2bdbeafa\spring-aspects-6.0.5.jar
-C:\Users\User\.gradle\caches\modules-2\files-2.1\com.fasterxml.jackson.datatype\jackson-datatype-jsr310\2.14.2\796518148a385b2728d44886cc0f8852eb8eeb53\jackson-datatype-jsr310-2.14.2.jar
-C:\Users\User\.gradle\caches\modules-2\files-2.1\com.fasterxml.jackson.module\jackson-module-parameter-names\2.14.2\2b6c19b3d99dda02915515df879ab9e23fed3864\jackson-module-parameter-names-2.14.2.jar
-C:\Users\User\.gradle\caches\modules-2\files-2.1\io.swagger.core.v3\swagger-models-jakarta\2.2.7\b26a24f51b009fe77a0b4b4f67738a60aaff1aa2\swagger-models-jakarta-2.2.7.jar
-C:\Users\User\.gradle\caches\modules-2\files-2.1\com.fasterxml.jackson.core\jackson-annotations\2.14.2\a7aae9525864930723e3453ab799521fdfd9d873\jackson-annotations-2.14.2.jar
-C:\Users\User\.gradle\caches\modules-2\files-2.1\com.fasterxml.jackson.dataformat\jackson-dataformat-yaml\2.14.2\cc9a25c1f4212562dcb2fa33dd8ae179ba0e6a4e\jackson-dataformat-yaml-2.14.2.jar
-C:\Users\User\.gradle\caches\modules-2\files-2.1\com.fasterxml.jackson.core\jackson-core\2.14.2\f804090e6399ce0cf78242db086017512dd71fcc\jackson-core-2.14.2.jar
-C:\Users\User\.gradle\caches\modules-2\files-2.1\com.fasterxml.jackson.datatype\jackson-datatype-jdk8\2.14.2\2f3c71211b6ea7a978eba33574d7135d536e07fb\jackson-datatype-jdk8-2.14.2.jar
-C:\Users\User\.gradle\caches\modules-2\files-2.1\com.fasterxml.jackson.core\jackson-databind\2.14.2\1e71fddbc80bb86f71a6345ac1e8ab8a00e7134\jackson-databind-2.14.2.jar
 C:\Users\User\.gradle\caches\modules-2\files-2.1\org.springframework.boot\spring-boot-starter-reactor-netty\3.0.3\eef24ec85b8f7fbe3e1351a58c69163e4917e195\spring-boot-starter-reactor-netty-3.0.3.jar
 C:\Users\User\.gradle\caches\modules-2\files-2.1\org.springframework.boot\spring-boot-autoconfigure\3.0.3\17a64795795ecf1f1f6f0cc1c2794e2bed23ceda\spring-boot-autoconfigure-3.0.3.jar
 C:\Users\User\.gradle\caches\modules-2\files-2.1\org.springframework.boot\spring-boot-actuator\3.0.3\709a4f0d185b7aab812a063551cfb09e9f44a84\spring-boot-actuator-3.0.3.jar
@@ -77,6 +77,7 @@ C:\Users\User\.gradle\caches\modules-2\files-2.1\io.github.resilience4j\resilien
 C:\Users\User\.gradle\caches\modules-2\files-2.1\org.webjars\swagger-ui\4.15.5\fc283d7a6d93c58fb466766eef4b8110c57639ea\swagger-ui-4.15.5.jar
 C:\Users\User\.gradle\caches\modules-2\files-2.1\io.github.classgraph\classgraph\4.8.149\4bc2f188bc9001473d4a26ac488c2ae1a3e906de\classgraph-4.8.149.jar
 C:\Users\User\.gradle\caches\modules-2\files-2.1\org.hibernate.validator\hibernate-validator\8.0.0.Final\8e0389f22a3a246915a3311877da4168256b95d2\hibernate-validator-8.0.0.Final.jar
+C:\Users\User\.gradle\caches\modules-2\files-2.1\ch.randelshofer\fastdoubleparser\0.8.0\85c25540369921659556ead85e02c99ef0d24280\fastdoubleparser-0.8.0.jar
 C:\Users\User\.gradle\caches\modules-2\files-2.1\org.springframework\spring-orm\6.0.5\82e5d0afe235807b25e92c7bf5054bcd7206f34d\spring-orm-6.0.5.jar
 C:\Users\User\.gradle\caches\modules-2\files-2.1\org.springframework\spring-jdbc\6.0.5\7555dec3648ffb656fb36a902cf9a74c5db7c392\spring-jdbc-6.0.5.jar
 C:\Users\User\.gradle\caches\modules-2\files-2.1\org.springframework\spring-tx\6.0.5\92127c0a17c63f70320d20b05d56e21acd6ffbbf\spring-tx-6.0.5.jar

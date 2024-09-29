@@ -132,11 +132,11 @@ class AuditionPostsControllerTest {
     }
 
     @Test
-    public void shouldReturn404_WhenPostNotFound() throws Exception {
+    public void shouldReturn204_WhenPostNotFound() throws Exception {
         when(iAuditionPostService.getPostById(999, false, DEFAULT_PAGE, DEFAULT_PAGE_SIZE)).thenReturn(null);
 
         mockMvc.perform(get(POSTS_URL + "/999"))
-                .andExpect(status().isNotFound())
+                .andExpect(status().isNoContent())
                 .andExpect(content().contentType(APPLICATION_JSON))
                 .andExpect(jsonPath("$.message").value(PAGE_NOT_FOUND_MESSAGE));
     }

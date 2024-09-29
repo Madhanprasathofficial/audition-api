@@ -67,6 +67,15 @@ dependencies {
 
     testImplementation "org.springframework.boot:spring-boot-starter-test"
     testImplementation "io.projectreactor:reactor-test"
+    // https://mvnrepository.com/artifact/org.wiremock/wiremock
+    testImplementation group: 'org.wiremock', name: 'wiremock', version: '3.9.1'
+
+        // Jackson
+        implementation 'com.fasterxml.jackson.core:jackson-databind:2.15.0'
+        implementation 'com.fasterxml.jackson.core:jackson-core:2.15.0'
+        implementation 'com.fasterxml.jackson.core:jackson-annotations:2.15.0'
+
+
 }
 
 dependencyManagement {
