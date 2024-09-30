@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.audition.common.logging.RestTemplateRequestResponseLoggingInterceptorTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2024-09-30T12:09:22" hostname="DESKTOP-T0DGFL0" time="0.187">
+  <properties/>
+  <testcase name="shouldLogRequestAndResponse()" classname="com.audition.common.logging.RestTemplateRequestResponseLoggingInterceptorTest" time="0.174"/>
+  <testcase name="shouldLogResponse()" classname="com.audition.common.logging.RestTemplateRequestResponseLoggingInterceptorTest" time="0.006"/>
+  <testcase name="shouldLogRequest()" classname="com.audition.common.logging.RestTemplateRequestResponseLoggingInterceptorTest" time="0.005"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

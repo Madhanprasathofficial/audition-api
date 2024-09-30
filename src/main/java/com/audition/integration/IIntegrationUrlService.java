@@ -1,7 +1,5 @@
 package com.audition.integration;
 
-import com.audition.model.AuditionComment;
-
 /**
  * Interface for building URLs for integration with the audition service.
  */

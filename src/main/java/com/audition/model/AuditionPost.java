@@ -1,8 +1,5 @@
 package com.audition.model;
 
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Positive;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -31,24 +28,28 @@ public class AuditionPost {
     // @NotBlank(message = "Body cannot be blank.")
     private String body;
 
-    // Initialize to avoid null issues
-    private List<AuditionComment> auditionComments = new ArrayList<>();
+    private List<AuditionComment> auditionCommentsList = new ArrayList<>(); // Retaining initializer
 
-    public AuditionPost(Integer userId, Integer id, String title, String body, List<AuditionComment> auditionComments) {
+    public AuditionPost(final Integer userId, final Integer id, final String title, final String body, final List<AuditionComment> auditionComments) {
         this.userId = userId;
         this.id = id;
         this.title = title;
         this.body = body;
-        this.auditionComments = auditionComments != null ? auditionComments : new ArrayList<>();
+        if (auditionComments != null) {
+            this.auditionCommentsList = new ArrayList<>(auditionComments);
+        }
     }
 
-    public void setAuditionComments(List<AuditionComment> auditionComments) {
-        // Create a new ArrayList to avoid exposing internal representation
-        this.auditionComments = new ArrayList<>(auditionComments);
+    public void setAuditionComments(final List<AuditionComment> auditionComments) {
+        if (auditionComments != null) {
+            this.auditionCommentsList = new ArrayList<>(auditionComments);
+        } else {
+            this.auditionCommentsList.clear(); // Handle null assignment
+        }
     }
 
     public List<AuditionComment> getAuditionComments() {
         // Return an unmodifiable view to prevent external modifications
-        return Collections.unmodifiableList(auditionComments);
+        return Collections.unmodifiableList(auditionCommentsList);
     }
 }

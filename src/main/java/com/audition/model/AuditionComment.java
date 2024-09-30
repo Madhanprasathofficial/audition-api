@@ -35,12 +35,12 @@ public class AuditionComment {
 
     @Override
     public String toString() {
-        return "AuditionComment{" +
-                "postId=" + postId +
-                ", id=" + id +
-                ", name='" + name + '\'' +
-                ", email='" + email + '\'' +
-                ", body='" + body + '\'' +
-                '}';
+        return "AuditionComment{"
+                + "postId=" + postId
+                + ", id=" + id
+                + ", name='" + name + '\''
+                + ", email='" + email + '\''
+                + ", body='" + body + '\''
+                + '}';
     }
 }

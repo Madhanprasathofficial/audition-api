@@ -21,12 +21,13 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 /**
  * Integration tests for the AuditionPostByIdController.
  */
+@SuppressWarnings("PMD")
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @AutoConfigureMockMvc
 public class AuditionPostByIdControllerIntegrationTest {
 
     @Autowired
-    protected MockMvc mockMvc;
+    protected transient MockMvc mockMvc;
 
     @RegisterExtension
     static WireMockExtension wireMockServer = WireMockExtension.newInstance()

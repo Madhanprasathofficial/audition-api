@@ -14,6 +14,7 @@ C:\Users\User\.gradle\caches\modules-2\files-2.1\io.micrometer\context-propagati
 C:\Users\User\.gradle\caches\modules-2\files-2.1\org.springframework.cloud\spring-cloud-starter-circuitbreaker-reactor-resilience4j\3.0.0\d803a1bdc379daeee0b1b0b550f96424c9ea100f\spring-cloud-starter-circuitbreaker-reactor-resilience4j-3.0.0.jar
 C:\Users\User\.gradle\caches\modules-2\files-2.1\org.springframework.cloud\spring-cloud-starter-config\4.0.1\e809b219028824bcfe91b6a3b1dc50164fd3ce3f\spring-cloud-starter-config-4.0.1.jar
 C:\Users\User\.gradle\caches\modules-2\files-2.1\org.springdoc\springdoc-openapi-starter-webmvc-ui\2.0.2\264da79c9d4a53feab8c5c6d0e0cb143bd099d4\springdoc-openapi-starter-webmvc-ui-2.0.2.jar
+C:\Users\User\.gradle\caches\modules-2\files-2.1\org.springdoc\springdoc-openapi-ui\1.7.0\f4763107b0fb1f9c17fe6523b2fd0ca6cb201d66\springdoc-openapi-ui-1.7.0.jar
 C:\Users\User\.gradle\caches\modules-2\files-2.1\org.springframework.boot\spring-boot-starter-jdbc\3.0.3\d0629ac327da8bb19d7327230956150b8781fe94\spring-boot-starter-jdbc-3.0.3.jar
 C:\Users\User\.gradle\caches\modules-2\files-2.1\org.springframework.boot\spring-boot-starter-json\3.0.3\939ff36e0afac81ade45ffdd56510b0bbc807591\spring-boot-starter-json-3.0.3.jar
 C:\Users\User\.gradle\caches\modules-2\files-2.1\org.springframework.cloud\spring-cloud-starter\4.0.1\4f93ab57626dca706ad9fda6a6249af3d2ad873\spring-cloud-starter-4.0.1.jar
@@ -31,6 +32,9 @@ C:\Users\User\.gradle\caches\modules-2\files-2.1\org.slf4j\jul-to-slf4j\2.0.6\c4
 C:\Users\User\.gradle\caches\modules-2\files-2.1\org.springdoc\springdoc-openapi-starter-webmvc-api\2.0.2\479a5cd03969a22d9f8b819ef92c54433e08034a\springdoc-openapi-starter-webmvc-api-2.0.2.jar
 C:\Users\User\.gradle\caches\modules-2\files-2.1\org.springdoc\springdoc-openapi-starter-common\2.0.2\5f668e69d620c56db3ba9689d48d6b64e42235b9\springdoc-openapi-starter-common-2.0.2.jar
 C:\Users\User\.gradle\caches\modules-2\files-2.1\io.swagger.core.v3\swagger-core-jakarta\2.2.7\9111d85fc116ad6ec9d5f6f54edf81c2740e52\swagger-core-jakarta-2.2.7.jar
+C:\Users\User\.gradle\caches\modules-2\files-2.1\org.springdoc\springdoc-openapi-webmvc-core\1.7.0\dda7c4a2bcddd4c6d47b6ed72c196f9234eb1b88\springdoc-openapi-webmvc-core-1.7.0.jar
+C:\Users\User\.gradle\caches\modules-2\files-2.1\org.springdoc\springdoc-openapi-common\1.7.0\dbee27b9a0334a572735c3ed62ffd11adce73a62\springdoc-openapi-common-1.7.0.jar
+C:\Users\User\.gradle\caches\modules-2\files-2.1\io.swagger.core.v3\swagger-core\2.2.9\b49209fa7b6924426fae10a8e682cd2123d3cd24\swagger-core-2.2.9.jar
 C:\Users\User\.gradle\caches\modules-2\files-2.1\org.slf4j\slf4j-api\2.0.5\3a759df277e854f7c4ca951e5899bcec0dbdca73\slf4j-api-2.0.5.jar
 C:\Users\User\.gradle\caches\modules-2\files-2.1\ch.qos.logback\logback-core\1.4.5\e9bb2ea70f84401314da4300343b0a246c8954da\logback-core-1.4.5.jar
 C:\Users\User\.gradle\caches\modules-2\files-2.1\com.fasterxml.jackson.datatype\jackson-datatype-jdk8\2.14.2\2f3c71211b6ea7a978eba33574d7135d536e07fb\jackson-datatype-jdk8-2.14.2.jar
@@ -39,6 +43,7 @@ C:\Users\User\.gradle\caches\modules-2\files-2.1\com.fasterxml.jackson.module\ja
 C:\Users\User\.gradle\caches\modules-2\files-2.1\com.fasterxml.jackson.dataformat\jackson-dataformat-yaml\2.14.2\cc9a25c1f4212562dcb2fa33dd8ae179ba0e6a4e\jackson-dataformat-yaml-2.14.2.jar
 C:\Users\User\.gradle\caches\modules-2\files-2.1\com.fasterxml.jackson.core\jackson-core\2.15.0\12f334a1dc9c6d2854c43ae314024dde8b3ad572\jackson-core-2.15.0.jar
 C:\Users\User\.gradle\caches\modules-2\files-2.1\io.swagger.core.v3\swagger-models-jakarta\2.2.7\b26a24f51b009fe77a0b4b4f67738a60aaff1aa2\swagger-models-jakarta-2.2.7.jar
+C:\Users\User\.gradle\caches\modules-2\files-2.1\io.swagger.core.v3\swagger-models\2.2.9\dd5d5aa8c1dff71ce30fe6181a66b1d62a1cf050\swagger-models-2.2.9.jar
 C:\Users\User\.gradle\caches\modules-2\files-2.1\com.fasterxml.jackson.core\jackson-annotations\2.15.0\89b0fd554928425a776a6e97ed010034312af21d\jackson-annotations-2.15.0.jar
 C:\Users\User\.gradle\caches\modules-2\files-2.1\com.fasterxml.jackson.core\jackson-databind\2.15.0\d41caa3a4e9f85382702a059a65c512f85ac230\jackson-databind-2.15.0.jar
 C:\Users\User\.gradle\caches\modules-2\files-2.1\org.projectlombok\lombok\1.18.26\8f8cf0372abf564913e9796623aac4c8ea44025a\lombok-1.18.26.jar
@@ -79,7 +84,7 @@ C:\Users\User\.gradle\caches\modules-2\files-2.1\io.github.resilience4j\resilien
 C:\Users\User\.gradle\caches\modules-2\files-2.1\io.github.resilience4j\resilience4j-circuitbreaker\2.0.2\8c7b613ecdce2554e510272b2c1c3c2737ec570d\resilience4j-circuitbreaker-2.0.2.jar
 C:\Users\User\.gradle\caches\modules-2\files-2.1\io.github.resilience4j\resilience4j-timelimiter\2.0.2\154f6158be27dd2a0c9d055aa92f80cb702a883b\resilience4j-timelimiter-2.0.2.jar
 C:\Users\User\.gradle\caches\modules-2\files-2.1\io.github.resilience4j\resilience4j-reactor\2.0.2\4a56619bfe400d0778ac173f3c77c75c2bc8fdbc\resilience4j-reactor-2.0.2.jar
-C:\Users\User\.gradle\caches\modules-2\files-2.1\org.webjars\swagger-ui\4.15.5\fc283d7a6d93c58fb466766eef4b8110c57639ea\swagger-ui-4.15.5.jar
+C:\Users\User\.gradle\caches\modules-2\files-2.1\org.webjars\swagger-ui\4.18.2\2347d066b71cd3d20789b6d143829680b3123d81\swagger-ui-4.18.2.jar
 C:\Users\User\.gradle\caches\modules-2\files-2.1\io.github.classgraph\classgraph\4.8.149\4bc2f188bc9001473d4a26ac488c2ae1a3e906de\classgraph-4.8.149.jar
 C:\Users\User\.gradle\caches\modules-2\files-2.1\ch.randelshofer\fastdoubleparser\0.8.0\85c25540369921659556ead85e02c99ef0d24280\fastdoubleparser-0.8.0.jar
 C:\Users\User\.gradle\caches\modules-2\files-2.1\org.springframework\spring-orm\6.0.5\82e5d0afe235807b25e92c7bf5054bcd7206f34d\spring-orm-6.0.5.jar
@@ -140,4 +145,5 @@ C:\Users\User\.gradle\caches\modules-2\files-2.1\io.github.resilience4j\resilien
 C:\Users\User\.gradle\caches\modules-2\files-2.1\org.apache.commons\commons-lang3\3.12.0\c6842c86792ff03b9f1d1fe2aab8dc23aa6c6f0e\commons-lang3-3.12.0.jar
 C:\Users\User\.gradle\caches\modules-2\files-2.1\io.swagger.core.v3\swagger-annotations-jakarta\2.2.7\1629437bff242e019f5fbac9b27dddd6df47a23b\swagger-annotations-jakarta-2.2.7.jar
 C:\Users\User\.gradle\caches\modules-2\files-2.1\jakarta.xml.bind\jakarta.xml.bind-api\4.0.0\bbb399208d288b15ec101fa4fcfc4bd77cedc97a\jakarta.xml.bind-api-4.0.0.jar
+C:\Users\User\.gradle\caches\modules-2\files-2.1\io.swagger.core.v3\swagger-annotations\2.2.9\ecaaa83ab7f8aacdaad502e7085e2c841c718f34\swagger-annotations-2.2.9.jar
 C:\Users\User\.gradle\caches\modules-2\files-2.1\jakarta.activation\jakarta.activation-api\2.1.1\88c774ab863a21fb2fc4219af95379fafe499a31\jakarta.activation-api-2.1.1.jar

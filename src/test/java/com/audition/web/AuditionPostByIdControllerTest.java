@@ -1,0 +1,154 @@
+package com.audition.web;
+
+import com.audition.model.AuditionPost;
+import com.audition.service.IAuditionPostService;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.http.MediaType;
+import org.springframework.test.web.servlet.MockMvc;
+
+import java.util.ArrayList;
+
+import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
+@SuppressWarnings("PMD")
+@WebMvcTest(controllers = AuditionPostsController.class, excludeAutoConfiguration = SecurityAutoConfiguration.class)
+public class AuditionPostByIdControllerTest {
+
+    @Autowired
+    private transient MockMvc mockMvc;
+
+    @MockBean
+    private IAuditionPostService auditionPostService;
+
+    private static final String POSTS_URL = "/posts";
+    private static final String APPLICATION_JSON = MediaType.APPLICATION_JSON_VALUE;
+    private static final String APPLICATION_PROBLEM_JSON = MediaType.APPLICATION_PROBLEM_JSON_VALUE;
+    private static final int DEFAULT_PAGE = 0;
+    private static final int DEFAULT_PAGE_SIZE = 100;
+
+    // Constants for repeated strings
+    private static final String POST_NOT_FOUND_MESSAGE = "Post not found";
+    private static final String PAGE_NOT_FOUND_MESSAGE = "Page not found";
+    private static final String INVALID_ID_MESSAGE = "Failed to convert 'id' with value: '%s'";
+    private static final String INTERNAL_SERVER_ERROR_MESSAGE = "An unexpected error occurred";
+    private static final String BAD_REQUEST_MESSAGE = "Bad Request";
+
+    private AuditionPost createSamplePost(int id, String title, String body) {
+        AuditionPost post = new AuditionPost();
+        post.setId(id);
+        post.setTitle(title);
+        post.setUserId(1); // Assume a user ID for testing
+        post.setBody(body);
+        post.setAuditionComments(new ArrayList<>());
+        return post;
+    }
+
+    @Test
+    void shouldReturnPost_WhenValidIdIsProvided() throws Exception {
+        AuditionPost post = createSamplePost(1, "Sample Post", "Random body");
+
+        when(auditionPostService.getPostById(1, false, DEFAULT_PAGE, DEFAULT_PAGE_SIZE)).thenReturn(post);
+
+        mockMvc.perform(get(POSTS_URL + "/1").accept(APPLICATION_JSON))
+                .andExpect(jsonPath("$.id").value(1))
+                .andExpect(jsonPath("$.title").value("Sample Post"))
+                .andExpect(jsonPath("$.body").value("Random body"))
+                .andExpect(status().isOk()); // Expect 200 OK
+    }
+
+    @Test
+    public void shouldReturn204_WhenPostNotFound() throws Exception {
+        when(auditionPostService.getPostById(999, false, DEFAULT_PAGE, DEFAULT_PAGE_SIZE)).thenReturn(null);
+
+        mockMvc.perform(get(POSTS_URL + "/999"))
+                .andExpect(status().isNoContent())
+                .andExpect(content().contentType(APPLICATION_JSON))
+                .andExpect(jsonPath("$.message").value(PAGE_NOT_FOUND_MESSAGE));
+    }
+
+    @Test
+    public void shouldReturn400_WhenInvalidIdFormatIsProvided() throws Exception {
+        mockMvc.perform(get(POSTS_URL + "/abc"))
+                .andExpect(status().isBadRequest())
+                .andExpect(content().contentType(APPLICATION_PROBLEM_JSON))
+                .andExpect(jsonPath("$.title").value(BAD_REQUEST_MESSAGE))
+                .andExpect(jsonPath("$.status").value(400))
+                .andExpect(jsonPath("$.detail").value(String.format(INVALID_ID_MESSAGE, "abc")));
+    }
+
+    @Test
+    public void shouldReturn500_WhenServerErrorOccurs() throws Exception {
+        when(auditionPostService.getPostById(1, false, DEFAULT_PAGE, DEFAULT_PAGE_SIZE)).thenThrow(new RuntimeException("Database connectivity issue"));
+
+        mockMvc.perform(get(POSTS_URL + "/1"))
+                .andExpect(status().isInternalServerError())
+                .andExpect(content().contentType(APPLICATION_PROBLEM_JSON))
+                .andExpect(jsonPath("$.title").value("Internal Server Error"))
+                .andExpect(jsonPath("$.status").value(500))
+                .andExpect(jsonPath("$.detail").value(INTERNAL_SERVER_ERROR_MESSAGE));
+    }
+
+    @Test
+    void shouldReturnPostWithCommentsWhenPostExists() throws Exception {
+        int postId = 1;
+        AuditionPost post = createSamplePost(postId, "Sample Title", "Random body");
+
+        when(auditionPostService.getPostById(postId, true, DEFAULT_PAGE, DEFAULT_PAGE_SIZE)).thenReturn(post);
+
+        mockMvc.perform(get(POSTS_URL + "/{id}/comments", postId))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(APPLICATION_JSON))
+                .andExpect(jsonPath("$.id").value(postId))
+                .andExpect(jsonPath("$.title").value("Sample Title"));
+    }
+
+    @Test
+    void shouldReturnNotFoundWhenPostDoesNotExist() throws Exception {
+        int postId = 999; // Non-existent post ID
+        when(auditionPostService.getPostById(postId, true, DEFAULT_PAGE, DEFAULT_PAGE_SIZE)).thenReturn(null);
+
+        mockMvc.perform(get(POSTS_URL + "/{id}/comments", postId))
+                .andExpect(status().isNotFound())
+                .andExpect(content().contentType(APPLICATION_JSON))
+                .andExpect(jsonPath("$.message").value(POST_NOT_FOUND_MESSAGE));
+    }
+
+    @Test
+    void shouldReturnBadRequestWhenPostIdIsNegative() throws Exception {
+        mockMvc.perform(get(POSTS_URL + "/{id}/comments", -1))
+                .andExpect(status().isBadRequest())
+                .andExpect(content().contentType(APPLICATION_PROBLEM_JSON))
+                .andExpect(jsonPath("$.status").value(400))
+                .andExpect(jsonPath("$.detail").value("getPostWithComments.postId: must be greater than 0"));
+    }
+
+    @Test
+    void shouldHandleServiceExceptionGracefully() throws Exception {
+        int postId = 1;
+        when(auditionPostService.getPostById(postId, true, DEFAULT_PAGE, DEFAULT_PAGE_SIZE)).thenThrow(new RuntimeException("Database connectivity issue"));
+
+        mockMvc.perform(get(POSTS_URL + "/{id}/comments", postId))
+                .andExpect(status().isInternalServerError())
+                .andExpect(content().contentType(APPLICATION_PROBLEM_JSON))
+                .andExpect(jsonPath("$.title").value("Internal Server Error"))
+                .andExpect(jsonPath("$.status").value(500))
+                .andExpect(jsonPath("$.detail").value(INTERNAL_SERVER_ERROR_MESSAGE));
+    }
+
+    @Test
+    void shouldReturnBadRequestWhenInvalidPostIdFormat() throws Exception {
+        mockMvc.perform(get(POSTS_URL + "/{id}/comments", "invalidId"))
+                .andExpect(status().isBadRequest())
+                .andExpect(content().contentType(APPLICATION_PROBLEM_JSON))
+                .andExpect(jsonPath("$.status").value(400))
+                .andExpect(jsonPath("$.detail").value(String.format(INVALID_ID_MESSAGE, "invalidId")));
+    }
+}

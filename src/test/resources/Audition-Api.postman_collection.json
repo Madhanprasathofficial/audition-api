@@ -550,6 +550,27 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "getApiDocumentation",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/v3/api-docs",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v3",
+						"api-docs"
+					]
+				}
+			},
+			"response": []
 		}
 	]
 }

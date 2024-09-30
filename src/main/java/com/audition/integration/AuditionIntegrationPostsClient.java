@@ -21,12 +21,12 @@ public class AuditionIntegrationPostsClient implements IAuditionIntegrationPosts
 
     private final transient RestTemplate restTemplate = new RestTemplate();
     private final transient IIntegrationUrlService integrationUrlService;
-    private final transient IAuditionIntegrationCommentsClient iAuditionIntegrationCommentsClient;
+    private final transient IAuditionIntegrationCommentsClient auditionIntegrationCommentsClient;
 
-    public AuditionIntegrationPostsClient(final IAuditionIntegrationCommentsClient iAuditionIntegrationCommentsClient,
+    public AuditionIntegrationPostsClient(final IAuditionIntegrationCommentsClient auditionIntegrationCommentsClient,
                                           final IIntegrationUrlService integrationUrlService) {
 
-        this.iAuditionIntegrationCommentsClient = iAuditionIntegrationCommentsClient;
+        this.auditionIntegrationCommentsClient = auditionIntegrationCommentsClient;
         this.integrationUrlService = integrationUrlService;
     }
 
@@ -40,8 +40,8 @@ public class AuditionIntegrationPostsClient implements IAuditionIntegrationPosts
      */
     @Override
     public List<AuditionPost> getPosts(final Integer userId, final Integer page, final Integer size) {
-        String url = integrationUrlService.getPostsUrl(userId, page, size);
-        ResponseEntity<AuditionPost[]> responseEntity = restTemplate.getForEntity(url, AuditionPost[].class);
+        final String url = integrationUrlService.getPostsUrl(userId, page, size);
+        final ResponseEntity<AuditionPost[]> responseEntity = restTemplate.getForEntity(url, AuditionPost[].class);
 
         // Safely return an empty list if the response body is null
         return Optional.ofNullable(responseEntity.getBody())
@@ -62,12 +62,12 @@ public class AuditionIntegrationPostsClient implements IAuditionIntegrationPosts
      */
     @Override
     public AuditionPost getPostById(final Integer id, final boolean loadComments, final Integer page, final Integer size) {
-        String postUrl = integrationUrlService.getPostByIdUrl(id);
-        ResponseEntity<AuditionPost> responseEntity = restTemplate.getForEntity(postUrl, AuditionPost.class);
-        AuditionPost auditionPost = responseEntity.getBody();
+        final String postUrl = integrationUrlService.getPostByIdUrl(id);
+        final ResponseEntity<AuditionPost> responseEntity = restTemplate.getForEntity(postUrl, AuditionPost.class);
+        final AuditionPost auditionPost = responseEntity.getBody();
 
         if (loadComments && Objects.nonNull(auditionPost)) {
-            auditionPost.setAuditionComments(iAuditionIntegrationCommentsClient.getComments(auditionPost.getId(), page, size));
+            auditionPost.setAuditionComments(auditionIntegrationCommentsClient.getComments(auditionPost.getId(), page, size));
         }
         return auditionPost;
     }

@@ -19,6 +19,10 @@ import java.text.SimpleDateFormat;
 import java.util.Collections;
 import java.util.Locale;
 
+/**
+ * Configuration for web services.
+ * This class configures the RestTemplate and ObjectMapper used in the application.
+ */
 @Configuration
 public class WebServiceConfiguration implements WebMvcConfigurer {
 
@@ -27,12 +31,23 @@ public class WebServiceConfiguration implements WebMvcConfigurer {
     private final transient RestTemplateRequestResponseLoggingInterceptor loggingInterceptor;
     private final transient RestTemplateResponseErrorHandler responseErrorHandler;
 
+    /**
+     * Constructor for WebServiceConfiguration.
+     *
+     * @param loggingInterceptor    the logging interceptor for RestTemplate
+     * @param responseErrorHandler   the error handler for RestTemplate responses
+     */
     public WebServiceConfiguration(final RestTemplateRequestResponseLoggingInterceptor loggingInterceptor,
                                    final RestTemplateResponseErrorHandler responseErrorHandler) {
         this.loggingInterceptor = loggingInterceptor;
         this.responseErrorHandler = responseErrorHandler;
     }
 
+    /**
+     * Configures the ObjectMapper for JSON serialization and deserialization.
+     *
+     * @return a configured ObjectMapper instance
+     */
     @Bean
     public ObjectMapper objectMapper() {
         return new ObjectMapper()
@@ -43,6 +58,11 @@ public class WebServiceConfiguration implements WebMvcConfigurer {
                 .setSerializationInclusion(JsonInclude.Include.NON_EMPTY);
     }
 
+    /**
+     * Configures the RestTemplate with custom message converters, interceptors, and error handlers.
+     *
+     * @return a configured RestTemplate instance
+     */
     @Bean
     public RestTemplate restTemplate() {
         final RestTemplate restTemplate = new RestTemplate(
@@ -53,7 +73,7 @@ public class WebServiceConfiguration implements WebMvcConfigurer {
         messageConverter.setObjectMapper(objectMapper());
         messageConverter.setSupportedMediaTypes(Collections.singletonList(MediaType.APPLICATION_JSON));
 
-        // Replace default Jackson message converter with custom one
+        // Replace default Jackson message converter with the custom one
         restTemplate.getMessageConverters().removeIf(converter -> converter instanceof MappingJackson2HttpMessageConverter);
         restTemplate.getMessageConverters().add(messageConverter);
 
@@ -64,8 +84,13 @@ public class WebServiceConfiguration implements WebMvcConfigurer {
         return restTemplate;
     }
 
+    /**
+     * Creates a SimpleClientHttpRequestFactory with streaming disabled.
+     *
+     * @return a configured SimpleClientHttpRequestFactory instance
+     */
     private SimpleClientHttpRequestFactory createClientFactory() {
-        SimpleClientHttpRequestFactory requestFactory = new SimpleClientHttpRequestFactory();
+        final SimpleClientHttpRequestFactory requestFactory = new SimpleClientHttpRequestFactory();
         requestFactory.setOutputStreaming(false);
         return requestFactory;
     }

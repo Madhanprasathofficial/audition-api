@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>AuditionComment.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">audition-api</a> &gt; <a href="index.source.html" class="el_package">com.audition.model</a> &gt; <span class="el_source">AuditionComment.java</span></div><h1>AuditionComment.java</h1><pre class="source lang-java linenums">package com.audition.model;
+
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Positive;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+/**
+ * Represents a comment for an audition post.
+ */
+@Getter
+<span class="fc" id="L15">@Setter</span>
+<span class="fc" id="L16">@NoArgsConstructor</span>
+<span class="fc" id="L17">@AllArgsConstructor</span>
+public class AuditionComment {
+
+    @Positive(message = &quot;Post ID must be positive.&quot;)
+<span class="fc" id="L21">    private int postId;</span>
+
+    @Positive(message = &quot;Comment ID must be positive.&quot;)
+<span class="fc" id="L24">    private int id;</span>
+
+    @NotBlank(message = &quot;Name cannot be blank.&quot;)
+<span class="fc" id="L27">    private String name;</span>
+
+    @NotBlank(message = &quot;Email cannot be blank.&quot;)
+    @Email(message = &quot;Email should be valid.&quot;)
+<span class="fc" id="L31">    private String email;</span>
+
+    @NotBlank(message = &quot;Body cannot be blank.&quot;)
+<span class="fc" id="L34">    private String body;</span>
+
+    @Override
+    public String toString() {
+<span class="fc" id="L38">        return &quot;AuditionComment{&quot;</span>
+                + &quot;postId=&quot; + postId
+                + &quot;, id=&quot; + id
+                + &quot;, name='&quot; + name + '\''
+                + &quot;, email='&quot; + email + '\''
+                + &quot;, body='&quot; + body + '\''
+                + '}';
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

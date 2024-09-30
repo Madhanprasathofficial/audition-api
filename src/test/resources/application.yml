@@ -7,5 +7,6 @@ spring:
 application:
   config:
     baseUrl: https://auditionapi.wiremockapi.cloud
-    auditionPosts: /posts
-    auditionComments: /comments
+    interceptor:
+      logRequest: true              # Enable logging of requests
+      logResponse: true

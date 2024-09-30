@@ -16,10 +16,23 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Locale;
+import java.util.Objects;
+import java.util.Optional;
 
+
+/**
+ * Posts Controller to handle requests related to audition posts.
+ */
 @Tag(name = "Posts Controller", description = "APIs for retrieving posts and comments.")
 @RestController
 @Validated
@@ -30,46 +43,46 @@ public class AuditionPostsController {
     private static final String DEFAULT_PAGE_SIZE = "100";
     private static final long MAX_PAGE_SIZE = 100L;
 
-    private final IAuditionPostService iAuditionPostService;
-    private final AuditionLogger auditionLogger;
-    private final Logger logger = LoggerFactory.getLogger(AuditionPostsController.class);
+    private final transient IAuditionPostService auditionPostService;
+    private final transient AuditionLogger auditionLogger;
+    private static final Logger COMMENTS_LOGGER  = LoggerFactory.getLogger(AuditionPostsController.class);
 
-    public AuditionPostsController(final IAuditionPostService iAuditionPostService, AuditionLogger auditionLogger) {
-        this.iAuditionPostService = iAuditionPostService;
+    public AuditionPostsController(final IAuditionPostService auditionPostService, final AuditionLogger auditionLogger) {
+        this.auditionPostService = auditionPostService;
         this.auditionLogger = auditionLogger;
     }
 
     @Operation(summary = "Get all posts", description = "Retrieve all posts with optional filtering by user ID and title.")
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    @SuppressWarnings({})
     public ResponseEntity<List<AuditionPost>> getPosts(
             @RequestParam(required = false, defaultValue = DEFAULT_PAGE)
-            @Min(0) Integer page,
+            @Min(0) final Integer page,
             @RequestParam(required = false, defaultValue = DEFAULT_PAGE_SIZE)
-            @Positive @Max(MAX_PAGE_SIZE) Integer size,
-            @RequestParam(required = false) Integer userId,
-            @RequestParam(required = false) Optional<String> title) {
+            @Positive @Max(MAX_PAGE_SIZE) final Integer size,
+            @RequestParam(required = false) final Integer userId,
+            @RequestParam(required = false) final Optional<String> title) {
 
-        auditionLogger.info(logger, "Received request to get posts with userId: {}", userId);
 
         // Validate userId
         if (userId != null && userId <= 0) {
-            List<AuditionPost> errorResponse = new ArrayList<>();
+            final List<AuditionPost> errorResponse = new ArrayList<>();
             errorResponse.add(new AuditionPost(0, 0, "Invalid User ID", "User ID must be positive", Collections.emptyList()));
-            auditionLogger.warn(logger, "Invalid userId provided: {}", userId);
+            auditionLogger.warn(COMMENTS_LOGGER, "Invalid userId provided: {}", userId);
             return ResponseEntity.badRequest().body(errorResponse);
         }
 
         // Fetch posts from the service layer with pagination and optional filtering
-        List<AuditionPost> posts = iAuditionPostService.getPosts(userId, page, size);
-        String filterTitle = title.map(String::toLowerCase).orElse("");
+        List<AuditionPost> posts = auditionPostService.getPosts(userId, page, size);
+        final String filterTitle = title.map(String::toLowerCase).orElse("");
         if (!filterTitle.isEmpty()) {
             posts = posts.stream()
-                    .filter(post -> post.getTitle() != null &&
-                            post.getTitle().toLowerCase().contains(filterTitle))
+                    .filter(post -> post.getTitle() != null
+                            && post.getTitle().toLowerCase(Locale.ENGLISH).contains(filterTitle))
                     .toList();
         }
-
-        auditionLogger.info(logger, "Successfully retrieved {} posts", posts.size());
+        
+        auditionLogger.debug(COMMENTS_LOGGER, "Successfully retrieved posts");
         return ResponseEntity.ok(posts);
     }
 
@@ -77,13 +90,13 @@ public class AuditionPostsController {
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> getPostById(
             @Parameter(description = "ID of the post")
-            @PathVariable("id") @Positive Integer postId) {
+            @PathVariable("id") @Positive final Integer postId) {
 
-        auditionLogger.info(logger, "Received request to get post by ID: {}", postId);
-        AuditionPost post = iAuditionPostService.getPostById(postId, false, Integer.parseInt(DEFAULT_PAGE), Integer.parseInt(DEFAULT_PAGE_SIZE));
+        auditionLogger.info(COMMENTS_LOGGER, "Received request to get post by ID: {}", postId);
+        final AuditionPost post = auditionPostService.getPostById(postId, false, Integer.parseInt(DEFAULT_PAGE), Integer.parseInt(DEFAULT_PAGE_SIZE));
 
-        return (Objects.isNull(post)) ?
-                ResponseEntity.status(HttpStatus.NO_CONTENT)
+        return Objects.isNull(post)
+                ? ResponseEntity.status(HttpStatus.NO_CONTENT)
                         .contentType(MediaType.APPLICATION_JSON)
                         .body(new ErrorResponse("Page not found")) :
                 ResponseEntity.ok(post);
@@ -93,17 +106,17 @@ public class AuditionPostsController {
     @GetMapping(value = "/{id}/comments", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> getPostWithComments(
             @Parameter(description = "ID of the post")
-            @PathVariable("id") @Positive Integer postId,
+            @PathVariable("id") @Positive final Integer postId,
             @RequestParam(required = false, defaultValue = DEFAULT_PAGE)
-            @Min(0) Integer page,
+            @Min(0) final Integer page,
             @RequestParam(required = false, defaultValue = DEFAULT_PAGE_SIZE)
-            @Positive @Max(MAX_PAGE_SIZE) Integer size) {
+            @Positive @Max(MAX_PAGE_SIZE) final Integer size) {
 
-        auditionLogger.info(logger, "Received request to get post with comments for post ID: {}", postId);
-        AuditionPost postWithComments = iAuditionPostService.getPostById(postId, true, page, size);
+        auditionLogger.info(COMMENTS_LOGGER, "Received request to get post with comments for post ID: {}", postId);
+        final AuditionPost postWithComments = auditionPostService.getPostById(postId, true, page, size);
 
-        return Objects.isNull(postWithComments) ?
-                ResponseEntity.status(HttpStatus.NOT_FOUND)
+        return Objects.isNull(postWithComments)
+                ? ResponseEntity.status(HttpStatus.NOT_FOUND)
                         .body(new ErrorResponse("Post not found")) :
                 ResponseEntity.ok(postWithComments);
     }

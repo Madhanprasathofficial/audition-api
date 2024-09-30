@@ -14,11 +14,15 @@ import java.util.List;
 @Service
 public class AuditionPostServiceImpl implements IAuditionPostService {
 
-    private final transient IAuditionIntegrationPostsClient iAuditionIntegrationPostsClient;
+    private final transient IAuditionIntegrationPostsClient auditionIntegrationPostsClient;
 
-    // Constructor to initialize the integration client
-    public AuditionPostServiceImpl(final IAuditionIntegrationPostsClient iAuditionIntegrationPostsClient) {
-        this.iAuditionIntegrationPostsClient = iAuditionIntegrationPostsClient;
+    /**
+     * Constructor to initialize the integration client.
+     *
+     * @param auditionIntegrationPostsClient the client used to communicate with the post service
+     */
+    public AuditionPostServiceImpl(final IAuditionIntegrationPostsClient auditionIntegrationPostsClient) {
+        this.auditionIntegrationPostsClient = auditionIntegrationPostsClient;
     }
 
     /**
@@ -31,10 +35,10 @@ public class AuditionPostServiceImpl implements IAuditionPostService {
      */
     @Override
     public List<AuditionPost> getPosts(
-            Integer userId,
-            @Min(0) Integer page,
-            @Positive Integer size) {
-        return iAuditionIntegrationPostsClient.getPosts(userId, page, size);
+            final Integer userId,
+            @Min(0) final Integer page,
+            @Positive final Integer size) {
+        return auditionIntegrationPostsClient.getPosts(userId, page, size);
     }
 
     /**
@@ -48,10 +52,10 @@ public class AuditionPostServiceImpl implements IAuditionPostService {
      */
     @Override
     public AuditionPost getPostById(
-            Integer postId,
-            boolean includeComments,
-            Integer page,
-            Integer size) {
-        return iAuditionIntegrationPostsClient.getPostById(postId, includeComments, page, size);
+            final Integer postId,
+            final boolean includeComments,
+            final Integer page,
+            final Integer size) {
+        return auditionIntegrationPostsClient.getPostById(postId, includeComments, page, size);
     }
 }

@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>AuditionLogger.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">audition-api</a> &gt; <a href="index.source.html" class="el_package">com.audition.common.logging</a> &gt; <span class="el_source">AuditionLogger.java</span></div><h1>AuditionLogger.java</h1><pre class="source lang-java linenums">package com.audition.common.logging;
+
+import org.slf4j.Logger;
+import org.springframework.http.ProblemDetail;
+import org.springframework.stereotype.Component;
+
+/**
+ * Custom logger class for handling logging operations with different log levels.
+ * This class encapsulates the SLF4J logger and provides methods for logging
+ * messages, errors, and standard problem details.
+ */
+@Component
+<span class="fc" id="L13">public class AuditionLogger {</span>
+
+    /**
+     * Logs an info message if the logger is enabled for info level.
+     *
+     * @param logger  The SLF4J logger instance
+     * @param message The message to log
+     */
+    public void info(final Logger logger, final String message) {
+<span class="fc bfc" id="L22" title="All 2 branches covered.">        if (logger.isInfoEnabled()) {</span>
+<span class="fc" id="L23">            logger.info(message);</span>
+        }
+<span class="fc" id="L25">    }</span>
+
+    /**
+     * Logs an info message with an associated object if the logger is enabled for info level.
+     *
+     * @param logger  The SLF4J logger instance
+     * @param message The message to log
+     * @param object  The object to log with the message
+     */
+    public void info(final Logger logger, final String message, final Object object) {
+<span class="pc bpc" id="L35" title="1 of 2 branches missed.">        if (logger.isInfoEnabled()) {</span>
+<span class="fc" id="L36">            logger.info(message, object);</span>
+        }
+<span class="fc" id="L38">    }</span>
+
+    /**
+     * Logs a debug message if the logger is enabled for debug level.
+     *
+     * @param logger  The SLF4J logger instance
+     * @param message The message to log
+     */
+    public void debug(final Logger logger, final String message) {
+<span class="pc bpc" id="L47" title="1 of 2 branches missed.">        if (logger.isDebugEnabled()) {</span>
+<span class="nc" id="L48">            logger.debug(message);</span>
+        }
+<span class="fc" id="L50">    }</span>
+
+    /**
+     * Logs a warning message with associated parameters if the logger is enabled for warn level.
+     *
+     * @param logger  The SLF4J logger instance
+     * @param message The message to log
+     * @param params  The parameters to log with the message
+     */
+    public void warn(final Logger logger, final String message, final Object... params) {
+<span class="pc bpc" id="L60" title="1 of 2 branches missed.">        if (logger.isWarnEnabled()) {</span>
+<span class="fc" id="L61">            logger.warn(message, params);</span>
+        }
+<span class="fc" id="L63">    }</span>
+
+    /**
+     * Logs an error message if the logger is enabled for error level.
+     *
+     * @param logger  The SLF4J logger instance
+     * @param message The message to log
+     */
+    public void error(final Logger logger, final String message) {
+<span class="nc bnc" id="L72" title="All 2 branches missed.">        if (logger.isErrorEnabled()) {</span>
+<span class="nc" id="L73">            logger.error(message);</span>
+        }
+<span class="nc" id="L75">    }</span>
+
+    /**
+     * Logs an error message with an associated exception if the logger is enabled for error level.
+     *
+     * @param logger  The SLF4J logger instance
+     * @param message The message to log
+     * @param e       The exception to log with the message
+     */
+    public void logErrorWithException(final Logger logger, final String message, final Exception e) {
+<span class="nc bnc" id="L85" title="All 2 branches missed.">        if (logger.isErrorEnabled()) {</span>
+<span class="nc" id="L86">            logger.error(message, e);</span>
+        }
+<span class="nc" id="L88">    }</span>
+
+    /**
+     * Logs a standard problem detail message with an associated exception if the logger is enabled for error level.
+     *
+     * @param logger        The SLF4J logger instance
+     * @param problemDetail The problem detail to log
+     * @param e            The exception to log with the message
+     */
+    public void logStandardProblemDetail(final Logger logger, final ProblemDetail problemDetail, final Exception e) {
+<span class="pc bpc" id="L98" title="1 of 2 branches missed.">        if (logger.isErrorEnabled()) {</span>
+<span class="fc" id="L99">            final var message = createStandardProblemDetailMessage(problemDetail);</span>
+<span class="fc" id="L100">            logger.error(message, e);</span>
+        }
+<span class="fc" id="L102">    }</span>
+
+    /**
+     * Logs an error message with an HTTP status code if the logger is enabled for error level.
+     *
+     * @param logger    The SLF4J logger instance
+     * @param message   The message to log
+     * @param errorCode The HTTP error code to log
+     */
+    public void logHttpStatusCodeError(final Logger logger, final String message, final Integer errorCode) {
+<span class="nc bnc" id="L112" title="All 2 branches missed.">        if (logger.isErrorEnabled()) {</span>
+<span class="nc" id="L113">            logger.error(createBasicErrorResponseMessage(errorCode, message));</span>
+        }
+<span class="nc" id="L115">    }</span>
+
+    /**
+     * Creates a standard problem detail message from the given ProblemDetail.
+     *
+     * @param standardProblemDetail The ProblemDetail object to convert to a string
+     * @return The string representation of the ProblemDetail
+     */
+    private String createStandardProblemDetailMessage(final ProblemDetail standardProblemDetail) {
+<span class="fc" id="L124">        return standardProblemDetail.toString();</span>
+    }
+
+    /**
+     * Creates a basic error response message using the provided error code and message.
+     *
+     * @param errorCode The error code to include in the message
+     * @param message   The message to include in the error response
+     * @return A formatted string containing the error code and message
+     */
+    private String createBasicErrorResponseMessage(final Integer errorCode, final String message) {
+<span class="nc" id="L135">        return String.format(&quot;%d - %s&quot;, errorCode, message);</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

@@ -102,14 +102,14 @@ Import the [Audition-Api.postman_collection.json](src%2Ftest%2Fresources%2FAudit
 
 Under /build
 
-| Report          | Path         |
-|-----------------|--------------|
-| Jacoco          | In-Progress  | 
-| CheckStyle main | In-Progress  |
-| CheckStyle test | In-Progress  |
-| PMD Main        | In-Progress  |
-| PMD Test        | In-Progress  |
-| SpotBug         | In-Progress  |
+| Report          | Path                            |
+|-----------------|---------------------------------|
+| Jacoco          | /jacocoHtml/index.html          |
+| CheckStyle main | /reports/checkstyle/main.html   |
+| CheckStyle test | /reports/checkstyle/test.html   |
+| PMD Main        | /reports/pmd/main.html          |
+| PMD Test        | /reports/pmd/test.html          |
+| SpotBug         | /reports/spotbugs/spotbugs.html |
 
 ## Application Run
 
@@ -119,7 +119,7 @@ java -jar build/libs/audition-api-0.0.1-SNAPSHOT.jar
 
 ### Notes
 
-Basic auth has been added to *protect* the endpoint for `/actuator/`, 
+Basic auth has been added to *protect* the endpoint for `management/actuator/`, 
 
 User defined in [application.yml](src%2Fmain%2Fresources%2Fapplication.yml)[application.yml] and
 security configured in [WebSecurity.java](src%2Fmain%2Fjava%2Fcom%2Faudition%2Fconfiguration%2FWebSecurity.java)

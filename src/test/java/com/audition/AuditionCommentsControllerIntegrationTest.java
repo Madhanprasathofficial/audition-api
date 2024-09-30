@@ -12,48 +12,39 @@ import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;
 import org.springframework.test.web.servlet.MockMvc;
 
-import static com.github.tomakehurst.wiremock.client.WireMock.*;
+import static com.github.tomakehurst.wiremock.client.WireMock.aResponse;
+import static com.github.tomakehurst.wiremock.client.WireMock.equalTo;
+import static com.github.tomakehurst.wiremock.client.WireMock.urlPathEqualTo;
 import static com.github.tomakehurst.wiremock.core.WireMockConfiguration.wireMockConfig;
 import static org.hamcrest.CoreMatchers.is;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-/**
- * Integration tests for the AuditionCommentsController.
- *
- * This class tests the functionality of the comments API for retrieving comments
- * associated with specific posts and individual comments.
- */
+@SuppressWarnings("PMD")
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @AutoConfigureMockMvc
-public class AuditionCommentsControllerIntegrationTest {
+ class AuditionCommentsControllerIntegrationTest {
 
     @Autowired
-    protected MockMvc mockMvc;
+    protected transient MockMvc mockMvc;
 
     @RegisterExtension
-    static WireMockExtension wireMockServer = WireMockExtension.newInstance()
-            .options(wireMockConfig().dynamicPort())
-            .build();
+    static final WireMockExtension wireMockServer = WireMockExtension.newInstance()
+            .options(wireMockConfig().dynamicPort()).build();
 
     private static final String COMMENTS_ENDPOINT = "/comments";
     private static final String POST_ID_PARAM = "postId";
     private static final String START_PARAM = "_start";
     private static final String LIMIT_PARAM = "_limit";
-    private static final int DEFAULT_START = 0; // Default starting index for pagination
-    private static final int DEFAULT_LIMIT = 100; // Default limit for number of results
+    private static final int DEFAULT_START = 0;
+    private static final int DEFAULT_LIMIT = 100;
 
     @DynamicPropertySource
     static void configureProperties(DynamicPropertyRegistry registry) {
         registry.add("application.config.baseUrl", wireMockServer::baseUrl);
     }
 
-    /**
-     * Tests that comments for a given post ID are returned successfully.
-     *
-     * @throws Exception if the request fails
-     */
     @Test
     void shouldReturnCommentsForPostId() throws Exception {
         Integer postId = 1;
@@ -70,11 +61,6 @@ public class AuditionCommentsControllerIntegrationTest {
                 .andExpect(jsonPath("$[0].name", is("id labore ex et quam laborum")));
     }
 
-    /**
-     * Tests that an individual comment can be retrieved by post ID.
-     *
-     * @throws Exception if the request fails
-     */
     @Test
     void shouldReturnCommentId() throws Exception {
         Integer postId = 1;
@@ -88,12 +74,6 @@ public class AuditionCommentsControllerIntegrationTest {
                 .andExpect(jsonPath("$.name", is("id labore ex et quam laborum")));
     }
 
-    /**
-     * Stubs the WireMock server to return a list of comments for a given post ID.
-     *
-     * @param postId      the ID of the post to retrieve comments for
-     * @param responseType the filename of the stubbed response body
-     */
     public static void stubGetAuditionCommentsForPost(Integer postId, String responseType) {
         wireMockServer.stubFor(WireMock.get(urlPathEqualTo(COMMENTS_ENDPOINT))
                 .withQueryParam(POST_ID_PARAM, equalTo(postId.toString()))
@@ -105,12 +85,6 @@ public class AuditionCommentsControllerIntegrationTest {
                         .withBodyFile(responseType)));
     }
 
-    /**
-     * Stubs the WireMock server to return an individual comment by its post ID.
-     *
-     * @param postId      the ID of the post to retrieve the comment for
-     * @param responseType the filename of the stubbed response body
-     */
     public static void stubGetAuditionCommentId(Integer postId, String responseType) {
         wireMockServer.stubFor(WireMock.get(urlPathEqualTo(COMMENTS_ENDPOINT + "/" + postId))
                 .willReturn(aResponse()

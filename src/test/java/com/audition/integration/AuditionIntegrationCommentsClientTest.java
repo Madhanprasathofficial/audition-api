@@ -4,14 +4,15 @@ import com.audition.BaseTest;
 import com.audition.model.AuditionComment;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
-public class AuditionIntegrationCommentsClientTest extends BaseTest {
+
+ class AuditionIntegrationCommentsClientTest extends BaseTest {
 
     private static final String BASE_URL = "https://jsonplaceholder.typicode.com/comments";
     private static final int EXPECTED_COMMENTS_SIZE = 500;
@@ -33,14 +34,14 @@ public class AuditionIntegrationCommentsClientTest extends BaseTest {
     @Test
     void shouldGetCommentsGetComments() {
         // Given
-        int postId = randomInt();
-        int page = randomInt();
-        int size = randomInt();
+        final int postId = randomInt();
+        final int page = randomInt();
+        final int size = randomInt();
 
         when(urlService.getCommentsUrl(postId, page, size)).thenReturn(BASE_URL);
 
         // When
-        List<AuditionComment> list = client.getComments(postId, page, size);
+        final List<AuditionComment> list = client.getComments(postId, page, size);
 
         // Then
         assertEquals(EXPECTED_COMMENTS_SIZE, list.size());
@@ -52,15 +53,15 @@ public class AuditionIntegrationCommentsClientTest extends BaseTest {
     @Test
     void shouldGetComment() {
         // Given
-        int id = 1;
-        String email = "Eliseo@gardner.biz";
-        String name = "id labore ex et quam laborum";
-        String url = BASE_URL + "/" + id;
+        final int id = 1;
+        final String email = "Eliseo@gardner.biz";
+        final String name = "id labore ex et quam laborum";
+        final String url = BASE_URL + "/" + id;
 
         when(urlService.getCommentUrl(id)).thenReturn(url);
 
         // When
-        AuditionComment auditCommentResponse = client.getComment(id);
+        final AuditionComment auditCommentResponse = client.getComment(id);
 
         // Then
         assertEquals(id, auditCommentResponse.getId());

@@ -10,7 +10,10 @@ import java.util.Collections;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+
 
 class AuditionCommentsServiceTest {
 
@@ -66,7 +69,7 @@ class AuditionCommentsServiceTest {
         when(auditionIntegrationCommentsClient.getComments(postId, page, size)).thenReturn(Collections.emptyList());
 
         // when
-        List<AuditionComment> comments = auditionCommentsService.getComments(postId, page, size);
+        final List<AuditionComment> comments = auditionCommentsService.getComments(postId, page, size);
 
         // then
         assertEquals(Collections.emptyList(), comments);

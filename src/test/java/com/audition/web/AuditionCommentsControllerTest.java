@@ -14,19 +14,24 @@ import java.util.List;
 
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
 
 /**
  * Test class for AuditionCommentsController.
  */
-@WebMvcTest(controllers = AuditionCommentsController.class, excludeAutoConfiguration = SecurityAutoConfiguration.class)
+@SuppressWarnings("PMD")
+@WebMvcTest(controllers = AuditionCommentsController.class,
+        excludeAutoConfiguration = SecurityAutoConfiguration.class)
 class AuditionCommentsControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
 
     @MockBean
-    private IAuditionCommentsService iAuditionCommentsService;
+    private IAuditionCommentsService auditionCommentsService;
 
     private static final String COMMENTS_URL = "/comments";
     private static final String APPLICATION_JSON = MediaType.APPLICATION_JSON_VALUE;
@@ -37,9 +42,10 @@ class AuditionCommentsControllerTest {
     private static final String INVALID_ID_MESSAGE = "Failed to convert 'id' with value: '%s'";
     private static final String BAD_REQUEST_MESSAGE = "Bad Request";
     private static final String INTERNAL_SERVER_ERROR_MESSAGE = "An unexpected error occurred";
+    private static final String COMMENT_ID_PATH = "/{id}";
 
-    private AuditionComment createSampleComment(int id, String name, String email, String body) {
-        AuditionComment comment = new AuditionComment();
+    private AuditionComment createSampleComment(final int id, final String name, final String email, final String body) {
+        final AuditionComment comment = new AuditionComment();
         comment.setId(id);
         comment.setPostId(1); // Set a default postId
         comment.setName(name);
@@ -49,14 +55,14 @@ class AuditionCommentsControllerTest {
     }
 
     @Test
-    void shouldReturnAllComments_WhenValidPostIdIsProvided() throws Exception {
-        int postId = 1;
-        List<AuditionComment> comments = List.of(
+    void testShouldReturnAllComments_WhenValidPostIdIsProvided() throws Exception {
+        final int postId = 1;
+        final List<AuditionComment> comments = List.of(
                 createSampleComment(1, "John Doe", "john.doe@example.com", "First comment"),
                 createSampleComment(2, "Jane Doe", "jane.doe@example.com", "Second comment")
         );
 
-        when(iAuditionCommentsService.getComments(postId, 0, 100)).thenReturn(comments);
+        when(auditionCommentsService.getComments(postId, 0, 100)).thenReturn(comments);
 
         mockMvc.perform(get(COMMENTS_URL)
                         .param("postId", String.valueOf(postId))
@@ -67,13 +73,13 @@ class AuditionCommentsControllerTest {
     }
 
     @Test
-    void shouldReturnComment_WhenValidCommentIdIsProvided() throws Exception {
-        int commentId = 1;
-        AuditionComment comment = createSampleComment(commentId, "Sample User", "sample.user@example.com", "Sample comment");
+    void testShouldReturnComment_WhenValidCommentIdIsProvided() throws Exception {
+        final int commentId = 1;
+        final AuditionComment comment = createSampleComment(commentId, "Sample User", "sample.user@example.com", "Sample comment");
 
-        when(iAuditionCommentsService.getComment(commentId)).thenReturn(comment);
+        when(auditionCommentsService.getComment(commentId)).thenReturn(comment);
 
-        mockMvc.perform(get(COMMENTS_URL + "/{id}", commentId)
+        mockMvc.perform(get(COMMENTS_URL + COMMENT_ID_PATH, commentId)
                         .accept(APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(APPLICATION_JSON))
@@ -84,19 +90,19 @@ class AuditionCommentsControllerTest {
     }
 
     @Test
-    void shouldReturn404_WhenCommentNotFound() throws Exception {
-        int commentId = 999;
-        when(iAuditionCommentsService.getComment(commentId)).thenReturn(null);
+    void testShouldReturn404_WhenCommentNotFound() throws Exception {
+        final int commentId = 999;
+        when(auditionCommentsService.getComment(commentId)).thenReturn(null);
 
-        mockMvc.perform(get(COMMENTS_URL + "/{id}", commentId))
+        mockMvc.perform(get(COMMENTS_URL + COMMENT_ID_PATH, commentId))
                 .andExpect(status().isNotFound())
                 .andExpect(content().contentType(APPLICATION_JSON))
                 .andExpect(jsonPath("$.message").value(COMMENT_NOT_FOUND_MESSAGE));
     }
 
     @Test
-    void shouldReturn400_WhenInvalidCommentIdFormatIsProvided() throws Exception {
-        mockMvc.perform(get(COMMENTS_URL + "/{id}", "invalidId"))
+    void testShouldReturn400_WhenInvalidCommentIdFormatIsProvided() throws Exception {
+        mockMvc.perform(get(COMMENTS_URL + COMMENT_ID_PATH, "invalidId"))
                 .andExpect(status().isBadRequest())
                 .andExpect(content().contentType(APPLICATION_PROBLEM_JSON))
                 .andExpect(jsonPath("$.title").value(BAD_REQUEST_MESSAGE))
@@ -105,7 +111,7 @@ class AuditionCommentsControllerTest {
     }
 
     @Test
-    void shouldReturn400_WhenPostIdIsNegative() throws Exception {
+    void testShouldReturn400_WhenPostIdIsNegative() throws Exception {
         mockMvc.perform(get(COMMENTS_URL)
                         .param("postId", "-1"))
                 .andExpect(status().isBadRequest())
@@ -116,11 +122,11 @@ class AuditionCommentsControllerTest {
     }
 
     @Test
-    void shouldHandleServiceExceptionGracefully() throws Exception {
-        int commentId = 1;
-        when(iAuditionCommentsService.getComment(commentId)).thenThrow(new RuntimeException("Database connectivity issue"));
+    void testShouldHandleServiceExceptionGracefully() throws Exception {
+        final int commentId = 1;
+        when(auditionCommentsService.getComment(commentId)).thenThrow(new RuntimeException("Database connectivity issue"));
 
-        mockMvc.perform(get(COMMENTS_URL + "/{id}", commentId))
+        mockMvc.perform(get(COMMENTS_URL + COMMENT_ID_PATH, commentId))
                 .andExpect(status().isInternalServerError())
                 .andExpect(content().contentType(APPLICATION_PROBLEM_JSON))
                 .andExpect(jsonPath("$.title").value("Internal Server Error"))

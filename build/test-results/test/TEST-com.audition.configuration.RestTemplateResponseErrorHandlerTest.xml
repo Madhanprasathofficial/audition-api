@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.audition.configuration.RestTemplateResponseErrorHandlerTest" tests="13" skipped="0" failures="0" errors="0" timestamp="2024-09-30T12:09:23" hostname="DESKTOP-T0DGFL0" time="0.14">
+  <properties/>
+  <testcase name="shouldHandleErrorClientException()" classname="com.audition.configuration.RestTemplateResponseErrorHandlerTest" time="0.011"/>
+  <testcase name="shouldHandleErrorIntegrationException()" classname="com.audition.configuration.RestTemplateResponseErrorHandlerTest" time="0.004"/>
+  <testcase name="[1] httpStatusCode=200 OK, expected=false" classname="com.audition.configuration.RestTemplateResponseErrorHandlerTest" time="0.035"/>
+  <testcase name="[2] httpStatusCode=202 ACCEPTED, expected=false" classname="com.audition.configuration.RestTemplateResponseErrorHandlerTest" time="0.003"/>
+  <testcase name="[3] httpStatusCode=204 NO_CONTENT, expected=false" classname="com.audition.configuration.RestTemplateResponseErrorHandlerTest" time="0.002"/>
+  <testcase name="[4] httpStatusCode=500 INTERNAL_SERVER_ERROR, expected=true" classname="com.audition.configuration.RestTemplateResponseErrorHandlerTest" time="0.003"/>
+  <testcase name="[5] httpStatusCode=501 NOT_IMPLEMENTED, expected=true" classname="com.audition.configuration.RestTemplateResponseErrorHandlerTest" time="0.002"/>
+  <testcase name="[6] httpStatusCode=502 BAD_GATEWAY, expected=true" classname="com.audition.configuration.RestTemplateResponseErrorHandlerTest" time="0.003"/>
+  <testcase name="[7] httpStatusCode=503 SERVICE_UNAVAILABLE, expected=true" classname="com.audition.configuration.RestTemplateResponseErrorHandlerTest" time="0.003"/>
+  <testcase name="[8] httpStatusCode=504 GATEWAY_TIMEOUT, expected=true" classname="com.audition.configuration.RestTemplateResponseErrorHandlerTest" time="0.003"/>
+  <testcase name="[9] httpStatusCode=406 NOT_ACCEPTABLE, expected=true" classname="com.audition.configuration.RestTemplateResponseErrorHandlerTest" time="0.003"/>
+  <testcase name="[10] httpStatusCode=408 REQUEST_TIMEOUT, expected=true" classname="com.audition.configuration.RestTemplateResponseErrorHandlerTest" time="0.003"/>
+  <testcase name="[11] httpStatusCode=409 CONFLICT, expected=true" classname="com.audition.configuration.RestTemplateResponseErrorHandlerTest" time="0.003"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

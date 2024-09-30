@@ -9,7 +9,6 @@ import io.micrometer.common.util.StringUtils;
 import jakarta.validation.ConstraintViolationException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ProblemDetail;
@@ -129,7 +128,9 @@ public class ExceptionControllerAdvice extends ResponseEntityExceptionHandler {
         try {
             return HttpStatusCode.valueOf(exception.getStatusCode());
         } catch (final IllegalArgumentException iae) {
-            logger.info(LOG, ERROR_MESSAGE + exception.getStatusCode());
+            if (pageNotFoundLogger.isInfoEnabled()) {
+                logger.info(LOG, ERROR_MESSAGE + exception.getStatusCode());
+            }
             return INTERNAL_SERVER_ERROR;
         }
     }

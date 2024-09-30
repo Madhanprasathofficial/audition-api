@@ -13,10 +13,10 @@ import java.util.List;
 @Service
 public class AuditionCommentsServiceImpl implements IAuditionCommentsService {
 
-    private final transient IAuditionIntegrationCommentsClient iAuditionIntegrationCommentsClient;
+    private final transient IAuditionIntegrationCommentsClient auditionIntegrationCommentsClient;
 
-    public AuditionCommentsServiceImpl(final IAuditionIntegrationCommentsClient iAuditionIntegrationCommentsClient) {
-        this.iAuditionIntegrationCommentsClient = iAuditionIntegrationCommentsClient;
+    public AuditionCommentsServiceImpl(final IAuditionIntegrationCommentsClient auditionIntegrationCommentsClient) {
+        this.auditionIntegrationCommentsClient = auditionIntegrationCommentsClient;
     }
 
     /**
@@ -28,8 +28,8 @@ public class AuditionCommentsServiceImpl implements IAuditionCommentsService {
      * @return a list of comments for the specified post (empty list if no comments exist)
      */
     @Override
-    public List<AuditionComment> getComments(@Positive Integer postId, Integer page, Integer size) {
-        return iAuditionIntegrationCommentsClient.getComments(postId, page, size);
+    public List<AuditionComment> getComments(@Positive final Integer postId, final Integer page, final Integer size) {
+        return auditionIntegrationCommentsClient.getComments(postId, page, size);
     }
 
     /**
@@ -39,7 +39,7 @@ public class AuditionCommentsServiceImpl implements IAuditionCommentsService {
      * @return the requested comment, or null if not found
      */
     @Override
-    public AuditionComment getComment(@Positive Integer commentId) {
-        return iAuditionIntegrationCommentsClient.getComment(commentId);
+    public AuditionComment getComment(@Positive final Integer commentId) {
+        return auditionIntegrationCommentsClient.getComment(commentId);
     }
 }

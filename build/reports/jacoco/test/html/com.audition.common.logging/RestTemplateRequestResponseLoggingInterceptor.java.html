@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>RestTemplateRequestResponseLoggingInterceptor.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">audition-api</a> &gt; <a href="index.source.html" class="el_package">com.audition.common.logging</a> &gt; <span class="el_source">RestTemplateRequestResponseLoggingInterceptor.java</span></div><h1>RestTemplateRequestResponseLoggingInterceptor.java</h1><pre class="source lang-java linenums">package com.audition.common.logging;
+
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpRequest;
+import org.springframework.http.client.ClientHttpRequestExecution;
+import org.springframework.http.client.ClientHttpRequestInterceptor;
+import org.springframework.http.client.ClientHttpResponse;
+import org.springframework.stereotype.Component;
+import org.springframework.util.StreamUtils;
+
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+
+/**
+ * Interceptor for logging HTTP requests and responses made through RestTemplate.
+ * This class implements ClientHttpRequestInterceptor to log details
+ * such as URI, method, headers, request body, and response status.
+ */
+@Component
+<span class="fc" id="L21">@Slf4j</span>
+public class RestTemplateRequestResponseLoggingInterceptor implements ClientHttpRequestInterceptor {
+
+    private final transient boolean logRequest;  // Flag to enable/disable request logging
+    private final transient boolean logResponse; // Flag to enable/disable response logging
+
+    private final transient AuditionLogger logger; // Custom logger for logging messages
+
+    /**
+     * Constructor for RestTemplateRequestResponseLoggingInterceptor.
+     *
+     * @param logRequest  Flag to indicate whether to log requests
+     * @param logResponse Flag to indicate whether to log responses
+     * @param logger      Custom logger for logging purposes
+     */
+    public RestTemplateRequestResponseLoggingInterceptor(
+            @Value(&quot;${application.config.interceptor.logRequest}&quot;) final boolean logRequest,
+            @Value(&quot;${application.config.interceptor.logResponse}&quot;) final boolean logResponse,
+<span class="fc" id="L39">            final AuditionLogger logger) {</span>
+<span class="fc" id="L40">        this.logRequest = logRequest;</span>
+<span class="fc" id="L41">        this.logResponse = logResponse;</span>
+<span class="fc" id="L42">        this.logger = logger;</span>
+<span class="fc" id="L43">    }</span>
+
+    /**
+     * Intercepts the HTTP request and logs details if enabled.
+     *
+     * @param request   The HTTP request to be executed
+     * @param body      The body of the request
+     * @param execution The execution context
+     * @return The HTTP response from the executed request
+     * @throws IOException If an I/O error occurs during the logging or execution
+     */
+    @Override
+    public ClientHttpResponse intercept(final HttpRequest request, final byte[] body,
+                                        final ClientHttpRequestExecution execution) throws IOException {
+<span class="fc" id="L57">        logRequestDetails(request, body); // Log request details</span>
+<span class="fc" id="L58">        final var response = execution.execute(request, body); // Execute the request</span>
+<span class="fc" id="L59">        logResponseDetails(response); // Log response details</span>
+<span class="fc" id="L60">        return response; // Return the response</span>
+    }
+
+    /**
+     * Logs the details of the HTTP request.
+     *
+     * @param request The HTTP request
+     * @param body    The body of the request
+     */
+    private void logRequestDetails(final HttpRequest request, final byte[] body) {
+<span class="fc bfc" id="L70" title="All 2 branches covered.">        if (logRequest) {</span>
+<span class="fc" id="L71">            final var message = &quot;\n***** HttpRequest start ***** &quot;</span>
+<span class="fc" id="L72">                   + &quot;\nURI: &quot; + request.getURI()</span>
+<span class="fc" id="L73">                   + &quot;\nMethod: &quot; + request.getMethod()</span>
+<span class="fc" id="L74">                   + &quot;\nHeaders: &quot; + request.getHeaders()</span>
+                   + &quot;\nRequest body: &quot; + new String(body, StandardCharsets.UTF_8)
+                   + &quot;\n***** HttpRequest end *****&quot;;
+<span class="fc" id="L77">            logger.info(log, message); // Log request message</span>
+        }
+<span class="fc" id="L79">    }</span>
+
+    /**
+     * Logs the details of the HTTP response.
+     *
+     * @param response The HTTP response
+     * @throws IOException If an I/O error occurs while reading the response body
+     */
+    private void logResponseDetails(final ClientHttpResponse response) throws IOException {
+<span class="fc bfc" id="L88" title="All 2 branches covered.">        if (logResponse) {</span>
+<span class="fc" id="L89">            final var message = &quot;\n***** ClientHttpResponse start ***** &quot;</span>
+<span class="fc" id="L90">                    + &quot;\nStatus code: &quot; + response.getStatusCode()</span>
+<span class="fc" id="L91">                    + &quot;\nStatus text: &quot; + response.getStatusText()</span>
+<span class="fc" id="L92">                    + &quot;\nHeaders: &quot; + response.getHeaders()</span>
+<span class="fc" id="L93">                    + &quot;\nResponse body: &quot; + StreamUtils.copyToString(response.getBody(), StandardCharsets.UTF_8)</span>
+                    + &quot;\n***** ClientHttpResponse end *****&quot;;
+<span class="fc" id="L95">            logger.info(log, message); // Log response message</span>
+        }
+<span class="fc" id="L97">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

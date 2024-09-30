@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>WebServiceConfiguration.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">audition-api</a> &gt; <a href="index.source.html" class="el_package">com.audition.configuration</a> &gt; <span class="el_source">WebServiceConfiguration.java</span></div><h1>WebServiceConfiguration.java</h1><pre class="source lang-java linenums">package com.audition.configuration;
+
+import com.audition.common.logging.RestTemplateRequestResponseLoggingInterceptor;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.PropertyNamingStrategies;
+import com.fasterxml.jackson.databind.SerializationFeature;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.http.MediaType;
+import org.springframework.http.client.BufferingClientHttpRequestFactory;
+import org.springframework.http.client.SimpleClientHttpRequestFactory;
+import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
+import org.springframework.web.client.RestTemplate;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+
+import java.text.SimpleDateFormat;
+import java.util.Collections;
+import java.util.Locale;
+
+/**
+ * Configuration for web services.
+ * This class configures the RestTemplate and ObjectMapper used in the application.
+ */
+@Configuration
+public class WebServiceConfiguration implements WebMvcConfigurer {
+
+    private static final String YEAR_MONTH_DAY_PATTERN = &quot;yyyy-MM-dd&quot;;
+
+    private final transient RestTemplateRequestResponseLoggingInterceptor loggingInterceptor;
+    private final transient RestTemplateResponseErrorHandler responseErrorHandler;
+
+    /**
+     * Constructor for WebServiceConfiguration.
+     *
+     * @param loggingInterceptor    the logging interceptor for RestTemplate
+     * @param responseErrorHandler   the error handler for RestTemplate responses
+     */
+    public WebServiceConfiguration(final RestTemplateRequestResponseLoggingInterceptor loggingInterceptor,
+<span class="fc" id="L41">                                   final RestTemplateResponseErrorHandler responseErrorHandler) {</span>
+<span class="fc" id="L42">        this.loggingInterceptor = loggingInterceptor;</span>
+<span class="fc" id="L43">        this.responseErrorHandler = responseErrorHandler;</span>
+<span class="fc" id="L44">    }</span>
+
+    /**
+     * Configures the ObjectMapper for JSON serialization and deserialization.
+     *
+     * @return a configured ObjectMapper instance
+     */
+    @Bean
+    public ObjectMapper objectMapper() {
+<span class="fc" id="L53">        return new ObjectMapper()</span>
+<span class="fc" id="L54">                .setDateFormat(new SimpleDateFormat(YEAR_MONTH_DAY_PATTERN, Locale.getDefault()))</span>
+<span class="fc" id="L55">                .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)</span>
+<span class="fc" id="L56">                .setPropertyNamingStrategy(PropertyNamingStrategies.LOWER_CAMEL_CASE)</span>
+<span class="fc" id="L57">                .disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS)</span>
+<span class="fc" id="L58">                .setSerializationInclusion(JsonInclude.Include.NON_EMPTY);</span>
+    }
+
+    /**
+     * Configures the RestTemplate with custom message converters, interceptors, and error handlers.
+     *
+     * @return a configured RestTemplate instance
+     */
+    @Bean
+    public RestTemplate restTemplate() {
+<span class="fc" id="L68">        final RestTemplate restTemplate = new RestTemplate(</span>
+<span class="fc" id="L69">                new BufferingClientHttpRequestFactory(createClientFactory()));</span>
+
+<span class="fc" id="L71">        final MappingJackson2HttpMessageConverter messageConverter = new MappingJackson2HttpMessageConverter();</span>
+<span class="fc" id="L72">        messageConverter.setPrettyPrint(true);</span>
+<span class="fc" id="L73">        messageConverter.setObjectMapper(objectMapper());</span>
+<span class="fc" id="L74">        messageConverter.setSupportedMediaTypes(Collections.singletonList(MediaType.APPLICATION_JSON));</span>
+
+        // Replace default Jackson message converter with the custom one
+<span class="fc" id="L77">        restTemplate.getMessageConverters().removeIf(converter -&gt; converter instanceof MappingJackson2HttpMessageConverter);</span>
+<span class="fc" id="L78">        restTemplate.getMessageConverters().add(messageConverter);</span>
+
+        // Set interceptors and error handler
+<span class="fc" id="L81">        restTemplate.setInterceptors(Collections.singletonList(loggingInterceptor));</span>
+<span class="fc" id="L82">        restTemplate.setErrorHandler(responseErrorHandler);</span>
+
+<span class="fc" id="L84">        return restTemplate;</span>
+    }
+
+    /**
+     * Creates a SimpleClientHttpRequestFactory with streaming disabled.
+     *
+     * @return a configured SimpleClientHttpRequestFactory instance
+     */
+    private SimpleClientHttpRequestFactory createClientFactory() {
+<span class="fc" id="L93">        final SimpleClientHttpRequestFactory requestFactory = new SimpleClientHttpRequestFactory();</span>
+<span class="fc" id="L94">        requestFactory.setOutputStreaming(false);</span>
+<span class="fc" id="L95">        return requestFactory;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

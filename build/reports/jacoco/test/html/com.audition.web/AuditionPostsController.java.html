@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>AuditionPostsController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">audition-api</a> &gt; <a href="index.source.html" class="el_package">com.audition.web</a> &gt; <span class="el_source">AuditionPostsController.java</span></div><h1>AuditionPostsController.java</h1><pre class="source lang-java linenums">package com.audition.web;
+
+import com.audition.common.logging.AuditionLogger;
+import com.audition.dto.ErrorResponse;
+import com.audition.model.AuditionPost;
+import com.audition.service.IAuditionPostService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.Positive;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Locale;
+import java.util.Objects;
+import java.util.Optional;
+
+
+/**
+ * Posts Controller to handle requests related to audition posts.
+ */
+@Tag(name = &quot;Posts Controller&quot;, description = &quot;APIs for retrieving posts and comments.&quot;)
+@RestController
+@Validated
+@RequestMapping(&quot;/posts&quot;)
+public class AuditionPostsController {
+
+    private static final String DEFAULT_PAGE = &quot;0&quot;;
+    private static final String DEFAULT_PAGE_SIZE = &quot;100&quot;;
+    private static final long MAX_PAGE_SIZE = 100L;
+
+    private final transient IAuditionPostService auditionPostService;
+    private final transient AuditionLogger auditionLogger;
+<span class="fc" id="L48">    private static final Logger COMMENTS_LOGGER  = LoggerFactory.getLogger(AuditionPostsController.class);</span>
+
+<span class="fc" id="L50">    public AuditionPostsController(final IAuditionPostService auditionPostService, final AuditionLogger auditionLogger) {</span>
+<span class="fc" id="L51">        this.auditionPostService = auditionPostService;</span>
+<span class="fc" id="L52">        this.auditionLogger = auditionLogger;</span>
+<span class="fc" id="L53">    }</span>
+
+    @Operation(summary = &quot;Get all posts&quot;, description = &quot;Retrieve all posts with optional filtering by user ID and title.&quot;)
+    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    @SuppressWarnings({})
+    public ResponseEntity&lt;List&lt;AuditionPost&gt;&gt; getPosts(
+            @RequestParam(required = false, defaultValue = DEFAULT_PAGE)
+            @Min(0) final Integer page,
+            @RequestParam(required = false, defaultValue = DEFAULT_PAGE_SIZE)
+            @Positive @Max(MAX_PAGE_SIZE) final Integer size,
+            @RequestParam(required = false) final Integer userId,
+            @RequestParam(required = false) final Optional&lt;String&gt; title) {
+
+
+        // Validate userId
+<span class="fc bfc" id="L68" title="All 4 branches covered.">        if (userId != null &amp;&amp; userId &lt;= 0) {</span>
+<span class="fc" id="L69">            final List&lt;AuditionPost&gt; errorResponse = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L70">            errorResponse.add(new AuditionPost(0, 0, &quot;Invalid User ID&quot;, &quot;User ID must be positive&quot;, Collections.emptyList()));</span>
+<span class="fc" id="L71">            auditionLogger.warn(COMMENTS_LOGGER, &quot;Invalid userId provided: {}&quot;, userId);</span>
+<span class="fc" id="L72">            return ResponseEntity.badRequest().body(errorResponse);</span>
+        }
+
+        // Fetch posts from the service layer with pagination and optional filtering
+<span class="fc" id="L76">        List&lt;AuditionPost&gt; posts = auditionPostService.getPosts(userId, page, size);</span>
+<span class="fc" id="L77">        final String filterTitle = title.map(String::toLowerCase).orElse(&quot;&quot;);</span>
+<span class="fc bfc" id="L78" title="All 2 branches covered.">        if (!filterTitle.isEmpty()) {</span>
+<span class="fc" id="L79">            posts = posts.stream()</span>
+<span class="pc bnc" id="L80" title="All 2 branches missed.">                    .filter(post -&gt; post.getTitle() != null</span>
+<span class="nc bnc" id="L81" title="All 2 branches missed.">                            &amp;&amp; post.getTitle().toLowerCase(Locale.ENGLISH).contains(filterTitle))</span>
+<span class="fc" id="L82">                    .toList();</span>
+        }
+        
+<span class="fc" id="L85">        auditionLogger.debug(COMMENTS_LOGGER, &quot;Successfully retrieved posts&quot;);</span>
+<span class="fc" id="L86">        return ResponseEntity.ok(posts);</span>
+    }
+
+    @Operation(summary = &quot;Get post by ID&quot;, description = &quot;Retrieve a specific post by its ID.&quot;)
+    @GetMapping(value = &quot;/{id}&quot;, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity&lt;?&gt; getPostById(
+            @Parameter(description = &quot;ID of the post&quot;)
+            @PathVariable(&quot;id&quot;) @Positive final Integer postId) {
+
+<span class="fc" id="L95">        auditionLogger.info(COMMENTS_LOGGER, &quot;Received request to get post by ID: {}&quot;, postId);</span>
+<span class="fc" id="L96">        final AuditionPost post = auditionPostService.getPostById(postId, false, Integer.parseInt(DEFAULT_PAGE), Integer.parseInt(DEFAULT_PAGE_SIZE));</span>
+
+<span class="fc bfc" id="L98" title="All 2 branches covered.">        return Objects.isNull(post)</span>
+<span class="fc" id="L99">                ? ResponseEntity.status(HttpStatus.NO_CONTENT)</span>
+<span class="fc" id="L100">                        .contentType(MediaType.APPLICATION_JSON)</span>
+<span class="fc" id="L101">                        .body(new ErrorResponse(&quot;Page not found&quot;)) :</span>
+<span class="fc" id="L102">                ResponseEntity.ok(post);</span>
+    }
+
+    @Operation(summary = &quot;Get post with comments&quot;, description = &quot;Retrieve a specific post by its ID along with comments.&quot;)
+    @GetMapping(value = &quot;/{id}/comments&quot;, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity&lt;?&gt; getPostWithComments(
+            @Parameter(description = &quot;ID of the post&quot;)
+            @PathVariable(&quot;id&quot;) @Positive final Integer postId,
+            @RequestParam(required = false, defaultValue = DEFAULT_PAGE)
+            @Min(0) final Integer page,
+            @RequestParam(required = false, defaultValue = DEFAULT_PAGE_SIZE)
+            @Positive @Max(MAX_PAGE_SIZE) final Integer size) {
+
+<span class="fc" id="L115">        auditionLogger.info(COMMENTS_LOGGER, &quot;Received request to get post with comments for post ID: {}&quot;, postId);</span>
+<span class="fc" id="L116">        final AuditionPost postWithComments = auditionPostService.getPostById(postId, true, page, size);</span>
+
+<span class="fc bfc" id="L118" title="All 2 branches covered.">        return Objects.isNull(postWithComments)</span>
+<span class="fc" id="L119">                ? ResponseEntity.status(HttpStatus.NOT_FOUND)</span>
+<span class="fc" id="L120">                        .body(new ErrorResponse(&quot;Post not found&quot;)) :</span>
+<span class="fc" id="L121">                ResponseEntity.ok(postWithComments);</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

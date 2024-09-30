@@ -51,9 +51,9 @@ public class AuditionIntegrationCommentsClient implements IAuditionIntegrationCo
      * @return the requested audition comment, or null if not found
      */
     @Override
-    public AuditionComment getComment(Integer commentId) {
-        String commentUrl = integrationUrlService.getCommentUrl(commentId);
-        ResponseEntity<AuditionComment> responseEntity = restTemplate.getForEntity(commentUrl, AuditionComment.class);
+    public AuditionComment getComment(final Integer commentId) {
+        final String commentUrl = integrationUrlService.getCommentUrl(commentId);
+        final ResponseEntity<AuditionComment> responseEntity = restTemplate.getForEntity(commentUrl, AuditionComment.class);
 
         // Use Optional to safely handle null values and return null if the body is null
         return Optional.ofNullable(responseEntity)
