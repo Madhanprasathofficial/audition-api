@@ -1,5 +1,6 @@
 package com.audition.web;
 
+import com.audition.common.logging.AuditionLogger;
 import com.audition.dto.ErrorResponse;
 import com.audition.model.AuditionComment;
 import com.audition.service.IAuditionCommentsService;
@@ -9,6 +10,8 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.Positive;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -29,19 +32,14 @@ public class AuditionCommentsController {
     public static final long MAX_PAGE_SIZE = 100L;
 
     private final transient IAuditionCommentsService iAuditionCommentsService;
+    private final AuditionLogger auditionLogger;
+    private final Logger logger = LoggerFactory.getLogger(AuditionCommentsController.class);
 
-    public AuditionCommentsController(final IAuditionCommentsService iAuditionCommentsService) {
+    public AuditionCommentsController(final IAuditionCommentsService iAuditionCommentsService, final AuditionLogger auditionLogger) {
         this.iAuditionCommentsService = iAuditionCommentsService;
+        this.auditionLogger = auditionLogger;
     }
 
-    /**
-     * Retrieves a list of comments for a specific audition post with pagination support.
-     *
-     * @param postId the ID of the post to retrieve comments for
-     * @param page   the page number to retrieve (default is 0)
-     * @param size   the number of comments per page (default is 100, max is 100)
-     * @return a ResponseEntity containing a list of comments for the specified post
-     */
     @Operation(summary = "Get comments for a specific post")
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<AuditionComment>> getComments(
@@ -52,26 +50,29 @@ public class AuditionCommentsController {
             @RequestParam(required = false, defaultValue = DEFAULT_PAGE_SIZE)
             @Positive @Max(MAX_PAGE_SIZE) Integer size) {
 
-        return ResponseEntity.ok(iAuditionCommentsService.getComments(postId, page, size));
+        auditionLogger.info(logger, "Fetching comments for post ID: {}", postId);
+
+        List<AuditionComment> comments = iAuditionCommentsService.getComments(postId, page, size);
+        logger.info("Retrieved  comments for post ID: {}", postId);
+        return ResponseEntity.ok(comments);
     }
 
-    /**
-     * Retrieves a specific comment by its ID for a given audition post.
-     *
-     * @param commentId the ID of the comment to retrieve
-     * @return a ResponseEntity containing the requested comment, or a 404 status if not found
-     */
     @Operation(summary = "Get a specific comment by its ID")
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> getCommentById(
             @Parameter(description = "ID of the comment")
             @PathVariable("id") @Positive Integer commentId) {
 
+        logger.info("Fetching comment by ID: {}", commentId);
         AuditionComment comment = iAuditionCommentsService.getComment(commentId);
 
-        return Objects.nonNull(comment) ?
-                ResponseEntity.ok(comment) :
-                ResponseEntity.status(HttpStatus.NOT_FOUND)
-                        .body(new ErrorResponse("Comment not found"));
+        if (Objects.nonNull(comment)) {
+            logger.info("Retrieved comment: {}", comment);
+            return ResponseEntity.ok(comment);
+        } else {
+            logger.warn("Comment not found for ID: {}", commentId);
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body(new ErrorResponse("Comment not found"));
+        }
     }
 }

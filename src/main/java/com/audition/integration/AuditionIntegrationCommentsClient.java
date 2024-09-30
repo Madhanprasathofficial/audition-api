@@ -6,8 +6,8 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 
 /**
@@ -16,13 +16,12 @@ import java.util.Optional;
 @Component
 public class AuditionIntegrationCommentsClient implements IAuditionIntegrationCommentsClient {
 
-    private final transient RestTemplate restTemplate = new RestTemplate();
-    private final transient IIntegrationUrlService iIntegrationUrlService;
+    private final transient RestTemplate restTemplate;
+    private final transient IIntegrationUrlService integrationUrlService;
 
-    public AuditionIntegrationCommentsClient( IIntegrationUrlService iIntegrationUrlService) {
-
-
-        this.iIntegrationUrlService = iIntegrationUrlService;
+    public AuditionIntegrationCommentsClient(final IIntegrationUrlService integrationUrlService) {
+        this.integrationUrlService = integrationUrlService;
+        this.restTemplate = new RestTemplate(); // Moved initialization to constructor
     }
 
     /**
@@ -34,15 +33,15 @@ public class AuditionIntegrationCommentsClient implements IAuditionIntegrationCo
      * @return a list of audition comments, or an empty list if none are found
      */
     @Override
-    public List<AuditionComment> getComments(int postId, Integer page, Integer size) {
-        String commentUrl = iIntegrationUrlService.getCommentsUrl(postId, page, size);
-        ResponseEntity<AuditionComment[]> responseEntity = restTemplate.getForEntity(commentUrl, AuditionComment[].class);
+    public List<AuditionComment> getComments(final int postId, final Integer page, final Integer size) {
+        final String commentUrl = integrationUrlService.getCommentsUrl(postId, page, size);
+        final ResponseEntity<AuditionComment[]> responseEntity = restTemplate.getForEntity(commentUrl, AuditionComment[].class);
 
         // Use Optional to safely handle null values
         return Optional.ofNullable(responseEntity)
-                .map(ResponseEntity::getBody)  // Get the body from the response
-                .map(Arrays::asList)  // Convert to List if body is not null
-                .orElse(List.of());  // Return an empty list if the body is null
+                .map(ResponseEntity::getBody)
+                .map(Arrays::asList)
+                .orElse(Collections.emptyList()); // Changed to Collections.emptyList() for clarity
     }
 
     /**
@@ -53,7 +52,7 @@ public class AuditionIntegrationCommentsClient implements IAuditionIntegrationCo
      */
     @Override
     public AuditionComment getComment(Integer commentId) {
-        String commentUrl = iIntegrationUrlService.getCommentUrl(commentId);
+        String commentUrl = integrationUrlService.getCommentUrl(commentId);
         ResponseEntity<AuditionComment> responseEntity = restTemplate.getForEntity(commentUrl, AuditionComment.class);
 
         // Use Optional to safely handle null values and return null if the body is null
@@ -61,5 +60,4 @@ public class AuditionIntegrationCommentsClient implements IAuditionIntegrationCo
                 .map(ResponseEntity::getBody)
                 .orElse(null);
     }
-
 }

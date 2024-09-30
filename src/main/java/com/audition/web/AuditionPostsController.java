@@ -1,5 +1,6 @@
 package com.audition.web;
 
+import com.audition.common.logging.AuditionLogger;
 import com.audition.dto.ErrorResponse;
 import com.audition.model.AuditionPost;
 import com.audition.service.IAuditionPostService;
@@ -9,6 +10,8 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.Positive;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -28,20 +31,14 @@ public class AuditionPostsController {
     private static final long MAX_PAGE_SIZE = 100L;
 
     private final IAuditionPostService iAuditionPostService;
+    private final AuditionLogger auditionLogger;
+    private final Logger logger = LoggerFactory.getLogger(AuditionPostsController.class);
 
-    public AuditionPostsController(final IAuditionPostService iAuditionPostService) {
+    public AuditionPostsController(final IAuditionPostService iAuditionPostService, AuditionLogger auditionLogger) {
         this.iAuditionPostService = iAuditionPostService;
+        this.auditionLogger = auditionLogger;
     }
 
-    /**
-     * Retrieve paginated list of posts with optional filtering by userId and title.
-     *
-     * @param page   the page number (default 0)
-     * @param size   the page size (default 100)
-     * @param userId optional filter by user ID
-     * @param title  optional filter by post title
-     * @return a list of filtered or paginated AuditionPosts
-     */
     @Operation(summary = "Get all posts", description = "Retrieve all posts with optional filtering by user ID and title.")
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<AuditionPost>> getPosts(
@@ -49,21 +46,21 @@ public class AuditionPostsController {
             @Min(0) Integer page,
             @RequestParam(required = false, defaultValue = DEFAULT_PAGE_SIZE)
             @Positive @Max(MAX_PAGE_SIZE) Integer size,
-            @RequestParam(required = false) Integer userId, // Change to Integer to handle null values
+            @RequestParam(required = false) Integer userId,
             @RequestParam(required = false) Optional<String> title) {
+
+        auditionLogger.info(logger, "Received request to get posts with userId: {}", userId);
 
         // Validate userId
         if (userId != null && userId <= 0) {
             List<AuditionPost> errorResponse = new ArrayList<>();
             errorResponse.add(new AuditionPost(0, 0, "Invalid User ID", "User ID must be positive", Collections.emptyList()));
-
-            return ResponseEntity.badRequest().body(errorResponse); // Return 400 Bad Request if userId is negative
+            auditionLogger.warn(logger, "Invalid userId provided: {}", userId);
+            return ResponseEntity.badRequest().body(errorResponse);
         }
 
         // Fetch posts from the service layer with pagination and optional filtering
         List<AuditionPost> posts = iAuditionPostService.getPosts(userId, page, size);
-
-        // Filter by title if provided
         String filterTitle = title.map(String::toLowerCase).orElse("");
         if (!filterTitle.isEmpty()) {
             posts = posts.stream()
@@ -72,41 +69,26 @@ public class AuditionPostsController {
                     .toList();
         }
 
+        auditionLogger.info(logger, "Successfully retrieved {} posts", posts.size());
         return ResponseEntity.ok(posts);
     }
 
-
-    /**
-     * Retrieve a post by its ID.
-     *
-     * @param postId the ID of the post
-     * @return the AuditionPost or error message if not found
-     */
     @Operation(summary = "Get post by ID", description = "Retrieve a specific post by its ID.")
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> getPostById(
             @Parameter(description = "ID of the post")
             @PathVariable("id") @Positive Integer postId) {
 
-        // Fetch post by ID from the service layer
+        auditionLogger.info(logger, "Received request to get post by ID: {}", postId);
         AuditionPost post = iAuditionPostService.getPostById(postId, false, Integer.parseInt(DEFAULT_PAGE), Integer.parseInt(DEFAULT_PAGE_SIZE));
 
-        // Handle post not found scenario
         return (Objects.isNull(post)) ?
                 ResponseEntity.status(HttpStatus.NO_CONTENT)
                         .contentType(MediaType.APPLICATION_JSON)
-                        .body(new ErrorResponse("Page not found")) : // Or custom error message as JSON
+                        .body(new ErrorResponse("Page not found")) :
                 ResponseEntity.ok(post);
     }
 
-    /**
-     * Retrieve a post along with its comments.
-     *
-     * @param postId the ID of the post
-     * @param page   the page number for comments
-     * @param size   the number of comments per page
-     * @return the AuditionPost with its comments
-     */
     @Operation(summary = "Get post with comments", description = "Retrieve a specific post by its ID along with comments.")
     @GetMapping(value = "/{id}/comments", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> getPostWithComments(
@@ -117,14 +99,12 @@ public class AuditionPostsController {
             @RequestParam(required = false, defaultValue = DEFAULT_PAGE_SIZE)
             @Positive @Max(MAX_PAGE_SIZE) Integer size) {
 
-        // Fetch post with comments by ID from the service layer
+        auditionLogger.info(logger, "Received request to get post with comments for post ID: {}", postId);
         AuditionPost postWithComments = iAuditionPostService.getPostById(postId, true, page, size);
 
-        // Handle post not found scenario
         return Objects.isNull(postWithComments) ?
                 ResponseEntity.status(HttpStatus.NOT_FOUND)
                         .body(new ErrorResponse("Post not found")) :
                 ResponseEntity.ok(postWithComments);
     }
-
 }

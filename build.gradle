@@ -6,7 +6,6 @@ plugins {
     id 'jacoco'
     id "com.github.spotbugs" version "5.0.14"
     id "io.freefair.lombok" version "8.0.1"
-    // TODO Enable checkstyle and PMD. Fix all the relevant issues.
     //id "checkstyle"
     //id "pmd"
 }
@@ -16,9 +15,7 @@ version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '17'
 targetCompatibility = '17'
 
-
-// TODO allow for code-analysis.gradle to be applied for code analysis.
-// apply from: 'config/code-analysis.gradle'
+//apply from: 'config/code-analysis.gradle'
 
 configurations {
     compileOnly {
@@ -35,47 +32,55 @@ ext {
     set('logbackVersion', "1.4.5")
     set('slf4jVersion', "2.0.5")
     set('springdocVersion', "2.0.2")
+    set('springDocOpenApUi', "1.7.0")
 }
 
 dependencies {
-
-    // TODO Clean up unused dependencies. Add comments on consideration on any improvements you made.
+    // Spring Boot Starters
     implementation "org.springframework.boot:spring-boot-starter-actuator"
     implementation "org.springframework.boot:spring-boot-starter-data-jpa"
     implementation "org.springframework.boot:spring-boot-starter-web"
-    implementation "org.springframework.cloud:spring-cloud-starter-config"
     implementation "org.springframework.boot:spring-boot-starter-webflux"
     implementation "org.springframework.boot:spring-boot-starter-aop"
+    implementation "org.springframework.boot:spring-boot-starter-validation"
+    implementation 'org.springframework.boot:spring-boot-starter-security'
+
+    // Micrometer and Monitoring
     implementation "io.micrometer:micrometer-tracing-bridge-brave"
     implementation "io.micrometer:micrometer-tracing"
     implementation "io.micrometer:micrometer-registry-prometheus"
     implementation "io.micrometer:context-propagation"
+
+    // Resilience4j (Circuit Breaker)
     implementation "org.springframework.cloud:spring-cloud-starter-circuitbreaker-reactor-resilience4j"
+
+    // Spring Cloud Config
     implementation "org.springframework.cloud:spring-cloud-starter-config"
+
+    // OpenAPI Documentation
     implementation "org.springdoc:springdoc-openapi-starter-webmvc-ui:${springdocVersion}"
-    //enabled validation
-    implementation 'org.springframework.boot:spring-boot-starter-validation'
-    developmentOnly "org.springframework.boot:spring-boot-devtools"
-    runtimeOnly "io.micrometer:micrometer-registry-prometheus"
+    implementation "org.springdoc:springdoc-openapi-ui:${springDocOpenApUi}"
 
-
+    // Logging (SLF4J and Logback)
     implementation "org.slf4j:slf4j-api:${slf4jVersion}"
     implementation "ch.qos.logback:logback-core:${logbackVersion}"
     implementation "ch.qos.logback:logback-classic:${logbackVersion}"
 
-    compileOnly("org.springframework.boot:spring-boot-starter-tomcat")
+    // Jackson (JSON Processing)
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.15.0'
+    implementation 'com.fasterxml.jackson.core:jackson-core:2.15.0'
+    implementation 'com.fasterxml.jackson.core:jackson-annotations:2.15.0'
 
+    // DevTools for development mode
+    developmentOnly "org.springframework.boot:spring-boot-devtools"
+
+    // Tomcat (Compile-only as it's provided in production)
+    compileOnly "org.springframework.boot:spring-boot-starter-tomcat"
+
+    // Test Dependencies
     testImplementation "org.springframework.boot:spring-boot-starter-test"
     testImplementation "io.projectreactor:reactor-test"
-    // https://mvnrepository.com/artifact/org.wiremock/wiremock
-    testImplementation group: 'org.wiremock', name: 'wiremock', version: '3.9.1'
-
-        // Jackson
-        implementation 'com.fasterxml.jackson.core:jackson-databind:2.15.0'
-        implementation 'com.fasterxml.jackson.core:jackson-core:2.15.0'
-        implementation 'com.fasterxml.jackson.core:jackson-annotations:2.15.0'
-
-
+    testImplementation "org.wiremock:wiremock:3.9.1"
 }
 
 dependencyManagement {
@@ -84,15 +89,18 @@ dependencyManagement {
     }
 }
 
-
+// Git hooks setup
 task prepareGitHooks(type: Copy) {
     from "$projectDir/git-hooks"
     into "$projectDir/.git/hooks"
     include "*"
 }
-tasks.matching { it.name != 'prepareGitHooks' }.all { Task task -> task.dependsOn prepareGitHooks }
 
+tasks.matching { it.name != 'prepareGitHooks' }.all { Task task ->
+    task.dependsOn prepareGitHooks
+}
 
+// Use JUnit for tests
 tasks.named('test') {
     useJUnitPlatform()
 }

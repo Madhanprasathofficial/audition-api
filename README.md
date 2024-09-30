@@ -79,3 +79,49 @@ Applicants need to do the following to submit their work:
 
 This section MUST be completed by applicants. It allows applicants to showcase their view on how an application can/should be documented. 
 Applicants can choose to do this in a separate markdown file that needs to be included when the code is committed. 
+
+## Api documentation
+
+http://localhost:8080/api/v3/api-docs
+
+## Application Build
+
+```sh 
+./gradlew clean build
+```
+
+## Application Run
+
+```sh 
+./gradlew bootRun
+```
+Import the [Audition-Api.postman_collection.json](src%2Ftest%2Fresources%2FAudition-Api.postman_collection.json) into postman and hit the requests.
+
+
+### Build Reports
+
+Under /build
+
+| Report          | Path         |
+|-----------------|--------------|
+| Jacoco          | In-Progress  | 
+| CheckStyle main | In-Progress  |
+| CheckStyle test | In-Progress  |
+| PMD Main        | In-Progress  |
+| PMD Test        | In-Progress  |
+| SpotBug         | In-Progress  |
+
+## Application Run
+
+```sh
+java -jar build/libs/audition-api-0.0.1-SNAPSHOT.jar
+```
+
+### Notes
+
+Basic auth has been added to *protect* the endpoint for `/actuator/`, 
+
+User defined in [application.yml](src%2Fmain%2Fresources%2Fapplication.yml)[application.yml] and
+security configured in [WebSecurity.java](src%2Fmain%2Fjava%2Fcom%2Faudition%2Fconfiguration%2FWebSecurity.java)
+
+To check the health http://localhost:8081/management/actuator/health

@@ -6,6 +6,7 @@ C:\Users\User\Downloads\audition-api\build\classes\java\main\com\audition\common
 C:\Users\User\Downloads\audition-api\build\classes\java\main\com\audition\common\logging\RestTemplateRequestResponseLoggingInterceptor.class
 C:\Users\User\Downloads\audition-api\build\classes\java\main\com\audition\configuration\ResponseHeaderInjector.class
 C:\Users\User\Downloads\audition-api\build\classes\java\main\com\audition\configuration\RestTemplateResponseErrorHandler.class
+C:\Users\User\Downloads\audition-api\build\classes\java\main\com\audition\configuration\WebSecurityConfig.class
 C:\Users\User\Downloads\audition-api\build\classes\java\main\com\audition\configuration\WebServiceConfiguration.class
 C:\Users\User\Downloads\audition-api\build\classes\java\main\com\audition\dto\ErrorResponse.class
 C:\Users\User\Downloads\audition-api\build\classes\java\main\com\audition\integration\AuditionIntegrationCommentsClient.class

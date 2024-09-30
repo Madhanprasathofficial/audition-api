@@ -8,7 +8,7 @@ import lombok.Setter;
 public class ErrorResponse {
     private String message;
 
-    public ErrorResponse(String message) {
+    public ErrorResponse(final String message) {
         this.message = message;
     }
 

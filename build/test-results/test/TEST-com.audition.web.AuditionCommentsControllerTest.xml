@@ -1,45 +1,45 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="com.audition.web.AuditionCommentsControllerTest" tests="6" skipped="0" failures="0" errors="0" timestamp="2024-09-29T12:01:51" hostname="DESKTOP-T0DGFL0" time="0.103">
+<testsuite name="com.audition.web.AuditionCommentsControllerTest" tests="6" skipped="0" failures="0" errors="0" timestamp="2024-09-30T02:21:07" hostname="DESKTOP-T0DGFL0" time="0.123">
   <properties/>
-  <testcase name="shouldReturnAllComments_WhenValidPostIdIsProvided()" classname="com.audition.web.AuditionCommentsControllerTest" time="0.036"/>
+  <testcase name="shouldReturnAllComments_WhenValidPostIdIsProvided()" classname="com.audition.web.AuditionCommentsControllerTest" time="0.041"/>
   <testcase name="shouldReturnComment_WhenValidCommentIdIsProvided()" classname="com.audition.web.AuditionCommentsControllerTest" time="0.013"/>
-  <testcase name="shouldReturn404_WhenCommentNotFound()" classname="com.audition.web.AuditionCommentsControllerTest" time="0.009"/>
-  <testcase name="shouldReturn400_WhenInvalidCommentIdFormatIsProvided()" classname="com.audition.web.AuditionCommentsControllerTest" time="0.014"/>
-  <testcase name="shouldHandleServiceExceptionGracefully()" classname="com.audition.web.AuditionCommentsControllerTest" time="0.013"/>
-  <testcase name="shouldReturn400_WhenPostIdIsNegative()" classname="com.audition.web.AuditionCommentsControllerTest" time="0.009"/>
-  <system-out><![CDATA[2024-09-29 22:01:49.902  INFO 20928 --- [    Test worker] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [com.audition.web.AuditionCommentsControllerTest]: AuditionCommentsControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
-2024-09-29 22:01:49.951  INFO 20928 --- [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration com.audition.AuditionApplication for test class com.audition.web.AuditionCommentsControllerTest
-22:01:50,171 |-INFO in ch.qos.logback.core.joran.util.ConfigurationWatchListUtil@1a26eecb - Adding [jar:file:/C:/Users/User/.gradle/caches/modules-2/files-2.1/org.springframework.boot/spring-boot/3.0.3/d781e7afbeb3d05ce361e9cc4fa7d38b15fb3862/spring-boot-3.0.3.jar!/org/springframework/boot/logging/logback/defaults.xml] to configuration watch list.
-22:01:50,171 |-INFO in ch.qos.logback.core.joran.spi.ConfigurationWatchList@5384f549 - URL [jar:file:/C:/Users/User/.gradle/caches/modules-2/files-2.1/org.springframework.boot/spring-boot/3.0.3/d781e7afbeb3d05ce361e9cc4fa7d38b15fb3862/spring-boot-3.0.3.jar!/org/springframework/boot/logging/logback/defaults.xml] is not of type file
-22:01:50,171 |-INFO in ch.qos.logback.core.joran.action.ConversionRuleAction - registering conversion word clr with class [org.springframework.boot.logging.logback.ColorConverter]
-22:01:50,171 |-INFO in ch.qos.logback.core.joran.action.ConversionRuleAction - registering conversion word wex with class [org.springframework.boot.logging.logback.WhitespaceThrowableProxyConverter]
-22:01:50,171 |-INFO in ch.qos.logback.core.joran.action.ConversionRuleAction - registering conversion word wEx with class [org.springframework.boot.logging.logback.ExtendedWhitespaceThrowableProxyConverter]
-22:01:50,171 |-INFO in ch.qos.logback.core.model.processor.AppenderModelHandler - Processing appender named [console]
-22:01:50,171 |-INFO in ch.qos.logback.core.model.processor.AppenderModelHandler - About to instantiate appender of type [ch.qos.logback.core.ConsoleAppender]
-22:01:50,171 |-INFO in ch.qos.logback.core.model.processor.ImplicitModelHandler - Assuming default type [ch.qos.logback.classic.encoder.PatternLayoutEncoder] for [encoder] property
-22:01:50,171 |-WARN in ch.qos.logback.core.model.processor.AppenderModelHandler - Appender named [flatfile] not referenced. Skipping further processing.
-22:01:50,171 |-WARN in ch.qos.logback.core.model.processor.AppenderModelHandler - Appender named [logstash] not referenced. Skipping further processing.
-22:01:50,171 |-INFO in ch.qos.logback.classic.model.processor.LoggerModelHandler - Setting level of logger [org.apache.catalina.startup.DigesterFactory] to ERROR
-22:01:50,171 |-INFO in ch.qos.logback.classic.jul.LevelChangePropagator@1df09105 - Propagating ERROR level on Logger[org.apache.catalina.startup.DigesterFactory] onto the JUL framework
-22:01:50,171 |-INFO in ch.qos.logback.classic.model.processor.LoggerModelHandler - Setting level of logger [org.apache.catalina.util.LifecycleBase] to ERROR
-22:01:50,171 |-INFO in ch.qos.logback.classic.jul.LevelChangePropagator@1df09105 - Propagating ERROR level on Logger[org.apache.catalina.util.LifecycleBase] onto the JUL framework
-22:01:50,171 |-INFO in ch.qos.logback.classic.model.processor.LoggerModelHandler - Setting level of logger [org.apache.coyote.http11.Http11NioProtocol] to WARN
-22:01:50,171 |-INFO in ch.qos.logback.classic.jul.LevelChangePropagator@1df09105 - Propagating WARN level on Logger[org.apache.coyote.http11.Http11NioProtocol] onto the JUL framework
-22:01:50,171 |-INFO in ch.qos.logback.classic.model.processor.LoggerModelHandler - Setting level of logger [org.apache.sshd.common.util.SecurityUtils] to WARN
-22:01:50,171 |-INFO in ch.qos.logback.classic.jul.LevelChangePropagator@1df09105 - Propagating WARN level on Logger[org.apache.sshd.common.util.SecurityUtils] onto the JUL framework
-22:01:50,171 |-INFO in ch.qos.logback.classic.model.processor.LoggerModelHandler - Setting level of logger [org.apache.tomcat.util.net.NioSelectorPool] to WARN
-22:01:50,171 |-INFO in ch.qos.logback.classic.jul.LevelChangePropagator@1df09105 - Propagating WARN level on Logger[org.apache.tomcat.util.net.NioSelectorPool] onto the JUL framework
-22:01:50,171 |-INFO in ch.qos.logback.classic.model.processor.LoggerModelHandler - Setting level of logger [org.eclipse.jetty.util.component.AbstractLifeCycle] to ERROR
-22:01:50,171 |-INFO in ch.qos.logback.classic.jul.LevelChangePropagator@1df09105 - Propagating ERROR level on Logger[org.eclipse.jetty.util.component.AbstractLifeCycle] onto the JUL framework
-22:01:50,171 |-INFO in ch.qos.logback.classic.model.processor.LoggerModelHandler - Setting level of logger [org.hibernate.validator.internal.util.Version] to WARN
-22:01:50,171 |-INFO in ch.qos.logback.classic.jul.LevelChangePropagator@1df09105 - Propagating WARN level on Logger[org.hibernate.validator.internal.util.Version] onto the JUL framework
-22:01:50,171 |-INFO in ch.qos.logback.classic.model.processor.LoggerModelHandler - Setting level of logger [org.springframework.boot.actuate.endpoint.jmx] to WARN
-22:01:50,171 |-INFO in ch.qos.logback.classic.jul.LevelChangePropagator@1df09105 - Propagating WARN level on Logger[org.springframework.boot.actuate.endpoint.jmx] onto the JUL framework
-22:01:50,171 |-INFO in ch.qos.logback.classic.model.processor.RootLoggerModelHandler - Setting level of ROOT logger to INFO
-22:01:50,171 |-INFO in ch.qos.logback.classic.jul.LevelChangePropagator@1df09105 - Propagating INFO level on Logger[ROOT] onto the JUL framework
-22:01:50,171 |-INFO in ch.qos.logback.core.model.processor.AppenderRefModelHandler - Attaching appender named [console] to Logger[ROOT]
-22:01:50,171 |-INFO in ch.qos.logback.core.model.processor.DefaultProcessor@15665a85 - End of configuration.
-22:01:50,171 |-INFO in org.springframework.boot.logging.logback.SpringBootJoranConfigurator@4ede4622 - Registering current configuration as safe fallback point
+  <testcase name="shouldReturn404_WhenCommentNotFound()" classname="com.audition.web.AuditionCommentsControllerTest" time="0.013"/>
+  <testcase name="shouldReturn400_WhenInvalidCommentIdFormatIsProvided()" classname="com.audition.web.AuditionCommentsControllerTest" time="0.019"/>
+  <testcase name="shouldHandleServiceExceptionGracefully()" classname="com.audition.web.AuditionCommentsControllerTest" time="0.018"/>
+  <testcase name="shouldReturn400_WhenPostIdIsNegative()" classname="com.audition.web.AuditionCommentsControllerTest" time="0.012"/>
+  <system-out><![CDATA[2024-09-30 12:21:06.342  INFO 296 --- [    Test worker] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [com.audition.web.AuditionCommentsControllerTest]: AuditionCommentsControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2024-09-30 12:21:06.369  INFO 296 --- [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration com.audition.AuditionApplication for test class com.audition.web.AuditionCommentsControllerTest
+12:21:06,550 |-INFO in ch.qos.logback.core.joran.util.ConfigurationWatchListUtil@5a41183b - Adding [jar:file:/C:/Users/User/.gradle/caches/modules-2/files-2.1/org.springframework.boot/spring-boot/3.0.3/d781e7afbeb3d05ce361e9cc4fa7d38b15fb3862/spring-boot-3.0.3.jar!/org/springframework/boot/logging/logback/defaults.xml] to configuration watch list.
+12:21:06,550 |-INFO in ch.qos.logback.core.joran.spi.ConfigurationWatchList@59c7ae98 - URL [jar:file:/C:/Users/User/.gradle/caches/modules-2/files-2.1/org.springframework.boot/spring-boot/3.0.3/d781e7afbeb3d05ce361e9cc4fa7d38b15fb3862/spring-boot-3.0.3.jar!/org/springframework/boot/logging/logback/defaults.xml] is not of type file
+12:21:06,553 |-INFO in ch.qos.logback.core.joran.action.ConversionRuleAction - registering conversion word clr with class [org.springframework.boot.logging.logback.ColorConverter]
+12:21:06,553 |-INFO in ch.qos.logback.core.joran.action.ConversionRuleAction - registering conversion word wex with class [org.springframework.boot.logging.logback.WhitespaceThrowableProxyConverter]
+12:21:06,553 |-INFO in ch.qos.logback.core.joran.action.ConversionRuleAction - registering conversion word wEx with class [org.springframework.boot.logging.logback.ExtendedWhitespaceThrowableProxyConverter]
+12:21:06,555 |-INFO in ch.qos.logback.core.model.processor.AppenderModelHandler - Processing appender named [console]
+12:21:06,555 |-INFO in ch.qos.logback.core.model.processor.AppenderModelHandler - About to instantiate appender of type [ch.qos.logback.core.ConsoleAppender]
+12:21:06,555 |-INFO in ch.qos.logback.core.model.processor.ImplicitModelHandler - Assuming default type [ch.qos.logback.classic.encoder.PatternLayoutEncoder] for [encoder] property
+12:21:06,557 |-WARN in ch.qos.logback.core.model.processor.AppenderModelHandler - Appender named [flatfile] not referenced. Skipping further processing.
+12:21:06,557 |-WARN in ch.qos.logback.core.model.processor.AppenderModelHandler - Appender named [logstash] not referenced. Skipping further processing.
+12:21:06,557 |-INFO in ch.qos.logback.classic.model.processor.LoggerModelHandler - Setting level of logger [org.apache.catalina.startup.DigesterFactory] to ERROR
+12:21:06,557 |-INFO in ch.qos.logback.classic.jul.LevelChangePropagator@3b2b161d - Propagating ERROR level on Logger[org.apache.catalina.startup.DigesterFactory] onto the JUL framework
+12:21:06,557 |-INFO in ch.qos.logback.classic.model.processor.LoggerModelHandler - Setting level of logger [org.apache.catalina.util.LifecycleBase] to ERROR
+12:21:06,557 |-INFO in ch.qos.logback.classic.jul.LevelChangePropagator@3b2b161d - Propagating ERROR level on Logger[org.apache.catalina.util.LifecycleBase] onto the JUL framework
+12:21:06,557 |-INFO in ch.qos.logback.classic.model.processor.LoggerModelHandler - Setting level of logger [org.apache.coyote.http11.Http11NioProtocol] to WARN
+12:21:06,557 |-INFO in ch.qos.logback.classic.jul.LevelChangePropagator@3b2b161d - Propagating WARN level on Logger[org.apache.coyote.http11.Http11NioProtocol] onto the JUL framework
+12:21:06,557 |-INFO in ch.qos.logback.classic.model.processor.LoggerModelHandler - Setting level of logger [org.apache.sshd.common.util.SecurityUtils] to WARN
+12:21:06,557 |-INFO in ch.qos.logback.classic.jul.LevelChangePropagator@3b2b161d - Propagating WARN level on Logger[org.apache.sshd.common.util.SecurityUtils] onto the JUL framework
+12:21:06,557 |-INFO in ch.qos.logback.classic.model.processor.LoggerModelHandler - Setting level of logger [org.apache.tomcat.util.net.NioSelectorPool] to WARN
+12:21:06,557 |-INFO in ch.qos.logback.classic.jul.LevelChangePropagator@3b2b161d - Propagating WARN level on Logger[org.apache.tomcat.util.net.NioSelectorPool] onto the JUL framework
+12:21:06,557 |-INFO in ch.qos.logback.classic.model.processor.LoggerModelHandler - Setting level of logger [org.eclipse.jetty.util.component.AbstractLifeCycle] to ERROR
+12:21:06,557 |-INFO in ch.qos.logback.classic.jul.LevelChangePropagator@3b2b161d - Propagating ERROR level on Logger[org.eclipse.jetty.util.component.AbstractLifeCycle] onto the JUL framework
+12:21:06,557 |-INFO in ch.qos.logback.classic.model.processor.LoggerModelHandler - Setting level of logger [org.hibernate.validator.internal.util.Version] to WARN
+12:21:06,557 |-INFO in ch.qos.logback.classic.jul.LevelChangePropagator@3b2b161d - Propagating WARN level on Logger[org.hibernate.validator.internal.util.Version] onto the JUL framework
+12:21:06,557 |-INFO in ch.qos.logback.classic.model.processor.LoggerModelHandler - Setting level of logger [org.springframework.boot.actuate.endpoint.jmx] to WARN
+12:21:06,557 |-INFO in ch.qos.logback.classic.jul.LevelChangePropagator@3b2b161d - Propagating WARN level on Logger[org.springframework.boot.actuate.endpoint.jmx] onto the JUL framework
+12:21:06,557 |-INFO in ch.qos.logback.classic.model.processor.RootLoggerModelHandler - Setting level of ROOT logger to INFO
+12:21:06,557 |-INFO in ch.qos.logback.classic.jul.LevelChangePropagator@3b2b161d - Propagating INFO level on Logger[ROOT] onto the JUL framework
+12:21:06,557 |-INFO in ch.qos.logback.core.model.processor.AppenderRefModelHandler - Attaching appender named [console] to Logger[ROOT]
+12:21:06,558 |-INFO in ch.qos.logback.core.model.processor.DefaultProcessor@63e36572 - End of configuration.
+12:21:06,558 |-INFO in org.springframework.boot.logging.logback.SpringBootJoranConfigurator@46beca3f - Registering current configuration as safe fallback point
 
 
   .   ____          _            __ _ _
@@ -50,15 +50,29 @@
  =========|_|==============|___/=/_/_/_/
  :: Spring Boot ::                (v3.0.3)
 
-2024-09-29 22:01:50.187  INFO 20928 --- [    Test worker] c.a.web.AuditionCommentsControllerTest   : Starting AuditionCommentsControllerTest using Java 17.0.12 with PID 20928 (started by User in C:\Users\User\Downloads\audition-api)
-2024-09-29 22:01:50.187  INFO 20928 --- [    Test worker] c.a.web.AuditionCommentsControllerTest   : No active profile set, falling back to 1 default profile: "default"
-2024-09-29 22:01:50.191  INFO 20928 --- [    Test worker] o.s.c.c.c.ConfigServerConfigDataLoader   : Fetching config from server at : http://localhost:8888
-2024-09-29 22:01:50.191  INFO 20928 --- [    Test worker] o.s.c.c.c.ConfigServerConfigDataLoader   : Connect Timeout Exception on Url - http://localhost:8888. Will try the next url if available
-2024-09-29 22:01:50.191  WARN 20928 --- [    Test worker] o.s.c.c.c.ConfigServerConfigDataLoader   : Could not locate PropertySource ([ConfigServerConfigDataResource@6991468 uris = array<String>['http://localhost:8888'], optional = true, profiles = list['default']]): I/O error on GET request for "http://localhost:8888/application/default": Connection refused: no further information
-2024-09-29 22:01:51.051  INFO 20928 --- [    Test worker] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
-2024-09-29 22:01:51.051  INFO 20928 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
-2024-09-29 22:01:51.051  INFO 20928 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 0 ms
-2024-09-29 22:01:51.051  INFO 20928 --- [    Test worker] c.a.web.AuditionCommentsControllerTest   : Started AuditionCommentsControllerTest in 1.082 seconds (process running for 50.255)
+2024-09-30 12:21:06.565  INFO 296 --- [    Test worker] c.a.web.AuditionCommentsControllerTest   : Starting AuditionCommentsControllerTest using Java 17.0.12 with PID 296 (started by User in C:\Users\User\Downloads\audition-api)
+2024-09-30 12:21:06.566  INFO 296 --- [    Test worker] c.a.web.AuditionCommentsControllerTest   : No active profile set, falling back to 1 default profile: "default"
+2024-09-30 12:21:06.568  INFO 296 --- [    Test worker] o.s.c.c.c.ConfigServerConfigDataLoader   : Fetching config from server at : http://localhost:8888
+2024-09-30 12:21:06.569  INFO 296 --- [    Test worker] o.s.c.c.c.ConfigServerConfigDataLoader   : Connect Timeout Exception on Url - http://localhost:8888. Will try the next url if available
+2024-09-30 12:21:06.569  WARN 296 --- [    Test worker] o.s.c.c.c.ConfigServerConfigDataLoader   : Could not locate PropertySource ([ConfigServerConfigDataResource@73623d80 uris = array<String>['http://localhost:8888'], optional = true, profiles = list['default']]): I/O error on GET request for "http://localhost:8888/application/default": Connection refused: no further information
+2024-09-30 12:21:06.876  WARN 296 --- [    Test worker] .s.s.UserDetailsServiceAutoConfiguration : 
+
+Using generated security password: 57aa8201-3ce7-47b3-9016-5861a862d221
+
+This generated password is for development use only. Your security configuration must be updated before running your application in production.
+
+2024-09-30 12:21:07.446  INFO 296 --- [    Test worker] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@190f7d7b, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@4f3683fd, org.springframework.security.web.context.SecurityContextHolderFilter@155d3f64, org.springframework.security.web.header.HeaderWriterFilter@69e2826b, org.springframework.security.web.authentication.logout.LogoutFilter@5dafe5ad, org.springframework.security.web.authentication.www.BasicAuthenticationFilter@3baf752e, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@6793af12, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@5c7968c6, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@4de8ffee, org.springframework.security.web.access.ExceptionTranslationFilter@18847abc, org.springframework.security.web.access.intercept.AuthorizationFilter@3096495c]
+2024-09-30 12:21:07.506  INFO 296 --- [    Test worker] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
+2024-09-30 12:21:07.506  INFO 296 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2024-09-30 12:21:07.508  INFO 296 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 2 ms
+2024-09-30 12:21:07.516  INFO 296 --- [    Test worker] c.a.web.AuditionCommentsControllerTest   : Started AuditionCommentsControllerTest in 1.132 seconds (process running for 51.889)
+2024-09-30 12:21:07.539  INFO 296 --- [    Test worker] c.a.web.AuditionCommentsController       : Fetching comments for post ID: 1
+2024-09-30 12:21:07.541  INFO 296 --- [    Test worker] c.a.web.AuditionCommentsController       : Retrieved  comments for post ID: 1
+2024-09-30 12:21:07.569  INFO 296 --- [    Test worker] c.a.web.AuditionCommentsController       : Fetching comment by ID: 1
+2024-09-30 12:21:07.570  INFO 296 --- [    Test worker] c.a.web.AuditionCommentsController       : Retrieved comment: AuditionComment{postId=1, id=1, name='Sample User', email='sample.user@example.com', body='Sample comment'}
+2024-09-30 12:21:07.583  INFO 296 --- [    Test worker] c.a.web.AuditionCommentsController       : Fetching comment by ID: 999
+2024-09-30 12:21:07.584  WARN 296 --- [    Test worker] c.a.web.AuditionCommentsController       : Comment not found for ID: 999
+2024-09-30 12:21:07.623  INFO 296 --- [    Test worker] c.a.web.AuditionCommentsController       : Fetching comment by ID: 1
 ]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

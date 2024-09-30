@@ -1,23 +1,38 @@
-config:
-  import: "optional:configserver:"
-autoconfigure:
-  exclude:
-    - org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration
+# Optional external config server
+spring:
+  config:
+    import: "optional:configserver:"
+  security:
+    user:
+      name: admin                      # Username for basic authentication
+      password: password                # Password for basic authentication
+      roles: ADMIN                      # Roles assigned to the user
+  autoconfigure:
+    exclude:
+      - org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration  # Exclude DataSource auto-configuration
+
 application:
   connection:
-    read-timeout: 5000
-    write-timeout: 5000
-    connect-timeout: 5000
-    response-timeout: 5000
+    read-timeout: 5000                # Connection read timeout in milliseconds
+    write-timeout: 5000               # Connection write timeout in milliseconds
+    connect-timeout: 5000              # Connection establishment timeout in milliseconds
+    response-timeout: 5000             # Response timeout in milliseconds
+
   config:
-    posts:
-      baseUrl: https://auditionapi.wiremockapi.cloud
-      auditionPosts: /posts
-      auditionComments: /comments
+    baseUrl: https://jsonplaceholder.typicode.com  # Base URL for the API
     interceptor:
-      logRequest: true
-      logResponse: true
+      logRequest: true              # Enable logging of requests
+      logResponse: true             # Enable logging of responses
 
 server:
   servlet:
-    context-path: /api
+    context-path: /api           # Set the context path for the application
+
+management:
+  server:
+    port: 8081                   # Management server port
+    base-path: /management        # Base path for Actuator endpoints
+
+logging:
+  pattern:
+    level: "%5p [${spring.application.name:},%X{traceId:-},%X{spanId:-}]"  # Logging pattern including application name and trace/span IDs

@@ -1,7 +1,11 @@
 package com.audition.configuration;
 
 import com.audition.common.logging.RestTemplateRequestResponseLoggingInterceptor;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.PropertyNamingStrategies;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.MediaType;
@@ -11,18 +15,17 @@ import org.springframework.http.converter.json.MappingJackson2HttpMessageConvert
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
-
+import java.text.SimpleDateFormat;
 import java.util.Collections;
-
+import java.util.Locale;
 
 @Configuration
 public class WebServiceConfiguration implements WebMvcConfigurer {
 
-    private final transient RestTemplateRequestResponseLoggingInterceptor loggingInterceptor;
-
-    private final transient RestTemplateResponseErrorHandler responseErrorHandler;
-
     private static final String YEAR_MONTH_DAY_PATTERN = "yyyy-MM-dd";
+
+    private final transient RestTemplateRequestResponseLoggingInterceptor loggingInterceptor;
+    private final transient RestTemplateResponseErrorHandler responseErrorHandler;
 
     public WebServiceConfiguration(final RestTemplateRequestResponseLoggingInterceptor loggingInterceptor,
                                    final RestTemplateResponseErrorHandler responseErrorHandler) {
@@ -32,40 +35,37 @@ public class WebServiceConfiguration implements WebMvcConfigurer {
 
     @Bean
     public ObjectMapper objectMapper() {
-        // TODO configure Jackson Object mapper that
-        //  1. allows for date format as yyyy-MM-dd
-        //  2. Does not fail on unknown properties
-        //  3. maps to camelCase
-        //  4. Does not include null values or empty values
-        //  5. does not write datas as timestamps.
-        return new ObjectMapper();
+        return new ObjectMapper()
+                .setDateFormat(new SimpleDateFormat(YEAR_MONTH_DAY_PATTERN, Locale.getDefault()))
+                .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
+                .setPropertyNamingStrategy(PropertyNamingStrategies.LOWER_CAMEL_CASE)
+                .disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS)
+                .setSerializationInclusion(JsonInclude.Include.NON_EMPTY);
     }
 
     @Bean
     public RestTemplate restTemplate() {
-        // Create the RestTemplate with a BufferingClientHttpRequestFactory for enhanced request logging
-        RestTemplate restTemplate = new RestTemplate(new BufferingClientHttpRequestFactory(createClientFactory()));
+        final RestTemplate restTemplate = new RestTemplate(
+                new BufferingClientHttpRequestFactory(createClientFactory()));
 
-        // Configure a custom MappingJackson2HttpMessageConverter
-        MappingJackson2HttpMessageConverter messageConverter = new MappingJackson2HttpMessageConverter();
+        final MappingJackson2HttpMessageConverter messageConverter = new MappingJackson2HttpMessageConverter();
         messageConverter.setPrettyPrint(true);
         messageConverter.setObjectMapper(objectMapper());
         messageConverter.setSupportedMediaTypes(Collections.singletonList(MediaType.APPLICATION_JSON));
 
-        // Replace the existing Jackson message converter with the custom one
+        // Replace default Jackson message converter with custom one
         restTemplate.getMessageConverters().removeIf(converter -> converter instanceof MappingJackson2HttpMessageConverter);
         restTemplate.getMessageConverters().add(messageConverter);
 
-        // Set logging interceptor and error handler
+        // Set interceptors and error handler
         restTemplate.setInterceptors(Collections.singletonList(loggingInterceptor));
         restTemplate.setErrorHandler(responseErrorHandler);
 
         return restTemplate;
     }
 
-
     private SimpleClientHttpRequestFactory createClientFactory() {
-        final SimpleClientHttpRequestFactory requestFactory = new SimpleClientHttpRequestFactory();
+        SimpleClientHttpRequestFactory requestFactory = new SimpleClientHttpRequestFactory();
         requestFactory.setOutputStreaming(false);
         return requestFactory;
     }

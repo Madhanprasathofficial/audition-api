@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="com.audition.integration.AuditionIntegrationPostsClientTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2024-09-29T12:01:49" hostname="DESKTOP-T0DGFL0" time="0.266">
+<testsuite name="com.audition.integration.AuditionIntegrationPostsClientTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2024-09-30T02:21:06" hostname="DESKTOP-T0DGFL0" time="0.163">
   <properties/>
-  <testcase name="shouldGetPostByIdWhenResponseIs200()" classname="com.audition.integration.AuditionIntegrationPostsClientTest" time="0.138"/>
-  <testcase name="shouldGetPostsWhenResponseIs200()" classname="com.audition.integration.AuditionIntegrationPostsClientTest" time="0.071"/>
-  <testcase name="shouldGetPostByIdLoadCommentsWhenResponseIs200()" classname="com.audition.integration.AuditionIntegrationPostsClientTest" time="0.053"/>
+  <testcase name="shouldGetPostByIdWhenResponseIs200()" classname="com.audition.integration.AuditionIntegrationPostsClientTest" time="0.073"/>
+  <testcase name="shouldGetPostsWhenResponseIs200()" classname="com.audition.integration.AuditionIntegrationPostsClientTest" time="0.049"/>
+  <testcase name="shouldGetPostByIdLoadCommentsWhenResponseIs200()" classname="com.audition.integration.AuditionIntegrationPostsClientTest" time="0.039"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

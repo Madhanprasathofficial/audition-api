@@ -41,7 +41,7 @@
 </td>
 <td>
 <div class="infoBox" id="duration">
-<div class="counter">0.188s</div>
+<div class="counter">0.225s</div>
 <p>duration</p>
 </div>
 </td>
@@ -79,72 +79,72 @@
 </thead>
 <tr>
 <td class="success">shouldFailForInvalidParameters()</td>
-<td class="success">0.024s</td>
+<td class="success">0.049s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
 <td class="success">shouldFailForWrongMediaType()</td>
-<td class="success">0.008s</td>
-<td class="success">passed</td>
-</tr>
-<tr>
-<td class="success">shouldHandleServiceExceptionGracefully()</td>
-<td class="success">0.011s</td>
-<td class="success">passed</td>
-</tr>
-<tr>
-<td class="success">shouldReturn204_WhenPostNotFound()</td>
-<td class="success">0.021s</td>
-<td class="success">passed</td>
-</tr>
-<tr>
-<td class="success">shouldReturn400_WhenInvalidIdFormatIsProvided()</td>
 <td class="success">0.012s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
-<td class="success">shouldReturn500_WhenServerErrorOccurs()</td>
+<td class="success">shouldHandleServiceExceptionGracefully()</td>
 <td class="success">0.009s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">shouldReturn204_WhenPostNotFound()</td>
+<td class="success">0.024s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">shouldReturn400_WhenInvalidIdFormatIsProvided()</td>
+<td class="success">0.010s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">shouldReturn500_WhenServerErrorOccurs()</td>
+<td class="success">0.012s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
 <td class="success">shouldReturnAllPosts_WhenNoFilters()</td>
-<td class="success">0.009s</td>
+<td class="success">0.010s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
 <td class="success">shouldReturnBadRequestWhenInvalidPostIdFormat()</td>
-<td class="success">0.016s</td>
+<td class="success">0.021s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
 <td class="success">shouldReturnBadRequestWhenPostIdIsNegative()</td>
-<td class="success">0.011s</td>
-<td class="success">passed</td>
-</tr>
-<tr>
-<td class="success">shouldReturnFilteredPostsByTitle()</td>
 <td class="success">0.019s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
+<td class="success">shouldReturnFilteredPostsByTitle()</td>
+<td class="success">0.018s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
 <td class="success">shouldReturnFilteredPostsByUserId()</td>
-<td class="success">0.007s</td>
+<td class="success">0.008s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
 <td class="success">shouldReturnNotFoundWhenPostDoesNotExist()</td>
-<td class="success">0.014s</td>
+<td class="success">0.011s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
 <td class="success">shouldReturnPostWithCommentsWhenPostExists()</td>
-<td class="success">0.013s</td>
+<td class="success">0.011s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
 <td class="success">shouldReturnPost_WhenValidIdIsProvided()</td>
-<td class="success">0.014s</td>
+<td class="success">0.011s</td>
 <td class="success">passed</td>
 </tr>
 </table>
@@ -152,39 +152,39 @@
 <div id="tab1" class="tab">
 <h2>Standard output</h2>
 <span class="code">
-<pre>2024-09-29 22:01:51.172  INFO 20928 --- [    Test worker] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [com.audition.web.AuditionPostsControllerTest]: AuditionPostsControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
-2024-09-29 22:01:51.172  INFO 20928 --- [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration com.audition.AuditionApplication for test class com.audition.web.AuditionPostsControllerTest
-22:01:51,360 |-INFO in ch.qos.logback.core.joran.util.ConfigurationWatchListUtil@1a26eecb - Adding [jar:file:/C:/Users/User/.gradle/caches/modules-2/files-2.1/org.springframework.boot/spring-boot/3.0.3/d781e7afbeb3d05ce361e9cc4fa7d38b15fb3862/spring-boot-3.0.3.jar!/org/springframework/boot/logging/logback/defaults.xml] to configuration watch list.
-22:01:51,360 |-INFO in ch.qos.logback.core.joran.spi.ConfigurationWatchList@300775f8 - URL [jar:file:/C:/Users/User/.gradle/caches/modules-2/files-2.1/org.springframework.boot/spring-boot/3.0.3/d781e7afbeb3d05ce361e9cc4fa7d38b15fb3862/spring-boot-3.0.3.jar!/org/springframework/boot/logging/logback/defaults.xml] is not of type file
-22:01:51,362 |-INFO in ch.qos.logback.core.joran.action.ConversionRuleAction - registering conversion word clr with class [org.springframework.boot.logging.logback.ColorConverter]
-22:01:51,362 |-INFO in ch.qos.logback.core.joran.action.ConversionRuleAction - registering conversion word wex with class [org.springframework.boot.logging.logback.WhitespaceThrowableProxyConverter]
-22:01:51,362 |-INFO in ch.qos.logback.core.joran.action.ConversionRuleAction - registering conversion word wEx with class [org.springframework.boot.logging.logback.ExtendedWhitespaceThrowableProxyConverter]
-22:01:51,365 |-INFO in ch.qos.logback.core.model.processor.AppenderModelHandler - Processing appender named [console]
-22:01:51,365 |-INFO in ch.qos.logback.core.model.processor.AppenderModelHandler - About to instantiate appender of type [ch.qos.logback.core.ConsoleAppender]
-22:01:51,365 |-INFO in ch.qos.logback.core.model.processor.ImplicitModelHandler - Assuming default type [ch.qos.logback.classic.encoder.PatternLayoutEncoder] for [encoder] property
-22:01:51,368 |-WARN in ch.qos.logback.core.model.processor.AppenderModelHandler - Appender named [flatfile] not referenced. Skipping further processing.
-22:01:51,368 |-WARN in ch.qos.logback.core.model.processor.AppenderModelHandler - Appender named [logstash] not referenced. Skipping further processing.
-22:01:51,368 |-INFO in ch.qos.logback.classic.model.processor.LoggerModelHandler - Setting level of logger [org.apache.catalina.startup.DigesterFactory] to ERROR
-22:01:51,368 |-INFO in ch.qos.logback.classic.jul.LevelChangePropagator@309c8c2c - Propagating ERROR level on Logger[org.apache.catalina.startup.DigesterFactory] onto the JUL framework
-22:01:51,368 |-INFO in ch.qos.logback.classic.model.processor.LoggerModelHandler - Setting level of logger [org.apache.catalina.util.LifecycleBase] to ERROR
-22:01:51,368 |-INFO in ch.qos.logback.classic.jul.LevelChangePropagator@309c8c2c - Propagating ERROR level on Logger[org.apache.catalina.util.LifecycleBase] onto the JUL framework
-22:01:51,368 |-INFO in ch.qos.logback.classic.model.processor.LoggerModelHandler - Setting level of logger [org.apache.coyote.http11.Http11NioProtocol] to WARN
-22:01:51,368 |-INFO in ch.qos.logback.classic.jul.LevelChangePropagator@309c8c2c - Propagating WARN level on Logger[org.apache.coyote.http11.Http11NioProtocol] onto the JUL framework
-22:01:51,368 |-INFO in ch.qos.logback.classic.model.processor.LoggerModelHandler - Setting level of logger [org.apache.sshd.common.util.SecurityUtils] to WARN
-22:01:51,368 |-INFO in ch.qos.logback.classic.jul.LevelChangePropagator@309c8c2c - Propagating WARN level on Logger[org.apache.sshd.common.util.SecurityUtils] onto the JUL framework
-22:01:51,368 |-INFO in ch.qos.logback.classic.model.processor.LoggerModelHandler - Setting level of logger [org.apache.tomcat.util.net.NioSelectorPool] to WARN
-22:01:51,368 |-INFO in ch.qos.logback.classic.jul.LevelChangePropagator@309c8c2c - Propagating WARN level on Logger[org.apache.tomcat.util.net.NioSelectorPool] onto the JUL framework
-22:01:51,368 |-INFO in ch.qos.logback.classic.model.processor.LoggerModelHandler - Setting level of logger [org.eclipse.jetty.util.component.AbstractLifeCycle] to ERROR
-22:01:51,368 |-INFO in ch.qos.logback.classic.jul.LevelChangePropagator@309c8c2c - Propagating ERROR level on Logger[org.eclipse.jetty.util.component.AbstractLifeCycle] onto the JUL framework
-22:01:51,368 |-INFO in ch.qos.logback.classic.model.processor.LoggerModelHandler - Setting level of logger [org.hibernate.validator.internal.util.Version] to WARN
-22:01:51,368 |-INFO in ch.qos.logback.classic.jul.LevelChangePropagator@309c8c2c - Propagating WARN level on Logger[org.hibernate.validator.internal.util.Version] onto the JUL framework
-22:01:51,368 |-INFO in ch.qos.logback.classic.model.processor.LoggerModelHandler - Setting level of logger [org.springframework.boot.actuate.endpoint.jmx] to WARN
-22:01:51,368 |-INFO in ch.qos.logback.classic.jul.LevelChangePropagator@309c8c2c - Propagating WARN level on Logger[org.springframework.boot.actuate.endpoint.jmx] onto the JUL framework
-22:01:51,368 |-INFO in ch.qos.logback.classic.model.processor.RootLoggerModelHandler - Setting level of ROOT logger to INFO
-22:01:51,368 |-INFO in ch.qos.logback.classic.jul.LevelChangePropagator@309c8c2c - Propagating INFO level on Logger[ROOT] onto the JUL framework
-22:01:51,368 |-INFO in ch.qos.logback.core.model.processor.AppenderRefModelHandler - Attaching appender named [console] to Logger[ROOT]
-22:01:51,368 |-INFO in ch.qos.logback.core.model.processor.DefaultProcessor@67dca10c - End of configuration.
-22:01:51,368 |-INFO in org.springframework.boot.logging.logback.SpringBootJoranConfigurator@58465241 - Registering current configuration as safe fallback point
+<pre>2024-09-30 12:21:07.649  INFO 296 --- [    Test worker] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [com.audition.web.AuditionPostsControllerTest]: AuditionPostsControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2024-09-30 12:21:07.655  INFO 296 --- [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration com.audition.AuditionApplication for test class com.audition.web.AuditionPostsControllerTest
+12:21:07,831 |-INFO in ch.qos.logback.core.joran.util.ConfigurationWatchListUtil@5a41183b - Adding [jar:file:/C:/Users/User/.gradle/caches/modules-2/files-2.1/org.springframework.boot/spring-boot/3.0.3/d781e7afbeb3d05ce361e9cc4fa7d38b15fb3862/spring-boot-3.0.3.jar!/org/springframework/boot/logging/logback/defaults.xml] to configuration watch list.
+12:21:07,831 |-INFO in ch.qos.logback.core.joran.spi.ConfigurationWatchList@52485eda - URL [jar:file:/C:/Users/User/.gradle/caches/modules-2/files-2.1/org.springframework.boot/spring-boot/3.0.3/d781e7afbeb3d05ce361e9cc4fa7d38b15fb3862/spring-boot-3.0.3.jar!/org/springframework/boot/logging/logback/defaults.xml] is not of type file
+12:21:07,835 |-INFO in ch.qos.logback.core.joran.action.ConversionRuleAction - registering conversion word clr with class [org.springframework.boot.logging.logback.ColorConverter]
+12:21:07,835 |-INFO in ch.qos.logback.core.joran.action.ConversionRuleAction - registering conversion word wex with class [org.springframework.boot.logging.logback.WhitespaceThrowableProxyConverter]
+12:21:07,835 |-INFO in ch.qos.logback.core.joran.action.ConversionRuleAction - registering conversion word wEx with class [org.springframework.boot.logging.logback.ExtendedWhitespaceThrowableProxyConverter]
+12:21:07,836 |-INFO in ch.qos.logback.core.model.processor.AppenderModelHandler - Processing appender named [console]
+12:21:07,836 |-INFO in ch.qos.logback.core.model.processor.AppenderModelHandler - About to instantiate appender of type [ch.qos.logback.core.ConsoleAppender]
+12:21:07,837 |-INFO in ch.qos.logback.core.model.processor.ImplicitModelHandler - Assuming default type [ch.qos.logback.classic.encoder.PatternLayoutEncoder] for [encoder] property
+12:21:07,838 |-WARN in ch.qos.logback.core.model.processor.AppenderModelHandler - Appender named [flatfile] not referenced. Skipping further processing.
+12:21:07,838 |-WARN in ch.qos.logback.core.model.processor.AppenderModelHandler - Appender named [logstash] not referenced. Skipping further processing.
+12:21:07,838 |-INFO in ch.qos.logback.classic.model.processor.LoggerModelHandler - Setting level of logger [org.apache.catalina.startup.DigesterFactory] to ERROR
+12:21:07,838 |-INFO in ch.qos.logback.classic.jul.LevelChangePropagator@4d299658 - Propagating ERROR level on Logger[org.apache.catalina.startup.DigesterFactory] onto the JUL framework
+12:21:07,838 |-INFO in ch.qos.logback.classic.model.processor.LoggerModelHandler - Setting level of logger [org.apache.catalina.util.LifecycleBase] to ERROR
+12:21:07,839 |-INFO in ch.qos.logback.classic.jul.LevelChangePropagator@4d299658 - Propagating ERROR level on Logger[org.apache.catalina.util.LifecycleBase] onto the JUL framework
+12:21:07,839 |-INFO in ch.qos.logback.classic.model.processor.LoggerModelHandler - Setting level of logger [org.apache.coyote.http11.Http11NioProtocol] to WARN
+12:21:07,839 |-INFO in ch.qos.logback.classic.jul.LevelChangePropagator@4d299658 - Propagating WARN level on Logger[org.apache.coyote.http11.Http11NioProtocol] onto the JUL framework
+12:21:07,839 |-INFO in ch.qos.logback.classic.model.processor.LoggerModelHandler - Setting level of logger [org.apache.sshd.common.util.SecurityUtils] to WARN
+12:21:07,839 |-INFO in ch.qos.logback.classic.jul.LevelChangePropagator@4d299658 - Propagating WARN level on Logger[org.apache.sshd.common.util.SecurityUtils] onto the JUL framework
+12:21:07,839 |-INFO in ch.qos.logback.classic.model.processor.LoggerModelHandler - Setting level of logger [org.apache.tomcat.util.net.NioSelectorPool] to WARN
+12:21:07,839 |-INFO in ch.qos.logback.classic.jul.LevelChangePropagator@4d299658 - Propagating WARN level on Logger[org.apache.tomcat.util.net.NioSelectorPool] onto the JUL framework
+12:21:07,839 |-INFO in ch.qos.logback.classic.model.processor.LoggerModelHandler - Setting level of logger [org.eclipse.jetty.util.component.AbstractLifeCycle] to ERROR
+12:21:07,839 |-INFO in ch.qos.logback.classic.jul.LevelChangePropagator@4d299658 - Propagating ERROR level on Logger[org.eclipse.jetty.util.component.AbstractLifeCycle] onto the JUL framework
+12:21:07,839 |-INFO in ch.qos.logback.classic.model.processor.LoggerModelHandler - Setting level of logger [org.hibernate.validator.internal.util.Version] to WARN
+12:21:07,839 |-INFO in ch.qos.logback.classic.jul.LevelChangePropagator@4d299658 - Propagating WARN level on Logger[org.hibernate.validator.internal.util.Version] onto the JUL framework
+12:21:07,839 |-INFO in ch.qos.logback.classic.model.processor.LoggerModelHandler - Setting level of logger [org.springframework.boot.actuate.endpoint.jmx] to WARN
+12:21:07,839 |-INFO in ch.qos.logback.classic.jul.LevelChangePropagator@4d299658 - Propagating WARN level on Logger[org.springframework.boot.actuate.endpoint.jmx] onto the JUL framework
+12:21:07,839 |-INFO in ch.qos.logback.classic.model.processor.RootLoggerModelHandler - Setting level of ROOT logger to INFO
+12:21:07,839 |-INFO in ch.qos.logback.classic.jul.LevelChangePropagator@4d299658 - Propagating INFO level on Logger[ROOT] onto the JUL framework
+12:21:07,839 |-INFO in ch.qos.logback.core.model.processor.AppenderRefModelHandler - Attaching appender named [console] to Logger[ROOT]
+12:21:07,839 |-INFO in ch.qos.logback.core.model.processor.DefaultProcessor@637ad499 - End of configuration.
+12:21:07,839 |-INFO in org.springframework.boot.logging.logback.SpringBootJoranConfigurator@509ba80 - Registering current configuration as safe fallback point
 
 
   .   ____          _            __ _ _
@@ -195,15 +195,38 @@
  =========|_|==============|___/=/_/_/_/
  :: Spring Boot ::                (v3.0.3)
 
-2024-09-29 22:01:51.377  INFO 20928 --- [    Test worker] c.a.web.AuditionPostsControllerTest      : Starting AuditionPostsControllerTest using Java 17.0.12 with PID 20928 (started by User in C:\Users\User\Downloads\audition-api)
-2024-09-29 22:01:51.377  INFO 20928 --- [    Test worker] c.a.web.AuditionPostsControllerTest      : No active profile set, falling back to 1 default profile: &quot;default&quot;
-2024-09-29 22:01:51.381  INFO 20928 --- [    Test worker] o.s.c.c.c.ConfigServerConfigDataLoader   : Fetching config from server at : http://localhost:8888
-2024-09-29 22:01:51.382  INFO 20928 --- [    Test worker] o.s.c.c.c.ConfigServerConfigDataLoader   : Connect Timeout Exception on Url - http://localhost:8888. Will try the next url if available
-2024-09-29 22:01:51.382  WARN 20928 --- [    Test worker] o.s.c.c.c.ConfigServerConfigDataLoader   : Could not locate PropertySource ([ConfigServerConfigDataResource@533a6430 uris = array&lt;String&gt;['http://localhost:8888'], optional = true, profiles = list['default']]): I/O error on GET request for &quot;http://localhost:8888/application/default&quot;: Connection refused: no further information
-2024-09-29 22:01:52.142  INFO 20928 --- [    Test worker] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
-2024-09-29 22:01:52.142  INFO 20928 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
-2024-09-29 22:01:52.142  INFO 20928 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 0 ms
-2024-09-29 22:01:52.150  INFO 20928 --- [    Test worker] c.a.web.AuditionPostsControllerTest      : Started AuditionPostsControllerTest in 0.968 seconds (process running for 51.347)
+2024-09-30 12:21:07.848  INFO 296 --- [    Test worker] c.a.web.AuditionPostsControllerTest      : Starting AuditionPostsControllerTest using Java 17.0.12 with PID 296 (started by User in C:\Users\User\Downloads\audition-api)
+2024-09-30 12:21:07.848  INFO 296 --- [    Test worker] c.a.web.AuditionPostsControllerTest      : No active profile set, falling back to 1 default profile: &quot;default&quot;
+2024-09-30 12:21:07.852  INFO 296 --- [    Test worker] o.s.c.c.c.ConfigServerConfigDataLoader   : Fetching config from server at : http://localhost:8888
+2024-09-30 12:21:07.853  INFO 296 --- [    Test worker] o.s.c.c.c.ConfigServerConfigDataLoader   : Connect Timeout Exception on Url - http://localhost:8888. Will try the next url if available
+2024-09-30 12:21:07.853  WARN 296 --- [    Test worker] o.s.c.c.c.ConfigServerConfigDataLoader   : Could not locate PropertySource ([ConfigServerConfigDataResource@53d984f7 uris = array&lt;String&gt;['http://localhost:8888'], optional = true, profiles = list['default']]): I/O error on GET request for &quot;http://localhost:8888/application/default&quot;: Connection refused: no further information
+2024-09-30 12:21:08.127  WARN 296 --- [    Test worker] .s.s.UserDetailsServiceAutoConfiguration : 
+
+Using generated security password: 02b87d21-9567-492e-851f-1c119c171175
+
+This generated password is for development use only. Your security configuration must be updated before running your application in production.
+
+2024-09-30 12:21:08.628  INFO 296 --- [    Test worker] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@2bf87090, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@777d7ac1, org.springframework.security.web.context.SecurityContextHolderFilter@64b4b7d8, org.springframework.security.web.header.HeaderWriterFilter@7bbf623a, org.springframework.security.web.authentication.logout.LogoutFilter@63e213e4, org.springframework.security.web.authentication.www.BasicAuthenticationFilter@58763549, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@7e36be3e, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@220772d6, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@709bdd17, org.springframework.security.web.access.ExceptionTranslationFilter@359d2e00, org.springframework.security.web.access.intercept.AuthorizationFilter@31e6d0e1]
+2024-09-30 12:21:08.668  INFO 296 --- [    Test worker] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
+2024-09-30 12:21:08.668  INFO 296 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2024-09-30 12:21:08.669  INFO 296 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 1 ms
+2024-09-30 12:21:08.675  INFO 296 --- [    Test worker] c.a.web.AuditionPostsControllerTest      : Started AuditionPostsControllerTest in 1.016 seconds (process running for 53.048)
+2024-09-30 12:21:08.695  INFO 296 --- [    Test worker] c.audition.web.AuditionPostsController   : Received request to get post by ID: 999
+2024-09-30 12:21:08.780  INFO 296 --- [    Test worker] c.audition.web.AuditionPostsController   : Received request to get post with comments for post ID: 1
+2024-09-30 12:21:08.802  INFO 296 --- [    Test worker] c.audition.web.AuditionPostsController   : Received request to get posts with userId: -1
+2024-09-30 12:21:08.802  WARN 296 --- [    Test worker] c.audition.web.AuditionPostsController   : Invalid userId provided: -1
+2024-09-30 12:21:08.829  INFO 296 --- [    Test worker] c.audition.web.AuditionPostsController   : Received request to get posts with userId: -1
+2024-09-30 12:21:08.831  WARN 296 --- [    Test worker] c.audition.web.AuditionPostsController   : Invalid userId provided: -1
+2024-09-30 12:21:08.842  INFO 296 --- [    Test worker] c.audition.web.AuditionPostsController   : Received request to get post by ID: 1
+2024-09-30 12:21:08.857  INFO 296 --- [    Test worker] c.audition.web.AuditionPostsController   : Received request to get post with comments for post ID: 999
+2024-09-30 12:21:08.869  INFO 296 --- [    Test worker] c.audition.web.AuditionPostsController   : Received request to get post by ID: 1
+2024-09-30 12:21:08.884  INFO 296 --- [    Test worker] c.audition.web.AuditionPostsController   : Received request to get posts with userId: null
+2024-09-30 12:21:08.884  INFO 296 --- [    Test worker] c.audition.web.AuditionPostsController   : Successfully retrieved 0 posts
+2024-09-30 12:21:08.895  INFO 296 --- [    Test worker] c.audition.web.AuditionPostsController   : Received request to get post with comments for post ID: 1
+2024-09-30 12:21:08.904  INFO 296 --- [    Test worker] c.audition.web.AuditionPostsController   : Received request to get posts with userId: 1
+2024-09-30 12:21:08.905  INFO 296 --- [    Test worker] c.audition.web.AuditionPostsController   : Successfully retrieved 0 posts
+2024-09-30 12:21:08.924  INFO 296 --- [    Test worker] c.audition.web.AuditionPostsController   : Received request to get posts with userId: null
+2024-09-30 12:21:08.925  INFO 296 --- [    Test worker] c.audition.web.AuditionPostsController   : Successfully retrieved 0 posts
 </pre>
 </span>
 </div>
@@ -215,7 +238,7 @@
 <input id="line-wrapping-toggle" type="checkbox" autocomplete="off"/>
 </label>
 </div>Generated by 
-<a href="http://www.gradle.org">Gradle 7.6</a> at 29 Sept 2024, 10:01:52 pm</p>
+<a href="http://www.gradle.org">Gradle 7.6</a> at 30 Sept 2024, 12:21:09 pm</p>
 </div>
 </div>
 </body>

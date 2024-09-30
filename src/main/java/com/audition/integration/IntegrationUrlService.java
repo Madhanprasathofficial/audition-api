@@ -1,11 +1,9 @@
 package com.audition.integration;
 
-import com.audition.model.AuditionComment;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import java.util.Objects;
-import java.util.Optional;
 
 @Component
 public class IntegrationUrlService implements IIntegrationUrlService {
@@ -18,7 +16,7 @@ public class IntegrationUrlService implements IIntegrationUrlService {
 
     private static final String LIMIT = "&_limit=";
 
-    private final String baseUrl;
+    private transient final String baseUrl;
 
     public IntegrationUrlService(@Value("${application.config.baseUrl}") String baseUrl) {
         this.baseUrl = baseUrl;
