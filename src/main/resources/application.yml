@@ -6,7 +6,7 @@ spring:
     user:
       name: admin                      # Username for basic authentication
       password: password                # Password for basic authentication
-      roles: ADMIN                      # Roles assigned to the user
+      roles: USER                      # Roles assigned to the user
   autoconfigure:
     exclude:
       - org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration  # Exclude DataSource auto-configuration

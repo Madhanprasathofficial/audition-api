@@ -1,15 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="com.audition.web.AuditionPostsControllerTest" tests="5" skipped="0" failures="0" errors="0" timestamp="2024-09-30T12:09:27" hostname="DESKTOP-T0DGFL0" time="0.121">
+<testsuite name="com.audition.web.AuditionPostsControllerTest" tests="5" skipped="0" failures="0" errors="0" timestamp="2024-10-01T07:19:05" hostname="DESKTOP-T0DGFL0" time="1.235">
   <properties/>
-  <testcase name="shouldFailForWrongMediaType()" classname="com.audition.web.AuditionPostsControllerTest" time="0.012"/>
-  <testcase name="shouldFailForInvalidParameters()" classname="com.audition.web.AuditionPostsControllerTest" time="0.043"/>
-  <testcase name="shouldReturnAllPosts_WhenNoFilters()" classname="com.audition.web.AuditionPostsControllerTest" time="0.014"/>
-  <testcase name="shouldReturnFilteredPostsByUserId()" classname="com.audition.web.AuditionPostsControllerTest" time="0.013"/>
-  <testcase name="shouldReturnFilteredPostsByTitle()" classname="com.audition.web.AuditionPostsControllerTest" time="0.027"/>
-  <system-out><![CDATA[2024-09-30 22:09:27.184  INFO 18020 --- [    Test worker] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [com.audition.web.AuditionPostsControllerTest]: AuditionPostsControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
-2024-09-30 22:09:27.193  INFO 18020 --- [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration com.audition.AuditionApplication for test class com.audition.web.AuditionPostsControllerTest
-2024-09-30 22:09:27.234  WARN 18020 --- [    Test worker] c.audition.web.AuditionPostsController   : Invalid userId provided: -1
-2024-09-30 22:09:27.251  WARN 18020 --- [    Test worker] c.audition.web.AuditionPostsController   : Invalid userId provided: -1
+  <testcase name="shouldFailForWrongMediaType()" classname="com.audition.web.AuditionPostsControllerTest" time="0.21"/>
+  <testcase name="shouldFailForInvalidParameters()" classname="com.audition.web.AuditionPostsControllerTest" time="0.576"/>
+  <testcase name="shouldReturnAllPosts_WhenNoFilters()" classname="com.audition.web.AuditionPostsControllerTest" time="0.098"/>
+  <testcase name="shouldReturnFilteredPostsByUserId()" classname="com.audition.web.AuditionPostsControllerTest" time="0.138"/>
+  <testcase name="shouldReturnFilteredPostsByTitle()" classname="com.audition.web.AuditionPostsControllerTest" time="0.204"/>
+  <system-out><![CDATA[2024-10-01 17:19:05.922  INFO 3844 --- [    Test worker] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [com.audition.web.AuditionPostsControllerTest]: AuditionPostsControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2024-10-01 17:19:05.922  INFO 3844 --- [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration com.audition.AuditionApplication for test class com.audition.web.AuditionPostsControllerTest
 ]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

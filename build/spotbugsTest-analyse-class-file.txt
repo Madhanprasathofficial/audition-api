@@ -8,9 +8,8 @@ C:\Users\User\Downloads\audition-api\build\classes\java\test\com\audition\common
 C:\Users\User\Downloads\audition-api\build\classes\java\test\com\audition\configuration\ResponseHeaderInjectorTest.class
 C:\Users\User\Downloads\audition-api\build\classes\java\test\com\audition\configuration\RestTemplateResponseErrorHandlerTest.class
 C:\Users\User\Downloads\audition-api\build\classes\java\test\com\audition\configuration\WebServiceConfigurationTest.class
-C:\Users\User\Downloads\audition-api\build\classes\java\test\com\audition\integration\AuditionIntegrationCommentsClientTest.class
-C:\Users\User\Downloads\audition-api\build\classes\java\test\com\audition\integration\AuditionIntegrationPostsClientTest.class
-C:\Users\User\Downloads\audition-api\build\classes\java\test\com\audition\service\AuditionCommentsServiceTest.class
+C:\Users\User\Downloads\audition-api\build\classes\java\test\com\audition\integration\IntegrationUrlServiceTest.class
+C:\Users\User\Downloads\audition-api\build\classes\java\test\com\audition\service\AuditionCommentsServiceImplTest.class
 C:\Users\User\Downloads\audition-api\build\classes\java\test\com\audition\service\AuditionPostServiceImplTest.class
 C:\Users\User\Downloads\audition-api\build\classes\java\test\com\audition\web\AuditionCommentsControllerTest.class
 C:\Users\User\Downloads\audition-api\build\classes\java\test\com\audition\web\AuditionPostByIdControllerTest.class

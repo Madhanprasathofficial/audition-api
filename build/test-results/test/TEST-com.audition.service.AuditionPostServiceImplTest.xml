@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="com.audition.service.AuditionPostServiceImplTest" tests="4" skipped="0" failures="0" errors="0" timestamp="2024-09-30T12:09:24" hostname="DESKTOP-T0DGFL0" time="0.039">
+<testsuite name="com.audition.service.AuditionPostServiceImplTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2024-10-01T07:19:00" hostname="DESKTOP-T0DGFL0" time="0.219">
   <properties/>
-  <testcase name="shouldCaptureArgumentsForGetPostById()" classname="com.audition.service.AuditionPostServiceImplTest" time="0.026"/>
-  <testcase name="shouldGetPostById()" classname="com.audition.service.AuditionPostServiceImplTest" time="0.003"/>
-  <testcase name="shouldCaptureArgumentsForGetPosts()" classname="com.audition.service.AuditionPostServiceImplTest" time="0.003"/>
-  <testcase name="shouldGetListOfPosts()" classname="com.audition.service.AuditionPostServiceImplTest" time="0.003"/>
+  <testcase name="shouldGetPostByIdWhenResponseIs200()" classname="com.audition.service.AuditionPostServiceImplTest" time="0.071"/>
+  <testcase name="shouldGetPostsWhenResponseIs200()" classname="com.audition.service.AuditionPostServiceImplTest" time="0.081"/>
+  <testcase name="shouldGetPostByIdLoadCommentsWhenResponseIs200()" classname="com.audition.service.AuditionPostServiceImplTest" time="0.066"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

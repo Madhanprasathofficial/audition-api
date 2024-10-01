@@ -16,41 +16,51 @@ import java.util.List;
 <span class="fc" id="L16">@NoArgsConstructor</span>
 public class AuditionPost {
 
-    //@Positive(message = &quot;User ID must be positive.&quot;)
-<span class="fc" id="L20">    private Integer userId; // Change to Integer</span>
+<span class="fc" id="L19">    private Integer userId;</span>
+<span class="fc" id="L20">    private Integer id;</span>
+<span class="fc" id="L21">    private String title;</span>
+<span class="fc" id="L22">    private String body;</span>
+<span class="fc" id="L23">    private List&lt;AuditionComment&gt; auditionCommentsList = new ArrayList&lt;&gt;();</span>
 
-    // @Positive(message = &quot;Post ID must be positive.&quot;)
-<span class="fc" id="L23">    private Integer id; // Change to Integer</span>
-
-    //@NotBlank(message = &quot;Title cannot be blank.&quot;)
-<span class="fc" id="L26">    private String title;</span>
-
-    // @NotBlank(message = &quot;Body cannot be blank.&quot;)
-<span class="fc" id="L29">    private String body;</span>
-
-<span class="fc" id="L31">    private List&lt;AuditionComment&gt; auditionCommentsList = new ArrayList&lt;&gt;(); // Retaining initializer</span>
-
-<span class="fc" id="L33">    public AuditionPost(final Integer userId, final Integer id, final String title, final String body, final List&lt;AuditionComment&gt; auditionComments) {</span>
-<span class="fc" id="L34">        this.userId = userId;</span>
-<span class="fc" id="L35">        this.id = id;</span>
-<span class="fc" id="L36">        this.title = title;</span>
-<span class="fc" id="L37">        this.body = body;</span>
-<span class="pc bpc" id="L38" title="1 of 2 branches missed.">        if (auditionComments != null) {</span>
-<span class="fc" id="L39">            this.auditionCommentsList = new ArrayList&lt;&gt;(auditionComments);</span>
+    /**
+     * Constructs a new AuditionPost with the specified details.
+     *
+     * @param userId                the user ID of the post creator
+     * @param id                    the unique identifier of the post
+     * @param title                 the title of the post
+     * @param body                  the body content of the post
+     * @param auditionComments      the list of audition comments associated with the post
+     */
+<span class="fc" id="L34">    public AuditionPost(final Integer userId, final Integer id, final String title, final String body, final List&lt;AuditionComment&gt; auditionComments) {</span>
+<span class="fc" id="L35">        this.userId = userId;</span>
+<span class="fc" id="L36">        this.id = id;</span>
+<span class="fc" id="L37">        this.title = title;</span>
+<span class="fc" id="L38">        this.body = body;</span>
+<span class="pc bpc" id="L39" title="1 of 2 branches missed.">        if (auditionComments != null) {</span>
+<span class="fc" id="L40">            this.auditionCommentsList = new ArrayList&lt;&gt;(auditionComments);</span>
         }
-<span class="fc" id="L41">    }</span>
+<span class="fc" id="L42">    }</span>
 
+    /**
+     * Sets the audition comments for this post.
+     *
+     * @param auditionComments the list of audition comments to set
+     */
     public void setAuditionComments(final List&lt;AuditionComment&gt; auditionComments) {
-<span class="pc bpc" id="L44" title="1 of 2 branches missed.">        if (auditionComments != null) {</span>
-<span class="fc" id="L45">            this.auditionCommentsList = new ArrayList&lt;&gt;(auditionComments);</span>
+<span class="pc bpc" id="L50" title="1 of 2 branches missed.">        if (auditionComments != null) {</span>
+<span class="fc" id="L51">            this.auditionCommentsList = new ArrayList&lt;&gt;(auditionComments);</span>
         } else {
-<span class="nc" id="L47">            this.auditionCommentsList.clear(); // Handle null assignment</span>
+<span class="nc" id="L53">            this.auditionCommentsList.clear();</span>
         }
-<span class="fc" id="L49">    }</span>
+<span class="fc" id="L55">    }</span>
 
+    /**
+     * Returns an unmodifiable list of audition comments for this post.
+     *
+     * @return an unmodifiable list of audition comments
+     */
     public List&lt;AuditionComment&gt; getAuditionComments() {
-        // Return an unmodifiable view to prevent external modifications
-<span class="fc" id="L53">        return Collections.unmodifiableList(auditionCommentsList);</span>
+<span class="fc" id="L63">        return Collections.unmodifiableList(auditionCommentsList);</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

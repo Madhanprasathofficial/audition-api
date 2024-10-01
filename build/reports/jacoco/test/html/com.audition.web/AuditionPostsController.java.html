@@ -2,8 +2,8 @@
 
 import com.audition.common.logging.AuditionLogger;
 import com.audition.dto.ErrorResponse;
-import com.audition.model.AuditionPost;
 import com.audition.service.IAuditionPostService;
+import com.audition.model.AuditionPost;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -22,16 +22,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
 import java.util.Optional;
 
-
 /**
- * Posts Controller to handle requests related to audition posts.
+ * Controller for managing and retrieving audition posts.
+
+ * This class contains APIs to retrieve all posts, get a post by ID,
+ * and retrieve a post along with its comments by ID. The controller also
+ * handles basic validation and error handling related to pagination and
+ * post retrieval.
  */
 @Tag(name = &quot;Posts Controller&quot;, description = &quot;APIs for retrieving posts and comments.&quot;)
 @RestController
@@ -39,69 +42,109 @@ import java.util.Optional;
 @RequestMapping(&quot;/posts&quot;)
 public class AuditionPostsController {
 
+    // Constants for default pagination values
     private static final String DEFAULT_PAGE = &quot;0&quot;;
     private static final String DEFAULT_PAGE_SIZE = &quot;100&quot;;
     private static final long MAX_PAGE_SIZE = 100L;
 
+    // Constants for log messages
+    private static final String INVALID_USER_ID_MESSAGE = &quot;Invalid User ID&quot;;
+    private static final String INVALID_USER_ID_ERROR_MESSAGE = &quot;User ID must be positive&quot;;
+    private static final String SUCCESSFUL_RETRIEVAL_MESSAGE = &quot;Successfully retrieved posts&quot;;
+    private static final String GET_POST_BY_ID_MESSAGE = &quot;Received request to get post by ID: {}&quot;;
+    private static final String POST_NOT_FOUND_ERROR = &quot;Post not found&quot;;
+    private static final String PAGE_NOT_FOUND_ERROR = &quot;Page not found&quot;;
+
+    // Constant for error responses
+<span class="fc" id="L59">    private static final AuditionPost INVALID_USER_ID_RESPONSE = new</span>
+<span class="fc" id="L60">            AuditionPost(0, 0, INVALID_USER_ID_MESSAGE, INVALID_USER_ID_ERROR_MESSAGE, Collections.emptyList());</span>
+
     private final transient IAuditionPostService auditionPostService;
     private final transient AuditionLogger auditionLogger;
-<span class="fc" id="L48">    private static final Logger COMMENTS_LOGGER  = LoggerFactory.getLogger(AuditionPostsController.class);</span>
+<span class="fc" id="L64">    private static final Logger POSTS_LOGGER = LoggerFactory.getLogger(AuditionPostsController.class);</span>
 
-<span class="fc" id="L50">    public AuditionPostsController(final IAuditionPostService auditionPostService, final AuditionLogger auditionLogger) {</span>
-<span class="fc" id="L51">        this.auditionPostService = auditionPostService;</span>
-<span class="fc" id="L52">        this.auditionLogger = auditionLogger;</span>
-<span class="fc" id="L53">    }</span>
+    /**
+     * Constructor for AuditionPostsController.
+     *
+     * @param auditionPostService The service layer for managing audition posts.
+     * @param auditionLogger      Logger to log activity within the controller.
+     */
+<span class="fc" id="L72">    public AuditionPostsController(final IAuditionPostService auditionPostService, final AuditionLogger auditionLogger) {</span>
+<span class="fc" id="L73">        this.auditionPostService = auditionPostService;</span>
+<span class="fc" id="L74">        this.auditionLogger = auditionLogger;</span>
+<span class="fc" id="L75">    }</span>
 
+    /**
+     * Retrieve all audition posts, with optional filtering by user ID and title.
+     * Supports pagination, with page number and size specified as request parameters.
+     *
+     * @param page   The page number (zero-based) for pagination, default is 0.
+     * @param size   The page size (number of items), default is 100, max is 100.
+     * @param userId Optional user ID to filter posts by user.
+     * @param title  Optional post title filter.
+     * @return A ResponseEntity containing a list of filtered posts.
+     */
     @Operation(summary = &quot;Get all posts&quot;, description = &quot;Retrieve all posts with optional filtering by user ID and title.&quot;)
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    @SuppressWarnings({})
     public ResponseEntity&lt;List&lt;AuditionPost&gt;&gt; getPosts(
-            @RequestParam(required = false, defaultValue = DEFAULT_PAGE)
-            @Min(0) final Integer page,
-            @RequestParam(required = false, defaultValue = DEFAULT_PAGE_SIZE)
-            @Positive @Max(MAX_PAGE_SIZE) final Integer size,
-            @RequestParam(required = false) final Integer userId,
+            @RequestParam(required = false, defaultValue = DEFAULT_PAGE) @Min(0) final Integer page,
+            @RequestParam(required = false, defaultValue = DEFAULT_PAGE_SIZE) @Positive @Max(MAX_PAGE_SIZE) final Integer size,
+            @RequestParam(required = false) final Optional&lt;Integer&gt; userId,
             @RequestParam(required = false) final Optional&lt;String&gt; title) {
 
-
-        // Validate userId
-<span class="fc bfc" id="L68" title="All 4 branches covered.">        if (userId != null &amp;&amp; userId &lt;= 0) {</span>
-<span class="fc" id="L69">            final List&lt;AuditionPost&gt; errorResponse = new ArrayList&lt;&gt;();</span>
-<span class="fc" id="L70">            errorResponse.add(new AuditionPost(0, 0, &quot;Invalid User ID&quot;, &quot;User ID must be positive&quot;, Collections.emptyList()));</span>
-<span class="fc" id="L71">            auditionLogger.warn(COMMENTS_LOGGER, &quot;Invalid userId provided: {}&quot;, userId);</span>
-<span class="fc" id="L72">            return ResponseEntity.badRequest().body(errorResponse);</span>
+        // Validate userId if present
+<span class="fc bfc" id="L96" title="All 4 branches covered.">        if (userId.isPresent() &amp;&amp; userId.get() &lt;= 0) {</span>
+<span class="fc" id="L97">            auditionLogger.debug(POSTS_LOGGER, &quot;Invalid userId provided&quot;);</span>
+<span class="fc" id="L98">            return ResponseEntity.badRequest().body(Collections.singletonList(INVALID_USER_ID_RESPONSE));</span>
         }
 
-        // Fetch posts from the service layer with pagination and optional filtering
-<span class="fc" id="L76">        List&lt;AuditionPost&gt; posts = auditionPostService.getPosts(userId, page, size);</span>
-<span class="fc" id="L77">        final String filterTitle = title.map(String::toLowerCase).orElse(&quot;&quot;);</span>
-<span class="fc bfc" id="L78" title="All 2 branches covered.">        if (!filterTitle.isEmpty()) {</span>
-<span class="fc" id="L79">            posts = posts.stream()</span>
-<span class="pc bnc" id="L80" title="All 2 branches missed.">                    .filter(post -&gt; post.getTitle() != null</span>
-<span class="nc bnc" id="L81" title="All 2 branches missed.">                            &amp;&amp; post.getTitle().toLowerCase(Locale.ENGLISH).contains(filterTitle))</span>
-<span class="fc" id="L82">                    .toList();</span>
+        // Fetch posts with pagination and optional filtering
+<span class="fc" id="L102">        List&lt;AuditionPost&gt; posts = auditionPostService.getPosts(userId.orElse(null), page, size);</span>
+<span class="fc" id="L103">        final String filterTitle = title.map(String::toLowerCase).orElse(&quot;&quot;);</span>
+<span class="fc bfc" id="L104" title="All 2 branches covered.">        if (!filterTitle.isEmpty()) {</span>
+<span class="fc" id="L105">            posts = posts.stream()</span>
+<span class="pc bnc" id="L106" title="All 2 branches missed.">                    .filter(post -&gt; post.getTitle() != null</span>
+<span class="nc bnc" id="L107" title="All 2 branches missed.">                            &amp;&amp; post.getTitle().toLowerCase(Locale.ENGLISH).contains(filterTitle))</span>
+<span class="fc" id="L108">                    .toList();</span>
         }
-        
-<span class="fc" id="L85">        auditionLogger.debug(COMMENTS_LOGGER, &quot;Successfully retrieved posts&quot;);</span>
-<span class="fc" id="L86">        return ResponseEntity.ok(posts);</span>
+
+<span class="fc" id="L111">        auditionLogger.debug(POSTS_LOGGER, SUCCESSFUL_RETRIEVAL_MESSAGE);</span>
+<span class="fc" id="L112">        return ResponseEntity.ok(posts);</span>
     }
 
+    /**
+     * Retrieve a specific post by its ID.
+
+     * If the post does not exist, returns a 204 NO CONTENT status.
+     *
+     * @param postId The ID of the post to retrieve.
+     * @return A ResponseEntity containing the post or an error response if not found.
+     */
     @Operation(summary = &quot;Get post by ID&quot;, description = &quot;Retrieve a specific post by its ID.&quot;)
     @GetMapping(value = &quot;/{id}&quot;, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity&lt;?&gt; getPostById(
-            @Parameter(description = &quot;ID of the post&quot;)
-            @PathVariable(&quot;id&quot;) @Positive final Integer postId) {
+            @Parameter(description = &quot;ID of the post&quot;) @PathVariable(&quot;id&quot;) @Positive final Integer postId) {
 
-<span class="fc" id="L95">        auditionLogger.info(COMMENTS_LOGGER, &quot;Received request to get post by ID: {}&quot;, postId);</span>
-<span class="fc" id="L96">        final AuditionPost post = auditionPostService.getPostById(postId, false, Integer.parseInt(DEFAULT_PAGE), Integer.parseInt(DEFAULT_PAGE_SIZE));</span>
+<span class="fc" id="L128">        auditionLogger.info(POSTS_LOGGER, GET_POST_BY_ID_MESSAGE, postId);</span>
+<span class="fc" id="L129">        final AuditionPost post = auditionPostService.getPostById(postId, false, Integer.parseInt(DEFAULT_PAGE), Integer.parseInt(DEFAULT_PAGE_SIZE));</span>
 
-<span class="fc bfc" id="L98" title="All 2 branches covered.">        return Objects.isNull(post)</span>
-<span class="fc" id="L99">                ? ResponseEntity.status(HttpStatus.NO_CONTENT)</span>
-<span class="fc" id="L100">                        .contentType(MediaType.APPLICATION_JSON)</span>
-<span class="fc" id="L101">                        .body(new ErrorResponse(&quot;Page not found&quot;)) :</span>
-<span class="fc" id="L102">                ResponseEntity.ok(post);</span>
+<span class="fc bfc" id="L131" title="All 2 branches covered.">        return Objects.isNull(post)</span>
+<span class="fc" id="L132">                ? ResponseEntity.status(HttpStatus.NO_CONTENT)</span>
+<span class="fc" id="L133">                .contentType(MediaType.APPLICATION_JSON)</span>
+<span class="fc" id="L134">                .body(new ErrorResponse(PAGE_NOT_FOUND_ERROR))</span>
+<span class="fc" id="L135">                : ResponseEntity.ok(post);</span>
     }
 
+    /**
+     * Retrieve a specific post by its ID along with its comments.
+
+     * If the post or its comments are not found, returns a 404 NOT FOUND status.
+     *
+     * @param postId The ID of the post to retrieve along with comments.
+     * @param page   The page number (zero-based) for pagination, default is 0.
+     * @param size   The page size (number of items), default is 100, max is 100.
+     * @return A ResponseEntity containing the post with comments or an error response if not found.
+     */
     @Operation(summary = &quot;Get post with comments&quot;, description = &quot;Retrieve a specific post by its ID along with comments.&quot;)
     @GetMapping(value = &quot;/{id}/comments&quot;, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity&lt;?&gt; getPostWithComments(
@@ -112,13 +155,12 @@ public class AuditionPostsController {
             @RequestParam(required = false, defaultValue = DEFAULT_PAGE_SIZE)
             @Positive @Max(MAX_PAGE_SIZE) final Integer size) {
 
-<span class="fc" id="L115">        auditionLogger.info(COMMENTS_LOGGER, &quot;Received request to get post with comments for post ID: {}&quot;, postId);</span>
-<span class="fc" id="L116">        final AuditionPost postWithComments = auditionPostService.getPostById(postId, true, page, size);</span>
+<span class="fc" id="L158">        auditionLogger.info(POSTS_LOGGER, &quot;Received request to get post with comments for post ID: {}&quot;, postId);</span>
+<span class="fc" id="L159">        final AuditionPost postWithComments = auditionPostService.getPostById(postId, true, page, size);</span>
 
-<span class="fc bfc" id="L118" title="All 2 branches covered.">        return Objects.isNull(postWithComments)</span>
-<span class="fc" id="L119">                ? ResponseEntity.status(HttpStatus.NOT_FOUND)</span>
-<span class="fc" id="L120">                        .body(new ErrorResponse(&quot;Post not found&quot;)) :</span>
-<span class="fc" id="L121">                ResponseEntity.ok(postWithComments);</span>
+<span class="fc bfc" id="L161" title="All 2 branches covered.">        return Objects.isNull(postWithComments)</span>
+<span class="fc" id="L162">                ? ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ErrorResponse(POST_NOT_FOUND_ERROR))</span>
+<span class="fc" id="L163">                : ResponseEntity.ok(postWithComments);</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

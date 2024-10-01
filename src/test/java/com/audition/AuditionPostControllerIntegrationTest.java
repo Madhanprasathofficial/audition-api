@@ -7,13 +7,13 @@ import org.junit.jupiter.api.extension.RegisterExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.Collections;
-
 
 import static com.github.tomakehurst.wiremock.client.WireMock.aResponse;
 import static com.github.tomakehurst.wiremock.client.WireMock.equalTo;
@@ -24,10 +24,13 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+/**
+ * Integration tests for the AuditionPostController.
+ */
 @SuppressWarnings("PMD")
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @AutoConfigureMockMvc
-class AuditionPostControllerIntegrationTest {
+class AuditionPostControllerIntegrationTest extends BaseIntegrationTest {
 
     @Autowired
     protected MockMvc mockMvc;
@@ -62,7 +65,8 @@ class AuditionPostControllerIntegrationTest {
                         get(POSTS_ENDPOINT)
                                 .param(USER_ID_PARAM, userId.toString())
                                 .param(START_PARAM, "0")
-                                .param(LIMIT_PARAM, "100"))
+                                .param(LIMIT_PARAM, "100")
+                                .header(HttpHeaders.AUTHORIZATION, getBasicAuthHeader())) // Add Basic Auth header
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$[0].userId", is(userId)))
                 .andExpect(jsonPath("$[0].title", is(VALID_TITLE)));
@@ -77,7 +81,8 @@ class AuditionPostControllerIntegrationTest {
                         get(POSTS_ENDPOINT)
                                 .param(USER_ID_PARAM, userId.toString())
                                 .param(START_PARAM, "0")
-                                .param(LIMIT_PARAM, "100"))
+                                .param(LIMIT_PARAM, "100")
+                                .header(HttpHeaders.AUTHORIZATION, getBasicAuthHeader())) // Add Basic Auth header
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", is(Collections.emptyList())));
     }
@@ -91,7 +96,8 @@ class AuditionPostControllerIntegrationTest {
                         get(POSTS_ENDPOINT)
                                 .param(USER_ID_PARAM, Integer.toString(userId))
                                 .param(START_PARAM, "0")
-                                .param(LIMIT_PARAM, "100"))
+                                .param(LIMIT_PARAM, "100")
+                                .header(HttpHeaders.AUTHORIZATION, getBasicAuthHeader())) // Add Basic Auth header
                 .andExpect(status().is5xxServerError());
     }
 
@@ -101,7 +107,8 @@ class AuditionPostControllerIntegrationTest {
                         get(POSTS_ENDPOINT)
                                 .param(USER_ID_PARAM, "-1")
                                 .param(START_PARAM, "0")
-                                .param(LIMIT_PARAM, "100"))
+                                .param(LIMIT_PARAM, "100")
+                                .header(HttpHeaders.AUTHORIZATION, getBasicAuthHeader())) // Add Basic Auth header
                 .andExpect(status().isBadRequest())
                 .andExpect(jsonPath("$[0].title", is(TITLE_INVALID_USER_ID)))
                 .andExpect(jsonPath("$[0].body", is(BODY_INVALID_USER_ID)));
@@ -111,7 +118,9 @@ class AuditionPostControllerIntegrationTest {
     void shouldFailForNegativePageSize() throws Exception {
         String path = POSTS_ENDPOINT + "?userId=1&page=1&size=-1";
 
-        this.mockMvc.perform(get(path).accept(MediaType.APPLICATION_JSON))
+        this.mockMvc.perform(get(path)
+                        .accept(MediaType.APPLICATION_JSON)
+                        .header(HttpHeaders.AUTHORIZATION, getBasicAuthHeader())) // Add Basic Auth header
                 .andExpect(status().isBadRequest())
                 .andReturn();
     }
@@ -122,7 +131,8 @@ class AuditionPostControllerIntegrationTest {
                         get(POSTS_ENDPOINT)
                                 .param(USER_ID_PARAM, "invalid")
                                 .param(START_PARAM, "0")
-                                .param(LIMIT_PARAM, "100"))
+                                .param(LIMIT_PARAM, "100")
+                                .header(HttpHeaders.AUTHORIZATION, getBasicAuthHeader())) // Add Basic Auth header
                 .andExpect(status().isBadRequest())
                 .andExpect(jsonPath("$.title", is("Bad Request")))
                 .andExpect(jsonPath("$.detail",
@@ -139,7 +149,8 @@ class AuditionPostControllerIntegrationTest {
                                 .param(USER_ID_PARAM, userId.toString())
                                 .param(START_PARAM, "0")
                                 .param(LIMIT_PARAM, "100")
-                                .accept(MediaType.APPLICATION_ATOM_XML))
+                                .accept(MediaType.APPLICATION_ATOM_XML)
+                                .header(HttpHeaders.AUTHORIZATION, getBasicAuthHeader())) // Add Basic Auth header
                 .andExpect(status().isNotAcceptable())
                 .andReturn();
     }

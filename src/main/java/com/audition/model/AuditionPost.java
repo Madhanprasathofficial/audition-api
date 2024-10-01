@@ -16,20 +16,21 @@ import java.util.List;
 @NoArgsConstructor
 public class AuditionPost {
 
-    //@Positive(message = "User ID must be positive.")
-    private Integer userId; // Change to Integer
-
-    // @Positive(message = "Post ID must be positive.")
-    private Integer id; // Change to Integer
-
-    //@NotBlank(message = "Title cannot be blank.")
+    private Integer userId;
+    private Integer id;
     private String title;
-
-    // @NotBlank(message = "Body cannot be blank.")
     private String body;
+    private List<AuditionComment> auditionCommentsList = new ArrayList<>();
 
-    private List<AuditionComment> auditionCommentsList = new ArrayList<>(); // Retaining initializer
-
+    /**
+     * Constructs a new AuditionPost with the specified details.
+     *
+     * @param userId                the user ID of the post creator
+     * @param id                    the unique identifier of the post
+     * @param title                 the title of the post
+     * @param body                  the body content of the post
+     * @param auditionComments      the list of audition comments associated with the post
+     */
     public AuditionPost(final Integer userId, final Integer id, final String title, final String body, final List<AuditionComment> auditionComments) {
         this.userId = userId;
         this.id = id;
@@ -40,16 +41,25 @@ public class AuditionPost {
         }
     }
 
+    /**
+     * Sets the audition comments for this post.
+     *
+     * @param auditionComments the list of audition comments to set
+     */
     public void setAuditionComments(final List<AuditionComment> auditionComments) {
         if (auditionComments != null) {
             this.auditionCommentsList = new ArrayList<>(auditionComments);
         } else {
-            this.auditionCommentsList.clear(); // Handle null assignment
+            this.auditionCommentsList.clear();
         }
     }
 
+    /**
+     * Returns an unmodifiable list of audition comments for this post.
+     *
+     * @return an unmodifiable list of audition comments
+     */
     public List<AuditionComment> getAuditionComments() {
-        // Return an unmodifiable view to prevent external modifications
         return Collections.unmodifiableList(auditionCommentsList);
     }
 }

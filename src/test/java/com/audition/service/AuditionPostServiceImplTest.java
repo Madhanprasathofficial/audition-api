@@ -1,113 +1,97 @@
 package com.audition.service;
 
-import com.audition.integration.IAuditionIntegrationPostsClient;
+import com.audition.BaseTest;
+import com.audition.integration.IIntegrationUrlService;
+import com.audition.model.AuditionComment;
 import com.audition.model.AuditionPost;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.ArgumentCaptor;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 
-/**
- * Test class for AuditionPostServiceImpl.
- */
-@SuppressWarnings("PMD")
-class AuditionPostServiceImplTest {
+class AuditionPostServiceImplTest extends BaseTest {
 
-    private transient AuditionPostServiceImpl auditionPostService;
-    private transient IAuditionIntegrationPostsClient auditionIntegrationPostsClient;
+    private static final String BASE_URL = "https://jsonplaceholder.typicode.com/posts/";
+    private static final int DEFAULT_USER_ID = 10; // Default user ID for assertions
+    private static final int DEFAULT_COMMENT_ID = 99; // Default comment ID for tests
+
+    private static transient AuditionPostServiceImpl client;
+    private static transient IIntegrationUrlService urlService;
+    private static transient IAuditionCommentsService commentsClient;
 
     @BeforeEach
-    void setUp() {
-        auditionIntegrationPostsClient = mock(IAuditionIntegrationPostsClient.class);
-        auditionPostService = new AuditionPostServiceImpl(auditionIntegrationPostsClient);
+    void init() {
+        urlService = mock(IIntegrationUrlService.class);
+        commentsClient = mock(IAuditionCommentsService.class);
+        client = new AuditionPostServiceImpl(commentsClient, urlService);
+    }
+
+    // ### getPosts
+    @Test
+    void shouldGetPostsWhenResponseIs200() {
+        // given
+        final int userId = DEFAULT_USER_ID;
+        final int page = randomInt();
+        final int size = randomInt();
+
+        //when
+        when(urlService.getPostsUrl(userId, page, size)).thenReturn(BASE_URL);
+
+
+        final List<AuditionPost> list = client.getPosts(userId, page, size);
+
+        // then
+        assertEquals(100, list.size());
     }
 
     @Test
-    void shouldGetListOfPosts() {
-        // Given
-        Integer userId = 1;
-        Integer page = 0;
-        Integer size = 5;
-        List<AuditionPost> expectedPosts = List.of(new AuditionPost(), new AuditionPost()); // Mocked return data
+    void shouldGetPostByIdWhenResponseIs200() {
+        // given
+        final int id = DEFAULT_COMMENT_ID;
+        final String url = BASE_URL + id;
 
-        // When
-        when(auditionIntegrationPostsClient.getPosts(userId, page, size)).thenReturn(expectedPosts);
-        List<AuditionPost> actualPosts = auditionPostService.getPosts(userId, page, size);
+        when(urlService.getPostByIdUrl(id)).thenReturn(url);
 
-        // Then
-        verify(auditionIntegrationPostsClient).getPosts(userId, page, size); // Verifies if method was called
-        assertEquals(expectedPosts, actualPosts); // Asserts that the returned posts match the expected posts
+        // when
+        final AuditionPost post = client.getPostById(id, false, null, null);
+
+        // then
+        assertEquals(id, post.getId());
+        assertEquals(DEFAULT_USER_ID, post.getUserId());
     }
 
     @Test
-    void shouldGetPostById() {
-        // Given
-        Integer postId = 1;
-        boolean includeComments = true;
-        Integer page = 0;
-        Integer size = 10;
-        AuditionPost expectedPost = new AuditionPost(); // Mocked return data
+    void shouldGetPostByIdLoadCommentsWhenResponseIs200() {
+        // given
+        final int id = DEFAULT_COMMENT_ID;
+        final String url = BASE_URL + id;
 
-        // When
-        when(auditionIntegrationPostsClient.getPostById(postId, includeComments, page, size)).thenReturn(expectedPost);
-        AuditionPost actualPost = auditionPostService.getPostById(postId, includeComments, page, size);
+        final List<AuditionComment> comments = createSampleComments(id);
 
-        // Then
-        verify(auditionIntegrationPostsClient).getPostById(postId, includeComments, page, size); // Verifies method call
-        assertEquals(expectedPost, actualPost); // Asserts the post returned is correct
+        when(urlService.getPostByIdUrl(id)).thenReturn(url);
+        when(commentsClient.getComments(id, null, null)).thenReturn(comments);
+
+        // when
+        final AuditionPost post = client.getPostById(id, true, null, null);
+
+        // then
+        assertEquals(id, post.getId());
+        assertEquals(DEFAULT_USER_ID, post.getUserId());
+        assertEquals(4, post.getAuditionComments().size());
     }
 
-    @Test
-    void shouldCaptureArgumentsForGetPosts() {
-        // Given
-        Integer userId = 123;
-        Integer page = 1;
-        Integer size = 10;
-
-        // Capturing the arguments passed to getPosts method
-        ArgumentCaptor<Integer> userIdCaptor = ArgumentCaptor.forClass(Integer.class);
-        ArgumentCaptor<Integer> pageCaptor = ArgumentCaptor.forClass(Integer.class);
-        ArgumentCaptor<Integer> sizeCaptor = ArgumentCaptor.forClass(Integer.class);
-
-        // When
-        auditionPostService.getPosts(userId, page, size);
-
-        // Then
-        verify(auditionIntegrationPostsClient).getPosts(userIdCaptor.capture(), pageCaptor.capture(), sizeCaptor.capture());
-        assertEquals(userId, userIdCaptor.getValue());
-        assertEquals(page, pageCaptor.getValue());
-        assertEquals(size, sizeCaptor.getValue());
-    }
-
-    @Test
-    void shouldCaptureArgumentsForGetPostById() {
-        // Given
-        Integer postId = 456;
-        boolean includeComments = true;
-        Integer page = 0;
-        Integer size = 5;
-
-        // Capturing the arguments passed to getPostById method
-        ArgumentCaptor<Integer> postIdCaptor = ArgumentCaptor.forClass(Integer.class);
-        ArgumentCaptor<Boolean> includeCommentsCaptor = ArgumentCaptor.forClass(Boolean.class);
-        ArgumentCaptor<Integer> pageCaptor = ArgumentCaptor.forClass(Integer.class);
-        ArgumentCaptor<Integer> sizeCaptor = ArgumentCaptor.forClass(Integer.class);
-
-        // When
-        auditionPostService.getPostById(postId, includeComments, page, size);
-
-        // Then
-        verify(auditionIntegrationPostsClient).getPostById(postIdCaptor.capture(), includeCommentsCaptor.capture(), pageCaptor.capture(), sizeCaptor.capture());
-        assertEquals(postId, postIdCaptor.getValue());
-        assertEquals(includeComments, includeCommentsCaptor.getValue());
-        assertEquals(page, pageCaptor.getValue());
-        assertEquals(size, sizeCaptor.getValue());
+    private List<AuditionComment> createSampleComments(final int postId) {
+        final List<AuditionComment> comments = new ArrayList<>();
+        comments.add(new AuditionComment(1, postId, "John Doe", "john@example.com", "This is a great post!"));
+        comments.add(new AuditionComment(2, postId, "Jane Smith", "jane@example.com", "I found this very helpful."));
+        comments.add(new AuditionComment(3, postId, "Mike Johnson", "mike@example.com", "Interesting perspective!"));
+        comments.add(new AuditionComment(4, postId, "Emily Davis", "emily@example.com", "I disagree with this."));
+        return comments;
     }
 }

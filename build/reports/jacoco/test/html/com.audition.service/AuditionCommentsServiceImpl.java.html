@@ -1,46 +1,92 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>AuditionCommentsServiceImpl.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">audition-api</a> &gt; <a href="index.source.html" class="el_package">com.audition.service</a> &gt; <span class="el_source">AuditionCommentsServiceImpl.java</span></div><h1>AuditionCommentsServiceImpl.java</h1><pre class="source lang-java linenums">package com.audition.service;
 
-import com.audition.integration.IAuditionIntegrationCommentsClient;
+import com.audition.common.exception.NoDataFoundException;
+import com.audition.integration.IIntegrationUrlService;
 import com.audition.model.AuditionComment;
-import jakarta.validation.constraints.Positive;
-import org.springframework.stereotype.Service;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Component;
+import org.springframework.web.client.HttpClientErrorException;
+import org.springframework.web.client.RestTemplate;
 
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 /**
- * Implementation of the IAuditionCommentsService interface.
+ * Implementation of {@link IAuditionCommentsService} to interact with an external comments service.
+ * This service handles retrieval of audition comments for specific posts and individual comments.
  */
-@Service
+@Component
 public class AuditionCommentsServiceImpl implements IAuditionCommentsService {
 
-    private final transient IAuditionIntegrationCommentsClient auditionIntegrationCommentsClient;
+    private static final String NO_COMMENTS_FOUND_MESSAGE = &quot;No comments found for post ID: &quot;;
+    private static final String NO_DATA_FOUND_MESSAGE = &quot;No data found for comment ID: &quot;;
+    private static final String CLIENT_ERROR_MESSAGE = &quot;Client error occurred while fetching comments: &quot;;
 
-<span class="fc" id="L18">    public AuditionCommentsServiceImpl(final IAuditionIntegrationCommentsClient auditionIntegrationCommentsClient) {</span>
-<span class="fc" id="L19">        this.auditionIntegrationCommentsClient = auditionIntegrationCommentsClient;</span>
-<span class="fc" id="L20">    }</span>
+    private final transient RestTemplate restTemplate;
+    private final transient IIntegrationUrlService integrationUrlService;
 
     /**
-     * Retrieves a list of comments for a specific audition post with pagination.
+     * Constructs an instance of {@link AuditionCommentsServiceImpl}.
      *
-     * @param postId the ID of the post for which comments are to be retrieved (must be positive)
-     * @param page   the page number for pagination (0-based)
-     * @param size   the number of comments per page
-     * @return a list of comments for the specified post (empty list if no comments exist)
+     * @param integrationUrlService the service to get integration URLs for comments
+     */
+<span class="fc" id="L36">    public AuditionCommentsServiceImpl(final IIntegrationUrlService integrationUrlService) {</span>
+<span class="fc" id="L37">        this.integrationUrlService = integrationUrlService;</span>
+<span class="fc" id="L38">        this.restTemplate = new RestTemplate(); // Moved initialization to constructor</span>
+<span class="fc" id="L39">    }</span>
+
+    /**
+     * Retrieves a list of comments for a specific post with pagination support.
+     *
+     * @param postId the ID of the post (must be positive)
+     * @param page   the page number to retrieve (must be non-negative)
+     * @param size   the number of comments per page (must be positive)
+     * @return a list of audition comments, or an empty list if none are found
+     * @throws NoDataFoundException if no comments are found for the given post ID
      */
     @Override
-    public List&lt;AuditionComment&gt; getComments(@Positive final Integer postId, final Integer page, final Integer size) {
-<span class="fc" id="L32">        return auditionIntegrationCommentsClient.getComments(postId, page, size);</span>
+    public List&lt;AuditionComment&gt; getComments(final int postId, final Integer page, final Integer size) {
+<span class="fc" id="L52">        final String commentUrl = integrationUrlService.getCommentsUrl(postId, page, size);</span>
+
+        try {
+<span class="fc" id="L55">            final ResponseEntity&lt;AuditionComment[]&gt; responseEntity = restTemplate.getForEntity(commentUrl, AuditionComment[].class);</span>
+<span class="fc" id="L56">            return Optional.ofNullable(responseEntity.getBody())</span>
+<span class="fc" id="L57">                    .map(Arrays::asList)</span>
+<span class="fc" id="L58">                    .orElse(Collections.emptyList());</span>
+
+<span class="fc" id="L60">        } catch (HttpClientErrorException exception) {</span>
+<span class="pc bpc" id="L61" title="1 of 2 branches missed.">            if (exception.getStatusCode() == HttpStatus.NOT_FOUND) {</span>
+<span class="fc" id="L62">                throw new NoDataFoundException(NO_COMMENTS_FOUND_MESSAGE + postId, HttpStatus.NOT_FOUND.value());</span>
+            }
+<span class="nc" id="L64">            throw new RuntimeException(CLIENT_ERROR_MESSAGE + exception.getMessage(), exception);</span>
+        }
     }
 
     /**
      * Retrieves a specific comment by its ID.
      *
-     * @param commentId the ID of the comment to retrieve (must be positive)
-     * @return the requested comment, or null if not found
+     * @param commentId the ID of the comment
+     * @return the requested audition comment
+     * @throws NoDataFoundException if no comment is found for the given ID
      */
     @Override
-    public AuditionComment getComment(@Positive final Integer commentId) {
-<span class="fc" id="L43">        return auditionIntegrationCommentsClient.getComment(commentId);</span>
+    public AuditionComment getComment(final Integer commentId) {
+<span class="fc" id="L77">        final String commentUrl = integrationUrlService.getCommentUrl(commentId);</span>
+
+        try {
+<span class="fc" id="L80">            final ResponseEntity&lt;AuditionComment&gt; responseEntity = restTemplate.getForEntity(commentUrl, AuditionComment.class);</span>
+<span class="fc" id="L81">            return Optional.ofNullable(responseEntity.getBody())</span>
+<span class="pc" id="L82">                    .orElseThrow(() -&gt; new NoDataFoundException(NO_DATA_FOUND_MESSAGE + commentId, HttpStatus.NO_CONTENT.value()));</span>
+
+<span class="fc" id="L84">        } catch (HttpClientErrorException exception) {</span>
+<span class="pc bpc" id="L85" title="1 of 2 branches missed.">            if (exception.getStatusCode() == HttpStatus.NOT_FOUND) {</span>
+<span class="fc" id="L86">                throw new NoDataFoundException(NO_DATA_FOUND_MESSAGE + commentId, HttpStatus.NOT_FOUND.value());</span>
+            }
+<span class="nc" id="L88">            throw new RuntimeException(CLIENT_ERROR_MESSAGE + exception.getMessage(), exception);</span>
+        }
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

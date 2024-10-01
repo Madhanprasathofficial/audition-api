@@ -2,14 +2,26 @@
 
 import java.io.Serial;
 
+/**
+ * Exception class that represents integration errors in the system.
+ * This exception extends the SystemException class and includes
+ * an error code and detail message.
+ */
 public class IntegrationException extends SystemException {
     @Serial
     private static final long serialVersionUID = 1L;
-    
+
     private static final String TITLE = &quot;Server error&quot;;
 
+    /**
+     * Constructs a new IntegrationException with the specified detail message
+     * and error code.
+     *
+     * @param detail    the detail message explaining the exception
+     * @param errorCode the error code associated with the exception
+     */
     public IntegrationException(final String detail, final Integer errorCode) {
-<span class="fc" id="L12">        super(detail, TITLE, errorCode);</span>
-<span class="fc" id="L13">    }</span>
+<span class="fc" id="L24">        super(detail, TITLE, errorCode);</span>
+<span class="fc" id="L25">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

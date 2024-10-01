@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="com.audition.integration.AuditionIntegrationCommentsClientTest" tests="2" skipped="0" failures="0" errors="0" timestamp="2024-09-30T12:09:23" hostname="DESKTOP-T0DGFL0" time="0.609">
-  <properties/>
-  <testcase name="shouldGetComment()" classname="com.audition.integration.AuditionIntegrationCommentsClientTest" time="0.472"/>
-  <testcase name="shouldGetCommentsGetComments()" classname="com.audition.integration.AuditionIntegrationCommentsClientTest" time="0.136"/>
-  <system-out><![CDATA[]]></system-out>
-  <system-err><![CDATA[]]></system-err>
-</testsuite>

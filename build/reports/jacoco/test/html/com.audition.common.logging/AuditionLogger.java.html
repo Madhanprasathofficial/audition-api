@@ -57,10 +57,10 @@ import org.springframework.stereotype.Component;
      * @param params  The parameters to log with the message
      */
     public void warn(final Logger logger, final String message, final Object... params) {
-<span class="pc bpc" id="L60" title="1 of 2 branches missed.">        if (logger.isWarnEnabled()) {</span>
-<span class="fc" id="L61">            logger.warn(message, params);</span>
+<span class="nc bnc" id="L60" title="All 2 branches missed.">        if (logger.isWarnEnabled()) {</span>
+<span class="nc" id="L61">            logger.warn(message, params);</span>
         }
-<span class="fc" id="L63">    }</span>
+<span class="nc" id="L63">    }</span>
 
     /**
      * Logs an error message if the logger is enabled for error level.

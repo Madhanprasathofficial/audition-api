@@ -74,8 +74,8 @@ public class ExceptionControllerAdvice extends ResponseEntityExceptionHandler {
      */
     @ExceptionHandler(SystemException.class)
     ProblemDetail handleSystemException(final SystemException e) {
-<span class="nc" id="L77">        final HttpStatusCode status = getHttpStatusCodeFromSystemException(e);</span>
-<span class="nc" id="L78">        return createProblemDetail(e, status);</span>
+<span class="fc" id="L77">        final HttpStatusCode status = getHttpStatusCodeFromSystemException(e);</span>
+<span class="fc" id="L78">        return createProblemDetail(e, status);</span>
     }
 
     /**
@@ -89,8 +89,8 @@ public class ExceptionControllerAdvice extends ResponseEntityExceptionHandler {
 <span class="fc" id="L89">        final ProblemDetail problemDetail = ProblemDetail.forStatus(statusCode);</span>
 <span class="fc" id="L90">        problemDetail.setDetail(getMessageFromException(exception));</span>
 
-<span class="pc bpc" id="L92" title="1 of 2 branches missed.">        if (exception instanceof SystemException) {</span>
-<span class="nc" id="L93">            problemDetail.setTitle(((SystemException) exception).getTitle());</span>
+<span class="fc bfc" id="L92" title="All 2 branches covered.">        if (exception instanceof SystemException) {</span>
+<span class="fc" id="L93">            problemDetail.setTitle(((SystemException) exception).getTitle());</span>
 <span class="fc bfc" id="L94" title="All 2 branches covered.">        } else if (exception instanceof ConstraintViolationException) {</span>
 <span class="fc" id="L95">            problemDetail.setStatus(HttpStatus.BAD_REQUEST);</span>
 <span class="fc" id="L96">            problemDetail.setDetail(exception.getMessage());</span>
@@ -126,7 +126,7 @@ public class ExceptionControllerAdvice extends ResponseEntityExceptionHandler {
      */
     private HttpStatusCode getHttpStatusCodeFromSystemException(final SystemException exception) {
         try {
-<span class="nc" id="L129">            return HttpStatusCode.valueOf(exception.getStatusCode());</span>
+<span class="fc" id="L129">            return HttpStatusCode.valueOf(exception.getStatusCode());</span>
 <span class="nc" id="L130">        } catch (final IllegalArgumentException iae) {</span>
 <span class="nc bnc" id="L131" title="All 2 branches missed.">            if (pageNotFoundLogger.isInfoEnabled()) {</span>
 <span class="nc" id="L132">                logger.info(LOG, ERROR_MESSAGE + exception.getStatusCode());</span>

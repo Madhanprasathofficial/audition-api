@@ -88,10 +88,10 @@ public class IntegrationUrlService implements IIntegrationUrlService {
      */
     private String paginationParameters(final Integer page, final Integer size) {
 <span class="fc" id="L90">        final var sb = new StringBuilder(&quot;?&quot;);</span>
-<span class="pc bpc" id="L91" title="1 of 2 branches missed.">        if (Objects.nonNull(page)) {</span>
+<span class="fc bfc" id="L91" title="All 2 branches covered.">        if (Objects.nonNull(page)) {</span>
 <span class="fc" id="L92">            sb.append(START).append(page);</span>
         }
-<span class="pc bpc" id="L94" title="1 of 2 branches missed.">        if (Objects.nonNull(size)) {</span>
+<span class="fc bfc" id="L94" title="All 2 branches covered.">        if (Objects.nonNull(size)) {</span>
 <span class="fc" id="L95">            sb.append(LIMIT).append(size);</span>
         }
 <span class="fc" id="L97">        return sb.toString();</span>
@@ -104,7 +104,7 @@ public class IntegrationUrlService implements IIntegrationUrlService {
      * @return the user ID parameter as a string, or an empty string if null
      */
     private String userParameter(final Integer userId) {
-<span class="pc bpc" id="L107" title="1 of 2 branches missed.">        return Objects.nonNull(userId) ? USER_ID + userId : &quot;&quot;;</span>
+<span class="fc bfc" id="L107" title="All 2 branches covered.">        return Objects.nonNull(userId) ? USER_ID + userId : &quot;&quot;;</span>
     }
 
     /**

@@ -7,7 +7,9 @@ import org.junit.jupiter.api.extension.RegisterExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;
 import org.springframework.test.web.servlet.MockMvc;
@@ -21,10 +23,11 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+@ActiveProfiles("test")
 @SuppressWarnings("PMD")
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @AutoConfigureMockMvc
- class AuditionCommentsControllerIntegrationTest {
+class AuditionCommentsControllerIntegrationTest extends BaseIntegrationTest {
 
     @Autowired
     protected transient MockMvc mockMvc;
@@ -55,7 +58,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
         this.mockMvc.perform(get(COMMENTS_ENDPOINT)
                         .param(POST_ID_PARAM, postId.toString())
                         .param(START_PARAM, String.valueOf(DEFAULT_START))
-                        .param(LIMIT_PARAM, String.valueOf(DEFAULT_LIMIT)))
+                        .param(LIMIT_PARAM, String.valueOf(DEFAULT_LIMIT))
+                        .header(HttpHeaders.AUTHORIZATION, getBasicAuthHeader())) // Use inherited method
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$[0].postId", is(postId)))
                 .andExpect(jsonPath("$[0].name", is("id labore ex et quam laborum")));
@@ -68,7 +72,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
         stubGetAuditionCommentId(postId, responseType);
 
-        this.mockMvc.perform(get(COMMENTS_ENDPOINT + "/" + postId))
+        this.mockMvc.perform(get(COMMENTS_ENDPOINT + "/" + postId)
+                        .header(HttpHeaders.AUTHORIZATION, getBasicAuthHeader())) // Use inherited method
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.postId", is(postId)))
                 .andExpect(jsonPath("$.name", is("id labore ex et quam laborum")));

@@ -7,6 +7,7 @@ import org.junit.jupiter.api.extension.RegisterExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;
@@ -24,7 +25,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SuppressWarnings("PMD")
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @AutoConfigureMockMvc
-public class AuditionPostByIdControllerIntegrationTest {
+public class AuditionPostByIdControllerIntegrationTest extends BaseIntegrationTest {
 
     @Autowired
     protected transient MockMvc mockMvc;
@@ -55,7 +56,8 @@ public class AuditionPostByIdControllerIntegrationTest {
                         .withHeader("Content-Type", MediaType.APPLICATION_JSON_VALUE)
                         .withBodyFile(responseType)));
 
-        this.mockMvc.perform(get(POSTS_ENDPOINT + "/" + postId))
+        this.mockMvc.perform(get(POSTS_ENDPOINT + "/" + postId)
+                        .header(HttpHeaders.AUTHORIZATION, getBasicAuthHeader())) // Use inherited method without parameters
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.userId", is(postId)))
                 .andExpect(jsonPath("$.title", is(VALID_TITLE)));
@@ -71,9 +73,10 @@ public class AuditionPostByIdControllerIntegrationTest {
                         .withHeader("Content-Type", MediaType.APPLICATION_JSON_VALUE)
                         .withBody(EMPTY_LIST_RESPONSE)));
 
-        this.mockMvc.perform(get(POSTS_ENDPOINT + "/" + postId))
-                .andExpect(status().isNoContent())
-                .andExpect(jsonPath("$.message", is("Page not found")));
+        this.mockMvc.perform(get(POSTS_ENDPOINT + "/" + postId)
+                        .header(HttpHeaders.AUTHORIZATION, getBasicAuthHeader())) // Use inherited method without parameters
+                .andExpect(status().isNotFound())
+                .andExpect(jsonPath("$.detail", is("No post found for ID: 3")));
     }
 
     @Test
@@ -81,7 +84,8 @@ public class AuditionPostByIdControllerIntegrationTest {
         int postId = 1;
 
         this.mockMvc.perform(get(POSTS_ENDPOINT + "/" + postId + COMMENTS_ENDPOINT)
-                        .accept(MediaType.APPLICATION_ATOM_XML))
+                        .accept(MediaType.APPLICATION_ATOM_XML)
+                        .header(HttpHeaders.AUTHORIZATION, getBasicAuthHeader())) // Use inherited method without parameters
                 .andExpect(status().isNotAcceptable());
     }
 
@@ -90,7 +94,8 @@ public class AuditionPostByIdControllerIntegrationTest {
         int postId = 1;
 
         this.mockMvc.perform(get(POSTS_ENDPOINT + "/" + postId)
-                        .accept(MediaType.APPLICATION_ATOM_XML))
+                        .accept(MediaType.APPLICATION_ATOM_XML)
+                        .header(HttpHeaders.AUTHORIZATION, getBasicAuthHeader())) // Use inherited method without parameters
                 .andExpect(status().isNotAcceptable());
     }
 }

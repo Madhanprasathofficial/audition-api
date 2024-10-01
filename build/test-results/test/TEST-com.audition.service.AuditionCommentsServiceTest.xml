@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="com.audition.service.AuditionCommentsServiceTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2024-09-30T12:09:24" hostname="DESKTOP-T0DGFL0" time="0.009">
-  <properties/>
-  <testcase name="shouldReturnEmptyListWhenNoCommentsExist()" classname="com.audition.service.AuditionCommentsServiceTest" time="0.002"/>
-  <testcase name="shouldGetListOfCommentsByPostId()" classname="com.audition.service.AuditionCommentsServiceTest" time="0.002"/>
-  <testcase name="shouldGetCommentById()" classname="com.audition.service.AuditionCommentsServiceTest" time="0.002"/>
-  <system-out><![CDATA[]]></system-out>
-  <system-err><![CDATA[]]></system-err>
-</testsuite>

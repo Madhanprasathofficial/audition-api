@@ -2,62 +2,116 @@
 
 import lombok.Getter;
 
+/**
+ * Base exception class that represents a system error.
+ * This class extends RuntimeException and includes additional
+ * fields for status code, title, and detail message.
+ */
 @Getter
 public class SystemException extends RuntimeException {
 
     private static final long serialVersionUID = -5876728854007114881L;
 
     public static final String DEFAULT_TITLE = &quot;API Error Occurred&quot;;
-<span class="fc" id="L11">    private Integer statusCode;</span>
-<span class="nc" id="L12">    private String title;</span>
-<span class="fc" id="L13">    private String detail;</span>
+<span class="fc" id="L16">    private Integer statusCode;</span>
+<span class="fc" id="L17">    private String title;</span>
+<span class="fc" id="L18">    private String detail;</span>
 
+    /**
+     * Default constructor.
+     */
     public SystemException() {
-<span class="nc" id="L16">        super();</span>
-<span class="nc" id="L17">    }</span>
+<span class="nc" id="L24">        super();</span>
+<span class="nc" id="L25">    }</span>
 
+    /**
+     * Constructs a new SystemException with the specified message.
+     *
+     * @param message the detail message
+     */
     public SystemException(final String message) {
-<span class="nc" id="L20">        super(message);</span>
-<span class="nc" id="L21">        this.title = DEFAULT_TITLE;</span>
-<span class="nc" id="L22">    }</span>
+<span class="nc" id="L33">        super(message);</span>
+<span class="nc" id="L34">        this.title = DEFAULT_TITLE;</span>
+<span class="nc" id="L35">    }</span>
 
+    /**
+     * Constructs a new SystemException with the specified message and error code.
+     *
+     * @param message   the detail message
+     * @param errorCode the error code associated with the exception
+     */
     public SystemException(final String message, final Integer errorCode) {
-<span class="nc" id="L25">        super(message);</span>
-<span class="nc" id="L26">        this.title = DEFAULT_TITLE;</span>
-<span class="nc" id="L27">        this.statusCode = errorCode;</span>
-<span class="nc" id="L28">    }</span>
-
-    public SystemException(final String message, final Throwable exception) {
-<span class="nc" id="L31">        super(message, exception);</span>
-<span class="nc" id="L32">        this.title = DEFAULT_TITLE;</span>
-<span class="nc" id="L33">    }</span>
-
-    public SystemException(final String detail, final String title, final Integer errorCode) {
-<span class="fc" id="L36">        super(detail);</span>
-<span class="fc" id="L37">        this.statusCode = errorCode;</span>
-<span class="fc" id="L38">        this.title = title;</span>
-<span class="fc" id="L39">        this.detail = detail;</span>
-<span class="fc" id="L40">    }</span>
-
-    public SystemException(final String detail, final String title, final Throwable exception) {
-<span class="nc" id="L43">        super(detail, exception);</span>
-<span class="nc" id="L44">        this.title = title;</span>
-<span class="nc" id="L45">        this.statusCode = 500;</span>
-<span class="nc" id="L46">        this.detail = detail;</span>
+<span class="nc" id="L44">        super(message);</span>
+<span class="nc" id="L45">        this.title = DEFAULT_TITLE;</span>
+<span class="nc" id="L46">        this.statusCode = errorCode;</span>
 <span class="nc" id="L47">    }</span>
 
-    public SystemException(final String detail, final Integer errorCode, final Throwable exception) {
-<span class="nc" id="L50">        super(detail, exception);</span>
-<span class="nc" id="L51">        this.statusCode = errorCode;</span>
-<span class="nc" id="L52">        this.title = DEFAULT_TITLE;</span>
-<span class="nc" id="L53">        this.detail = detail;</span>
-<span class="nc" id="L54">    }</span>
+    /**
+     * Constructs a new SystemException with the specified message and cause.
+     *
+     * @param message   the detail message
+     * @param exception the cause of the exception
+     */
+    public SystemException(final String message, final Throwable exception) {
+<span class="nc" id="L56">        super(message, exception);</span>
+<span class="nc" id="L57">        this.title = DEFAULT_TITLE;</span>
+<span class="nc" id="L58">    }</span>
 
+    /**
+     * Constructs a new SystemException with the specified detail, title, and error code.
+     *
+     * @param detail    the detail message
+     * @param title     the title of the exception
+     * @param errorCode the error code associated with the exception
+     */
+    public SystemException(final String detail, final String title, final Integer errorCode) {
+<span class="fc" id="L68">        super(detail);</span>
+<span class="fc" id="L69">        this.statusCode = errorCode;</span>
+<span class="fc" id="L70">        this.title = title;</span>
+<span class="fc" id="L71">        this.detail = detail;</span>
+<span class="fc" id="L72">    }</span>
+
+    /**
+     * Constructs a new SystemException with the specified detail, title, and cause.
+     *
+     * @param detail    the detail message
+     * @param title     the title of the exception
+     * @param exception the cause of the exception
+     */
+    public SystemException(final String detail, final String title, final Throwable exception) {
+<span class="nc" id="L82">        super(detail, exception);</span>
+<span class="nc" id="L83">        this.title = title;</span>
+<span class="nc" id="L84">        this.statusCode = 500;</span>
+<span class="nc" id="L85">        this.detail = detail;</span>
+<span class="nc" id="L86">    }</span>
+
+    /**
+     * Constructs a new SystemException with the specified detail, error code, and cause.
+     *
+     * @param detail    the detail message
+     * @param errorCode the error code associated with the exception
+     * @param exception the cause of the exception
+     */
+    public SystemException(final String detail, final Integer errorCode, final Throwable exception) {
+<span class="nc" id="L96">        super(detail, exception);</span>
+<span class="nc" id="L97">        this.statusCode = errorCode;</span>
+<span class="nc" id="L98">        this.title = DEFAULT_TITLE;</span>
+<span class="nc" id="L99">        this.detail = detail;</span>
+<span class="nc" id="L100">    }</span>
+
+    /**
+     * Constructs a new SystemException with the specified detail, title, error code, and cause.
+     *
+     * @param detail    the detail message
+     * @param title     the title of the exception
+     * @param errorCode the error code associated with the exception
+     * @param exception the cause of the exception
+     */
     public SystemException(final String detail, final String title, final Integer errorCode, final Throwable exception) {
-<span class="nc" id="L57">        super(detail, exception);</span>
-<span class="nc" id="L58">        this.statusCode = errorCode;</span>
-<span class="nc" id="L59">        this.title = title;</span>
-<span class="nc" id="L60">        this.detail = detail;</span>
-<span class="nc" id="L61">    }</span>
+<span class="nc" id="L111">        super(detail, exception);</span>
+<span class="nc" id="L112">        this.statusCode = errorCode;</span>
+<span class="nc" id="L113">        this.title = title;</span>
+<span class="nc" id="L114">        this.detail = detail;</span>
+<span class="nc" id="L115">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>
