@@ -27,6 +27,7 @@
         <exclude name="UseUtilityClass"/>
         <exclude name="ImmutableField"/>
         <exclude name="AvoidThrowingRawExceptionTypes"/>
+        <exclude name="SignatureDeclareThrowsException"/>
     </rule>
 
     <rule ref="category/java/errorprone.xml">
@@ -37,7 +38,7 @@
     <rule ref="category/java/bestpractices.xml">
         <exclude name="JUnitAssertionsShouldIncludeMessage"/>
         <exclude name="PreserveStackTrace"/>
-
+        <exclude name="JUnitTestsShouldIncludeAssert"/>
     </rule>
 
     <rule ref="category/java/bestpractices.xml/JUnitTestContainsTooManyAsserts">

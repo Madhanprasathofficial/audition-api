@@ -49,7 +49,7 @@ class AuditionPostsControllerTest extends BaseIntegrationTest {
     }
 
     @Test
-    void shouldReturnAllPosts_WhenNoFilters() throws Exception {
+    void shouldReturnAllPostsWhenNoFilters() throws Exception {
         mockMvc.perform(get(POSTS_URL)
                         .accept(APPLICATION_JSON)
                         .header(AUTHORIZATION_HEADER, getBasicAuthHeader()))

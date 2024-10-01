@@ -13,13 +13,13 @@
 					"type": "basic",
 					"basic": [
 						{
-							"key": "password",
-							"value": "password",
+							"key": "username",
+							"value": "admin",
 							"type": "string"
 						},
 						{
-							"key": "username",
-							"value": "admin",
+							"key": "password",
+							"value": "password",
 							"type": "string"
 						}
 					]
@@ -49,13 +49,62 @@
 					"type": "basic",
 					"basic": [
 						{
-							"key": "password",
-							"value": "password",
+							"key": "username",
+							"value": "admin",
 							"type": "string"
 						},
 						{
+							"key": "password",
+							"value": "password",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/posts?userId=10&page=0&size=1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"posts"
+					],
+					"query": [
+						{
+							"key": "userId",
+							"value": "10"
+						},
+						{
+							"key": "page",
+							"value": "0"
+						},
+						{
+							"key": "size",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "testBasicAuth",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
 							"key": "username",
-							"value": "admin",
+							"value": "user",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "password",
 							"type": "string"
 						}
 					]
@@ -98,13 +147,13 @@
 					"type": "basic",
 					"basic": [
 						{
-							"key": "password",
-							"value": "password",
+							"key": "username",
+							"value": "admin",
 							"type": "string"
 						},
 						{
-							"key": "username",
-							"value": "admin",
+							"key": "password",
+							"value": "password",
 							"type": "string"
 						}
 					]
@@ -216,19 +265,7 @@
 			"name": "getCommentsFailNagativePost",
 			"request": {
 				"auth": {
-					"type": "basic",
-					"basic": [
-						{
-							"key": "password",
-							"value": "password",
-							"type": "string"
-						},
-						{
-							"key": "username",
-							"value": "admin",
-							"type": "string"
-						}
-					]
+					"type": "noauth"
 				},
 				"method": "GET",
 				"header": [],

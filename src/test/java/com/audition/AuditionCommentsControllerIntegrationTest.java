@@ -23,8 +23,8 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@ActiveProfiles("test")
 @SuppressWarnings("PMD")
+@ActiveProfiles("test")
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @AutoConfigureMockMvc
 class AuditionCommentsControllerIntegrationTest extends BaseIntegrationTest {
@@ -33,7 +33,7 @@ class AuditionCommentsControllerIntegrationTest extends BaseIntegrationTest {
     protected transient MockMvc mockMvc;
 
     @RegisterExtension
-    static final WireMockExtension wireMockServer = WireMockExtension.newInstance()
+    static final WireMockExtension WIREMOCK_SERVER = WireMockExtension.newInstance()
             .options(wireMockConfig().dynamicPort()).build();
 
     private static final String COMMENTS_ENDPOINT = "/comments";
@@ -44,14 +44,14 @@ class AuditionCommentsControllerIntegrationTest extends BaseIntegrationTest {
     private static final int DEFAULT_LIMIT = 100;
 
     @DynamicPropertySource
-    static void configureProperties(DynamicPropertyRegistry registry) {
-        registry.add("application.config.baseUrl", wireMockServer::baseUrl);
+    static void configureProperties(final DynamicPropertyRegistry propertyRegistry) {
+        propertyRegistry.add("application.config.baseUrl", WIREMOCK_SERVER::baseUrl);
     }
 
     @Test
     void shouldReturnCommentsForPostId() throws Exception {
-        Integer postId = 1;
-        String responseType = "comments-id-post-stub.json";
+        final Integer postId = 1;
+        final String responseType = "comments-id-post-stub.json";
 
         stubGetAuditionCommentsForPost(postId, responseType);
 
@@ -59,7 +59,7 @@ class AuditionCommentsControllerIntegrationTest extends BaseIntegrationTest {
                         .param(POST_ID_PARAM, postId.toString())
                         .param(START_PARAM, String.valueOf(DEFAULT_START))
                         .param(LIMIT_PARAM, String.valueOf(DEFAULT_LIMIT))
-                        .header(HttpHeaders.AUTHORIZATION, getBasicAuthHeader())) // Use inherited method
+                        .header(HttpHeaders.AUTHORIZATION, getBasicAuthHeader()))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$[0].postId", is(postId)))
                 .andExpect(jsonPath("$[0].name", is("id labore ex et quam laborum")));
@@ -67,20 +67,20 @@ class AuditionCommentsControllerIntegrationTest extends BaseIntegrationTest {
 
     @Test
     void shouldReturnCommentId() throws Exception {
-        Integer postId = 1;
-        String responseType = "comment-id-stub.json";
+        final Integer postId = 1;
+        final String responseType = "comment-id-stub.json";
 
         stubGetAuditionCommentId(postId, responseType);
 
         this.mockMvc.perform(get(COMMENTS_ENDPOINT + "/" + postId)
-                        .header(HttpHeaders.AUTHORIZATION, getBasicAuthHeader())) // Use inherited method
+                        .header(HttpHeaders.AUTHORIZATION, getBasicAuthHeader()))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.postId", is(postId)))
                 .andExpect(jsonPath("$.name", is("id labore ex et quam laborum")));
     }
 
-    public static void stubGetAuditionCommentsForPost(Integer postId, String responseType) {
-        wireMockServer.stubFor(WireMock.get(urlPathEqualTo(COMMENTS_ENDPOINT))
+    public static void stubGetAuditionCommentsForPost(final Integer postId, final String responseType) {
+        WIREMOCK_SERVER.stubFor(WireMock.get(urlPathEqualTo(COMMENTS_ENDPOINT))
                 .withQueryParam(POST_ID_PARAM, equalTo(postId.toString()))
                 .withQueryParam(START_PARAM, equalTo(String.valueOf(DEFAULT_START)))
                 .withQueryParam(LIMIT_PARAM, equalTo(String.valueOf(DEFAULT_LIMIT)))
@@ -90,8 +90,8 @@ class AuditionCommentsControllerIntegrationTest extends BaseIntegrationTest {
                         .withBodyFile(responseType)));
     }
 
-    public static void stubGetAuditionCommentId(Integer postId, String responseType) {
-        wireMockServer.stubFor(WireMock.get(urlPathEqualTo(COMMENTS_ENDPOINT + "/" + postId))
+    public static void stubGetAuditionCommentId(final Integer postId, final String responseType) {
+        WIREMOCK_SERVER.stubFor(WireMock.get(urlPathEqualTo(COMMENTS_ENDPOINT + "/" + postId))
                 .willReturn(aResponse()
                         .withStatus(200)
                         .withHeader("Content-Type", MediaType.APPLICATION_JSON_VALUE)

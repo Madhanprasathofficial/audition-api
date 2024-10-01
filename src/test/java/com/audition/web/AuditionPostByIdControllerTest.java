@@ -62,8 +62,8 @@ public class AuditionPostByIdControllerTest extends BaseIntegrationTest {
     private static final String JSON_PATH_ID = "$.id";
     private static final String JSON_PATH_MESSAGE = "$.message";
 
-    private AuditionPost createSamplePost(int id, String title, String body) {
-        AuditionPost post = new AuditionPost();
+    private AuditionPost createSamplePost(final int id, final String title, final String body) {
+        final AuditionPost post = new AuditionPost();
         post.setId(id);
         post.setTitle(title);
         post.setUserId(1); // Assume a user ID for testing
@@ -73,8 +73,8 @@ public class AuditionPostByIdControllerTest extends BaseIntegrationTest {
     }
 
     @Test
-    void shouldReturnPost_WhenValidIdIsProvided() throws Exception {
-        AuditionPost post = createSamplePost(1, SAMPLE_POST_TITLE, SAMPLE_POST_BODY);
+    void shouldReturnPostWhenValidIdIsProvided() throws Exception {
+        final AuditionPost post = createSamplePost(1, SAMPLE_POST_TITLE, SAMPLE_POST_BODY);
 
         when(auditionPostService.getPostById(1, false, DEFAULT_PAGE, DEFAULT_PAGE_SIZE)).thenReturn(post);
 
@@ -88,7 +88,7 @@ public class AuditionPostByIdControllerTest extends BaseIntegrationTest {
     }
 
     @Test
-    public void shouldReturn204_WhenPostNotFound() throws Exception {
+     void shouldReturn204WhenPostNotFound() throws Exception {
         when(auditionPostService.getPostById(NON_EXISTENT_POST_ID, false, DEFAULT_PAGE, DEFAULT_PAGE_SIZE)).thenReturn(null);
 
         mockMvc.perform(get(POSTS_URL + "/" + NON_EXISTENT_POST_ID)
@@ -99,7 +99,7 @@ public class AuditionPostByIdControllerTest extends BaseIntegrationTest {
     }
 
     @Test
-    public void shouldReturn400_WhenInvalidIdFormatIsProvided() throws Exception {
+    public void shouldReturn400WhenInvalidIdFormatIsProvided() throws Exception {
         mockMvc.perform(get(POSTS_URL + "/abc")
                         .header(AUTHORIZATION_HEADER, getBasicAuthHeader()))
                 .andExpect(status().isBadRequest())
@@ -110,7 +110,7 @@ public class AuditionPostByIdControllerTest extends BaseIntegrationTest {
     }
 
     @Test
-    public void shouldReturn500_WhenServerErrorOccurs() throws Exception {
+    public void shouldReturn500WhenServerErrorOccurs() throws Exception {
         when(auditionPostService.getPostById(1, false, DEFAULT_PAGE, DEFAULT_PAGE_SIZE)).thenThrow(new RuntimeException("Database connectivity issue"));
 
         mockMvc.perform(get(POSTS_URL + "/1")

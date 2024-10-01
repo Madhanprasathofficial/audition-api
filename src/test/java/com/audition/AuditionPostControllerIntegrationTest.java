@@ -32,6 +32,16 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc
 class AuditionPostControllerIntegrationTest extends BaseIntegrationTest {
 
+    // Constants for repeated strings
+    private static final String POSTS_ENDPOINT = "/posts";
+    private static final String USER_ID_PARAM = "userId";
+    private static final String START_PARAM = "_start";
+    private static final String LIMIT_PARAM = "_limit";
+    private static final String TITLE_INVALID_USER_ID = "Invalid User ID";
+    private static final String BODY_INVALID_USER_ID = "User ID must be positive";
+    private static final String VALID_TITLE =
+            "sunt aut facere repellat provident occaecati excepturi optio reprehenderit";
+
     @Autowired
     protected MockMvc mockMvc;
 
@@ -46,19 +56,9 @@ class AuditionPostControllerIntegrationTest extends BaseIntegrationTest {
         registry.add("application.config.baseUrl", wireMockServer::baseUrl);
     }
 
-    // Constants for repeated strings
-    private static final String POSTS_ENDPOINT = "/posts";
-    private static final String USER_ID_PARAM = "userId";
-    private static final String START_PARAM = "_start";
-    private static final String LIMIT_PARAM = "_limit";
-    private static final String TITLE_INVALID_USER_ID = "Invalid User ID";
-    private static final String BODY_INVALID_USER_ID = "User ID must be positive";
-    private static final String VALID_TITLE =
-            "sunt aut facere repellat provident occaecati excepturi optio reprehenderit";
-
     @Test
     void shouldGetAuditionPostsForUser() throws Exception {
-        Integer userId = 1;
+        final Integer userId = 1;
         stubGetAuditionPostsForUser(userId);
 
         this.mockMvc.perform(
@@ -74,7 +74,7 @@ class AuditionPostControllerIntegrationTest extends BaseIntegrationTest {
 
     @Test
     void shouldReturnEmptyListForUserWithNoPosts() throws Exception {
-        Integer userId = 3; // Assuming this user has no posts
+        final Integer userId = 3; // Assuming this user has no posts
         stubGetNoAuditionPostsForUser(userId);
 
         this.mockMvc.perform(
@@ -89,7 +89,7 @@ class AuditionPostControllerIntegrationTest extends BaseIntegrationTest {
 
     @Test
     void shouldGetFailureResponseWhenPostsApiFails() throws Exception {
-        int userId = 22;
+        final int userId = 22;
         stubGetPostsApiFailure(userId);
 
         this.mockMvc.perform(
@@ -116,7 +116,7 @@ class AuditionPostControllerIntegrationTest extends BaseIntegrationTest {
 
     @Test
     void shouldFailForNegativePageSize() throws Exception {
-        String path = POSTS_ENDPOINT + "?userId=1&page=1&size=-1";
+        final String path = POSTS_ENDPOINT + "?userId=1&page=1&size=-1";
 
         this.mockMvc.perform(get(path)
                         .accept(MediaType.APPLICATION_JSON)
@@ -141,7 +141,7 @@ class AuditionPostControllerIntegrationTest extends BaseIntegrationTest {
 
     @Test
     void shouldFailForWrongMediaType() throws Exception {
-        Integer userId = 3; // Assuming this user has no posts
+        final Integer userId = 3; // Assuming this user has no posts
         stubGetNoAuditionPostsForUser(userId);
 
         this.mockMvc.perform(
@@ -155,7 +155,7 @@ class AuditionPostControllerIntegrationTest extends BaseIntegrationTest {
                 .andReturn();
     }
 
-    public static void stubGetAuditionPostsForUser(Integer userId) {
+    public static void stubGetAuditionPostsForUser(final Integer userId) {
         wireMockServer.stubFor(
                 WireMock.get(urlPathEqualTo(POSTS_ENDPOINT))
                         .withQueryParam(USER_ID_PARAM, equalTo(userId.toString()))
@@ -167,7 +167,7 @@ class AuditionPostControllerIntegrationTest extends BaseIntegrationTest {
                                 .withBodyFile("posts-stub.json"))); // Path to your stub file
     }
 
-    public static void stubGetNoAuditionPostsForUser(Integer userId) {
+    public static void stubGetNoAuditionPostsForUser(final Integer userId) {
         wireMockServer.stubFor(
                 WireMock.get(urlPathEqualTo(POSTS_ENDPOINT))
                         .withQueryParam(USER_ID_PARAM, equalTo(userId.toString()))
@@ -179,7 +179,7 @@ class AuditionPostControllerIntegrationTest extends BaseIntegrationTest {
                                 .withBody("[]"))); // Returns an empty list
     }
 
-    public static void stubGetPostsApiFailure(int userId) {
+    public static void stubGetPostsApiFailure(final int userId) {
         wireMockServer.stubFor(
                 WireMock.get(urlPathEqualTo(POSTS_ENDPOINT))
                         .withQueryParam(USER_ID_PARAM, equalTo(Integer.toString(userId)))

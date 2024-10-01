@@ -15,21 +15,16 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-import org.springframework.web.client.RestTemplate;
-
-@SuppressWarnings("PMD")
 class AuditionCommentsServiceImplTest extends BaseTest {
 
     private static final String BASE_URL = "https://jsonplaceholder.typicode.com/comments";
     private transient AuditionCommentsServiceImpl client;
     private transient IIntegrationUrlService urlService;
-    private transient RestTemplate restTemplate;
 
     @BeforeEach
     void init() {
         urlService = mock(IIntegrationUrlService.class);
         client = new AuditionCommentsServiceImpl(urlService);
-        restTemplate = mock(RestTemplate.class);
     }
 
     @Test
@@ -45,7 +40,7 @@ class AuditionCommentsServiceImplTest extends BaseTest {
         final List<AuditionComment> list = client.getComments(postId, page, size);
 
         // Then
-        assertEquals(500, list.size()); // Assuming a fixed size for mock response
+        assertEquals(500, list.size());
     }
 
     @Test
@@ -70,14 +65,14 @@ class AuditionCommentsServiceImplTest extends BaseTest {
     @Test
     void shouldThrowNoDataFoundExceptionWhenNoCommentsFound() {
         // Given
-        final int postId = 10000;
+        final int postId = 1999;
         final int page = randomInt();
         final int size = randomInt();
         final String url = BASE_URL + "/" + postId;
         when(urlService.getCommentsUrl(postId, page, size)).thenReturn(url);
 
         // When & Then
-        NoDataFoundException thrown = assertThrows(NoDataFoundException.class, () -> {
+        final NoDataFoundException thrown = assertThrows(NoDataFoundException.class, () -> {
             client.getComments(postId, page, size);
         });
         assertEquals("No comments found for post ID: " + postId, thrown.getMessage());
@@ -86,13 +81,13 @@ class AuditionCommentsServiceImplTest extends BaseTest {
     @Test
     void shouldThrowNoDataFoundExceptionWhenCommentNotFound() {
         // Given
-        final int commentId = 9999; // Assuming this ID does not exist
+        final int commentId = 9999;
         final String url = BASE_URL + "/" + commentId;
 
         when(urlService.getCommentUrl(commentId)).thenReturn(url);
 
         // When & Then
-        NoDataFoundException thrown = assertThrows(NoDataFoundException.class, () -> {
+        final NoDataFoundException thrown = assertThrows(NoDataFoundException.class, () -> {
             client.getComment(commentId);
         });
         assertEquals("No data found for comment ID: " + commentId, thrown.getMessage());
@@ -109,7 +104,7 @@ class AuditionCommentsServiceImplTest extends BaseTest {
         final List<AuditionComment> list = client.getComments(postId, null, null);
 
         // Then
-        assertEquals(500, list.size()); // Assuming default size of 100 when no pagination is specified
+        assertEquals(500, list.size());
     }
 
     @Test

@@ -81,7 +81,7 @@ public class AuditionPostByIdControllerIntegrationTest extends BaseIntegrationTe
 
     @Test
     void shouldFailForWrongMediaTypeWithComments() throws Exception {
-        int postId = 1;
+        final int postId = 1;
 
         this.mockMvc.perform(get(POSTS_ENDPOINT + "/" + postId + COMMENTS_ENDPOINT)
                         .accept(MediaType.APPLICATION_ATOM_XML)

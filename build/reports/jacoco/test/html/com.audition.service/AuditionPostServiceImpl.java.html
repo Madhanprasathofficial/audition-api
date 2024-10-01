@@ -89,9 +89,9 @@ public class AuditionPostServiceImpl implements IAuditionPostService {
                     })
 <span class="fc" id="L90">                    .orElseThrow(() -&gt; new NoDataFoundException(NO_POST_FOUND_MESSAGE + id, HttpStatus.NOT_FOUND.value()));</span>
 
-<span class="nc" id="L92">        } catch (HttpClientErrorException exception) {</span>
-<span class="nc bnc" id="L93" title="All 2 branches missed.">            if (exception.getStatusCode() == HttpStatus.NOT_FOUND) {</span>
-<span class="nc" id="L94">                throw new NoDataFoundException(NO_POST_FOUND_MESSAGE + id, HttpStatus.NOT_FOUND.value());</span>
+<span class="fc" id="L92">        } catch (HttpClientErrorException exception) {</span>
+<span class="pc bpc" id="L93" title="1 of 2 branches missed.">            if (exception.getStatusCode() == HttpStatus.NOT_FOUND) {</span>
+<span class="fc" id="L94">                throw new NoDataFoundException(NO_POST_FOUND_MESSAGE + id, HttpStatus.NOT_FOUND.value());</span>
             }
 <span class="nc" id="L96">            throw new HttpClientErrorException(exception.getStatusCode(), exception.getMessage());</span>
         }

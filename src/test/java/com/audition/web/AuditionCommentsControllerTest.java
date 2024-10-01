@@ -12,7 +12,6 @@ import org.springframework.http.MediaType;
 import java.util.List;
 
 import static com.github.tomakehurst.wiremock.common.ContentTypes.APPLICATION_JSON;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
@@ -22,7 +21,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 /**
  * Test class for AuditionCommentsController.
  */
-@SuppressWarnings("PMD")
 @WebMvcTest(controllers = AuditionCommentsController.class,
         excludeAutoConfiguration = SecurityAutoConfiguration.class)
 class AuditionCommentsControllerTest extends BaseIntegrationTest {
@@ -84,7 +82,7 @@ class AuditionCommentsControllerTest extends BaseIntegrationTest {
     }
 
     @Test
-    void shouldReturnAllComments_whenValidPostIdIsProvided() throws Exception {
+    void shouldReturnAllCommentswhenValidPostIdIsProvided() throws Exception {
         final List<AuditionComment> comments = List.of(
                 createSampleComment(1, FIRST_COMMENT_NAME, FIRST_COMMENT_EMAIL, FIRST_COMMENT_BODY),
                 createSampleComment(2, SECOND_COMMENT_NAME, SECOND_COMMENT_EMAIL, SECOND_COMMENT_BODY)
@@ -99,12 +97,10 @@ class AuditionCommentsControllerTest extends BaseIntegrationTest {
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(APPLICATION_JSON))
                 .andExpect(jsonPath("$.length()").value(comments.size()));
-
-        assertEquals(comments.size(), comments.size());
     }
 
     @Test
-    void testShouldReturnComment_WhenValidCommentIdIsProvided() throws Exception {
+    void testShouldReturnCommentWhenValidCommentIdIsProvided() throws Exception {
         final int commentId = 1;
         final AuditionComment comment = createSampleComment(commentId, SAMPLE_USER_NAME, SAMPLE_USER_EMAIL, SAMPLE_COMMENT_BODY);
 
@@ -119,12 +115,10 @@ class AuditionCommentsControllerTest extends BaseIntegrationTest {
                 .andExpect(jsonPath(JSON_PATH_NAME).value(SAMPLE_USER_NAME))
                 .andExpect(jsonPath(JSON_PATH_EMAIL).value(SAMPLE_USER_EMAIL))
                 .andExpect(jsonPath(JSON_PATH_BODY).value(SAMPLE_COMMENT_BODY));
-
-        assertEquals(comment, comment);
     }
 
     @Test
-    void shouldReturn404_whenCommentNotFound() throws Exception {
+    void shouldReturn404whenCommentNotFound() throws Exception {
         final int commentId = 999;
         when(auditionCommentsService.getComment(commentId)).thenReturn(null);
 
@@ -136,7 +130,7 @@ class AuditionCommentsControllerTest extends BaseIntegrationTest {
     }
 
     @Test
-    void shouldReturn400_WhenInvalidCommentIdFormatIsProvided() throws Exception {
+    void shouldReturn400WhenInvalidCommentIdFormatIsProvided() throws Exception {
         mockMvc.perform(get(COMMENTS_URL + COMMENT_ID_PATH, INVALID_ID)
                         .header(AUTHORIZATION_HEADER, getBasicAuthHeader()))
                 .andExpect(status().isBadRequest())
@@ -147,7 +141,7 @@ class AuditionCommentsControllerTest extends BaseIntegrationTest {
     }
 
     @Test
-    void shouldReturn400_WhenPostIdIsNegative() throws Exception {
+    void shouldReturn400WhenPostIdIsNegative() throws Exception {
         mockMvc.perform(get(COMMENTS_URL)
                         .param(POST_ID_VALUE, "-1")
                         .header(AUTHORIZATION_HEADER, getBasicAuthHeader()))
@@ -172,4 +166,3 @@ class AuditionCommentsControllerTest extends BaseIntegrationTest {
                 .andExpect(jsonPath(JSON_PATH_DETAIL).value(INTERNAL_SERVER_ERROR_MESSAGE));
     }
 }
-

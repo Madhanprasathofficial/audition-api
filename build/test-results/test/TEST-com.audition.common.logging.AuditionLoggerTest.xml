@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="com.audition.common.logging.AuditionLoggerTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2024-10-01T07:18:52" hostname="DESKTOP-T0DGFL0" time="0.696">
+<testsuite name="com.audition.common.logging.AuditionLoggerTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2024-10-01T11:40:56" hostname="DESKTOP-T0DGFL0" time="0.625">
   <properties/>
-  <testcase name="shouldLogInfo()" classname="com.audition.common.logging.AuditionLoggerTest" time="0.481"/>
+  <testcase name="shouldLogInfo()" classname="com.audition.common.logging.AuditionLoggerTest" time="0.46"/>
   <testcase name="shouldNotLogInfo()" classname="com.audition.common.logging.AuditionLoggerTest" time="0.002"/>
-  <testcase name="shouldLogStandardProblemDetail()" classname="com.audition.common.logging.AuditionLoggerTest" time="0.211"/>
+  <testcase name="shouldLogStandardProblemDetail()" classname="com.audition.common.logging.AuditionLoggerTest" time="0.162"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>
