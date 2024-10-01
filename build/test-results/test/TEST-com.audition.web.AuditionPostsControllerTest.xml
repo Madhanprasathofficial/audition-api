@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="com.audition.web.AuditionPostsControllerTest" tests="5" skipped="0" failures="0" errors="0" timestamp="2024-10-01T11:41:09" hostname="DESKTOP-T0DGFL0" time="1.458">
+<testsuite name="com.audition.web.AuditionPostsControllerTest" tests="5" skipped="0" failures="0" errors="0" timestamp="2024-10-01T12:25:24" hostname="DESKTOP-T0DGFL0" time="1.482">
   <properties/>
-  <testcase name="shouldReturnAllPostsWhenNoFilters()" classname="com.audition.web.AuditionPostsControllerTest" time="0.173"/>
-  <testcase name="shouldFailForWrongMediaType()" classname="com.audition.web.AuditionPostsControllerTest" time="0.206"/>
-  <testcase name="shouldFailForInvalidParameters()" classname="com.audition.web.AuditionPostsControllerTest" time="0.67"/>
-  <testcase name="shouldReturnFilteredPostsByUserId()" classname="com.audition.web.AuditionPostsControllerTest" time="0.187"/>
-  <testcase name="shouldReturnFilteredPostsByTitle()" classname="com.audition.web.AuditionPostsControllerTest" time="0.209"/>
-  <system-out><![CDATA[2024-10-01 21:41:09.288  INFO 6680 --- [    Test worker] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [com.audition.web.AuditionPostsControllerTest]: AuditionPostsControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
-2024-10-01 21:41:09.288  INFO 6680 --- [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration com.audition.AuditionApplication for test class com.audition.web.AuditionPostsControllerTest
+  <testcase name="shouldReturnAllPostsWhenNoFilters()" classname="com.audition.web.AuditionPostsControllerTest" time="0.174"/>
+  <testcase name="shouldFailForWrongMediaType()" classname="com.audition.web.AuditionPostsControllerTest" time="0.177"/>
+  <testcase name="shouldFailForInvalidParameters()" classname="com.audition.web.AuditionPostsControllerTest" time="0.792"/>
+  <testcase name="shouldReturnFilteredPostsByUserId()" classname="com.audition.web.AuditionPostsControllerTest" time="0.184"/>
+  <testcase name="shouldReturnFilteredPostsByTitle()" classname="com.audition.web.AuditionPostsControllerTest" time="0.144"/>
+  <system-out><![CDATA[2024-10-01 22:25:24.757  INFO 2284 --- [    Test worker] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [com.audition.web.AuditionPostsControllerTest]: AuditionPostsControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2024-10-01 22:25:24.758  INFO 2284 --- [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration com.audition.AuditionApplication for test class com.audition.web.AuditionPostsControllerTest
 ]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

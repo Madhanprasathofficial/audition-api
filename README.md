@@ -122,6 +122,63 @@ java -jar build/libs/audition-api-0.0.1-SNAPSHOT.jar
 Basic auth has been added to *protect* the endpoint for `management/actuator/`, 
 
 User defined in [application.yml](src%2Fmain%2Fresources%2Fapplication.yml)[application.yml] and
-security configured in [WebSecurity.java](src%2Fmain%2Fjava%2Fcom%2Faudition%2Fconfiguration%2FWebSecurity.java)
+basic authentication security configured in [WebSecurity.java](src%2Fmain%2Fjava%2Fcom%2Faudition%2Fconfiguration%2FWebSecurity.java)
+
+### API IMPLEMENTED
+
+### GET POST
+https://jsonplaceholder.typicode.com/posts
+
+### GET POST BY ID
+https://jsonplaceholder.typicode.com/posts/1000
+
+### GET POST BY ID COMMENTS
+https://jsonplaceholder.typicode.com/posts/3/comments
+
+### GET COMMENTS
+https://jsonplaceholder.typicode.com/comments
+
+### GET COMMENT BY ID
+https://jsonplaceholder.typicode.com/comments?postId=1
+
+Can specify page and size 
+
+To check basic authentication JSON provided in Audition-Api.postman_collection.json
 
 To check the health http://localhost:8081/management/actuator/health
+
+### TESTS
+
+1. JUnit for all the implemented files
+2. End to End tested by using wiremock test 
+3. Tested all the end points using postman with realtime API
+
+### Error Handling
+
+1.400 Bad Request: Invalid input provided
+2.404 Not Found: Resource does not exist
+3.Input Validation including negative check
+4.Global exception handler
+
+with appropriate logger information
+
+### Logging
+[application.yml](src%2Ftest%2Fresources%2Fapplication.yml) contains properties to enable/disable log of request and
+response for the integration clients.
+
+- application.config.interceptor.logRequest
+- application.config.interceptor.logResponse
+
+The [RestTemplateRequestResponseLoggingInterceptor.java](src%2Fmain%2Fjava%2Fcom%2Faudition%2Fcommon%2Flogging%2FRestTemplateRequestResponseLoggingInterceptor.java)
+to intercept logging HTTP requests and responses made through RestTemplate.
+
+### Code review
+
+1.Added appropriate java docs with meaningful function name
+2.Application was developed as per solid principles which includes
+controller,Interface and service 
+3.Check style,Pmd and spot bugs were resolved
+4.Coverage maintained was 82%
+
+Thanks.
+

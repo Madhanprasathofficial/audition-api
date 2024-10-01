@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="com.audition.configuration.ResponseHeaderInjectorTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2024-10-01T11:40:56" hostname="DESKTOP-T0DGFL0" time="0.165">
+<testsuite name="com.audition.configuration.ResponseHeaderInjectorTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2024-10-01T12:25:05" hostname="DESKTOP-T0DGFL0" time="0.213">
   <properties/>
-  <testcase name="shouldInjectHeaders()" classname="com.audition.configuration.ResponseHeaderInjectorTest" time="0.165"/>
+  <testcase name="shouldInjectHeaders()" classname="com.audition.configuration.ResponseHeaderInjectorTest" time="0.213"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

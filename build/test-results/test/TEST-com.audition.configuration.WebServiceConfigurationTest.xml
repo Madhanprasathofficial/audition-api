@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="com.audition.configuration.WebServiceConfigurationTest" tests="2" skipped="0" failures="0" errors="0" timestamp="2024-10-01T11:40:57" hostname="DESKTOP-T0DGFL0" time="0.052">
+<testsuite name="com.audition.configuration.WebServiceConfigurationTest" tests="2" skipped="0" failures="0" errors="0" timestamp="2024-10-01T12:25:05" hostname="DESKTOP-T0DGFL0" time="0.104">
   <properties/>
-  <testcase name="shouldCreateObjectMapper()" classname="com.audition.configuration.WebServiceConfigurationTest" time="0.049"/>
-  <testcase name="itShouldCreateRestTemplate()" classname="com.audition.configuration.WebServiceConfigurationTest" time="0.002"/>
+  <testcase name="shouldCreateObjectMapper()" classname="com.audition.configuration.WebServiceConfigurationTest" time="0.098"/>
+  <testcase name="itShouldCreateRestTemplate()" classname="com.audition.configuration.WebServiceConfigurationTest" time="0.004"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

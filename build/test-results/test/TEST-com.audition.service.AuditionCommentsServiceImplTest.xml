@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="com.audition.service.AuditionCommentsServiceImplTest" tests="6" skipped="0" failures="0" errors="0" timestamp="2024-10-01T11:41:02" hostname="DESKTOP-T0DGFL0" time="1.028">
+<testsuite name="com.audition.service.AuditionCommentsServiceImplTest" tests="6" skipped="0" failures="0" errors="0" timestamp="2024-10-01T12:25:14" hostname="DESKTOP-T0DGFL0" time="0.964">
   <properties/>
-  <testcase name="shouldThrowIllegalArgumentExceptionForInvalidParameters()" classname="com.audition.service.AuditionCommentsServiceImplTest" time="0.017"/>
-  <testcase name="shouldUseDefaultPaginationWhenNullValuesProvided()" classname="com.audition.service.AuditionCommentsServiceImplTest" time="0.637"/>
-  <testcase name="shouldThrowNoDataFoundExceptionWhenNoCommentsFound()" classname="com.audition.service.AuditionCommentsServiceImplTest" time="0.081"/>
-  <testcase name="shouldGetComment()" classname="com.audition.service.AuditionCommentsServiceImplTest" time="0.05"/>
-  <testcase name="shouldThrowNoDataFoundExceptionWhenCommentNotFound()" classname="com.audition.service.AuditionCommentsServiceImplTest" time="0.048"/>
-  <testcase name="shouldGetComments()" classname="com.audition.service.AuditionCommentsServiceImplTest" time="0.185"/>
+  <testcase name="shouldThrowIllegalArgumentExceptionForInvalidParameters()" classname="com.audition.service.AuditionCommentsServiceImplTest" time="0.026"/>
+  <testcase name="shouldUseDefaultPaginationWhenNullValuesProvided()" classname="com.audition.service.AuditionCommentsServiceImplTest" time="0.647"/>
+  <testcase name="shouldThrowNoDataFoundExceptionWhenNoCommentsFound()" classname="com.audition.service.AuditionCommentsServiceImplTest" time="0.092"/>
+  <testcase name="shouldGetComment()" classname="com.audition.service.AuditionCommentsServiceImplTest" time="0.046"/>
+  <testcase name="shouldThrowNoDataFoundExceptionWhenCommentNotFound()" classname="com.audition.service.AuditionCommentsServiceImplTest" time="0.05"/>
+  <testcase name="shouldGetComments()" classname="com.audition.service.AuditionCommentsServiceImplTest" time="0.095"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>
